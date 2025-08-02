@@ -1,0 +1,13 @@
+- Allergie Alert App per Barcode
+- Erkennung von Produkten
+  - Barcode eingeben
+  - Barcode einscannen
+  - OCR Produkterkennung
+- Warnungen generieren
+  - In Datenbank nachschauen
+  - Inhaltsstoffliste auf Produkt
+  - LLM fragen
+- Warnungen anzeigen
+- Eingabe Allergiedaten
+  - Eingabeformular
+  - OCR von Artzbriefen
