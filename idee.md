@@ -11,3 +11,4 @@
 - Eingabe Allergiedaten
   - Eingabeformular
   - OCR von Artzbriefen
+- (Empfehlungen für benötigte Inhaltsstoffe)
