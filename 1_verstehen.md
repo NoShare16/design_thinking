@@ -17,8 +17,8 @@
 ## Antworten
 ### Bens Vater
 1. Gluten, Laktose, Pektin, Hefe
-2. Zu hochwertig verarbeitet, Laktose ist in Wurst, Brötchen haben unnötige Stoffe warum er das nicht essen kann. Ohne Zusätze
-3. Drauf schauen ist ganz gut, musst du trotzdem ausprobieren aufgrund der Dosierung, daher kann man danach nicht ganz gehen
+2. Lebensmittel zu hochwertig verarbeitet, Laktose ist in Wurst, Brötchen haben unnötige Stoffe warum er diese nicht essen kann. Lebensmittel ohne Zusätze gibt es kaum noch
+3. Drauf schauen ist ganz gut, muss aber trotzdem ausprobieren aufgrund der Dosierung, daher kann man danach nicht ganz nach der Tabelle entscheiden
 4. Kaum Recherche, eher ausprobieren in einem Rahmen wo man die mit den Konsequenzen leben kann, Zuhause, mit Zeit, und einem freien Klo
 5. Warten, und Klo
 6. Würde schon helfen, dosierung wäre immer noch ein Faktor
