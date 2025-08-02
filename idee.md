@@ -32,3 +32,11 @@
     - Bokha – Lebensmittel-Allergie-Scanner
       - Übersichtlich: Ampelsystem (grün/gelb/rot), schnelle Einschätzung der Verträglichkeit.
       - Scan-Verlauf, Treffer auf Allergene oder Spuren, geeignet für deutsche Nutzer.
+     
+# Vorläufige Methodenauswahl
+Beobachten 1: Dokumentieren
+Sichtweise 1: Why/How Laddering
+Ideen finden 1: Brainstorming
+Prototyp 1: Vermutlich React + MariaDB
+Testen 1: Feldversuch, Software Testen mit echten Produkten
+
