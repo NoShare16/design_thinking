@@ -1,3 +1,11 @@
+# Methoden
+- Experteninterview
+  - mit Freunden/Verwandten die Allergiker sind
+- Brainstorming
+  - damit wir unsere eingenen Ideen mit einbringen können
+- Recherche
+  - 
+
 # Fragen
 1. Welche Lebensmittel-Allergien/-Unverträglichkeiten hast du?
 2. Auf welche schwierigkeiten triffst du beim Täglich/Wöchentlichen einkauf?
@@ -6,6 +14,7 @@
 5. Weißt du was du machen musst/was machst du wenn du trotzdem eine Allergische Reaktion hast?
 6. Würde dir eine App die App die dir basierend auf den Inhaltstoffen sagt ob du das Produkt essen kannst helfen?
 
+## Antworten
 
 # Brainstorming
 Frage: "Welche Probleme sehr/kennt ihr beim einkaufen im Supermarkt bezüglich Allergien"
@@ -20,3 +29,5 @@ Frage: "Welche Probleme sehr/kennt ihr beim einkaufen im Supermarkt bezüglich A
 - unerfahrene Allergiker
 - allergiefreie Lebensmittel meist teurer
 - geringere Verfügbarkeit/Auswahl
+
+# Recherche
