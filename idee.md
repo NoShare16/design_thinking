@@ -12,3 +12,23 @@
   - Eingabeformular
   - OCR von Artzbriefen
 - (Empfehlungen für benötigte Inhaltsstoffe)
+
+
+- Customer Journey für ähnliche Apps in späterer Interation
+  - Was könnten wir da besser machen
+  - Wo gibt es Probleme
+  - Ist unser spezifisches Problem genau gelöst damit?
+  - schlechte bewertungen?
+  - schlecht gemacht?
+  - Mögliche Apps zu prüfen:
+    - Soosee (Allergy & Food Scanner)
+      - Echtzeit-OCR-Scanner für Zutatenlisten mit direkter Hervorhebung unerwünschter Zutaten.
+      - Unterstützt über 30 Kategorien (z. B. Gluten, Laktose, Nüsse) und mehr als 15 Sprachen, darunter Deutsch.
+      - Offline-Nutzung, keine Werbung oder Tracking.
+    - InTolerApp
+      - Scannt Barcodes oder Zutatenlisten und zeigt sofort Verträglichkeit bei Allergien und Intoleranzen (z. B. Histamin, Fructose, Gluten, Laktose, Nüsse etc.).
+      - Individuell anpassbar, mit umfangreicher Datenbank.
+      - Regelmäßige Aktualisierung, auch in Deutschland verfügbar.
+    - Bokha – Lebensmittel-Allergie-Scanner
+      - Übersichtlich: Ampelsystem (grün/gelb/rot), schnelle Einschätzung der Verträglichkeit.
+      - Scan-Verlauf, Treffer auf Allergene oder Spuren, geeignet für deutsche Nutzer.
