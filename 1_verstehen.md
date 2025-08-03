@@ -40,7 +40,7 @@ Medikamente/Supplements (Laktase Tabletten) die es möglich machen bestimmte Din
 2. am einfachsten ist es, wenn ich unverarbeitete Lebensmittel einkaufe, dann hab ich keine Sorgen
 3. Meistens ja
 4. nein, denn im schlimmsten Fall hab ich nur Bauchschmerzen, Verstopfungen
-5. hab keine heftigen reaktionen
+5. hab keine heftigen reaktionen, abführmittel bei heftigen verstopfungen
 6. ja, dann könnte ich mehr sachen ausprobieren
 
 # Brainstorming
