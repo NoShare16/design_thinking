@@ -1,0 +1,15 @@
+- zu hoch verarbeitete Lebensmittel sind ein problem
+- kommt auf die dosierung an, vor allem bei  unverträglichkeiten
+- ob ein produkt funktioniert muss immer probiert werden, da es nicht sicher vorher festgestellt werden kann
+- es wird wenig neues probiert
+- konsequenz meist Darmprobleme
+  - keine Akute bedarfsmedikation, präventiv, nicht Verschreibungspflichtig
+- unbekanntere Allergene
+  - Milcheiweiß
+  - Kurkuma
+- wir haben kaum Infos über den Umgang von Leute mit schwere Allergische Reaktionen, mit Allergenen
+- lesen der Inhaltstofftabelle kann zu lange dauern
+- lesen der Inhaltstofftabelle kann nicht ausreichen, aufgrund von unklaren Stoffnamen, oder ungenauen Inhaltstoffen (Stoffgruppen anstatt genaue Stoffe)
+- Produktkontamination/Reklamationen ist kein regelmäßiges Problem, und ist eher ein sonderfall
+- allergiefreie Lebensmittel meist teurer
+- geringere Verfügbarkeit/Auswahl für allergiefreie Lebensmittel
