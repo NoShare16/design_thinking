@@ -1,0 +1,29 @@
+# Brainstorming
+- app für allergen erkennung/Unverträglichkeiten
+  - bar codes scannen
+  - ocr produkterkennung
+  - inhaltstoffliste anzeigen
+  - persöhnliches Profil über Allergien/Unverträglichkeiten
+  - warnung falls relevante allergene gefunden in liste
+  - datenbank mit liste an allergenen für produkte
+  - KI integration für unbekannte Produkte
+  - score das ungefähre Verträglichkeit wiederspiegelt
+  - vorschläge für alternative produkte
+  - beachten von Synonymen und Fachbegriffen
+  - ernährungstagebuch, Feedback bezüglich Reaktion auf Produkte
+- portal mit Lebensmittelherstellern mit detailierteren Inhaltstofflisten
+- allergiestofftabelle, maybe mit dosierungen
+- allergiestoffe offensichtlicher auf produkten kennzeichnen
+  - Etikentten an Regalen
+  - Hinweise
+- Abteilungen/Regale für allergiker im Supermarkt
+- Ernährungs/Allergietagebuch
+  - schreibst auf was du gegessen hast, und deine Reaktion
+  - könnte hilfreich für Diganostik sein
+- label (wie Bio label) für wenig verarbeitete Produkte mit wenigen Inhalstoffen
+- Testinstitut das bewertet ob die Inhaltstoffeliste korrekt ist, und wie allergiker freundlich ein Produkt ist
+- cheat sheat für Fachbegriffe von Inhaltstoffen
+- strengere richtilienen bezüglkich begriffen in Inhaltstofftabellen (Konkrete Stoffe statt Gruppen, immer gleiche Begriffe)
+- schulungen für Supermarktmitarbeiter bezüglich Allergien
+- Flyer für neue Allergiker, zum verteilen in Artzpraxen
+- Subscription Dienst für Allergiefreundliche Lebensmittel
