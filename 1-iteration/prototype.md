@@ -21,3 +21,10 @@
   > Kandidat für späteren Prototypen, eventuell gibt es schon Datenbanken für sowas, eventuell per KI
 - ernährungstagebuch, Feedback bezüglich Reaktion auf Produkte
   > erstmal out of scope, feeback bezüglich Reaktionen könnte genutzt werden um eigene Allegen Datenbank zu verbessern
+
+
+# Goal Prototyp 1
+- Recherchiere nach brauchbaren Datenbanken mit Allegiedaten zu den meisten Lebensmitteln und Produkten
+- Prüfen von Nutzungsbedingungen und Anforderungen (Api Keys) für die Nutzung
+- Erstellen eines kleinen möglichen Allergieprofils zum testen
+- Ziel: Eine kleine Anwendung (zb. Http Request via Curl) die einen Barcode annimmt, und die eine Liste an Inhaltstoffen zurückgibt
