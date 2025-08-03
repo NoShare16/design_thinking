@@ -35,7 +35,13 @@ Medikamente/Supplements (Laktase Tabletten) die es möglich machen bestimmte Din
 5. Keine Sofortreaktion -> 2 Tage später. Kein Bedarf für Medikation (aushaltbar) 
 6. Kommt drauf an. Wenn auch Zusatzstoffe berücksichtigt werden können (weniger Zusatzstoffe, desto besser)
 
-###
+### Alex
+1. Laktose, Zucker, Koffein, Getreide
+2. am einfachsten ist es, wenn ich unverarbeitete Lebensmittel einkaufe, dann hab ich keine Sorgen
+3. Meistens ja
+4. nein, denn im schlimmsten Fall hab ich nur Bauchschmerzen, Verstopfungen
+5. hab keine heftigen reaktionen
+6. ja, dann könnte ich mehr sachen ausprobieren
 
 # Brainstorming
 Frage: "Welche Probleme sehr/kennt ihr beim einkaufen im Supermarkt bezüglich Allergien"
