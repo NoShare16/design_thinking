@@ -27,6 +27,14 @@ Oma unverträglichekeit auf Kurkuma (enthalten in sehr vielen Lebensmitteln), 2 
 Einfluss/akzeptable Dosierung schwierig abzuschätzen, da es auch auf die anderen Dinge die man isst ankommt, zb. Alkohol
 Medikamente/Supplements (Laktase Tabletten) die es möglich machen bestimmte Dinge zu essen
 
+### Pascals Tante
+1. Gluten, Milcheiweiß
+2. Nicht wissen was man darf, bzw. wo Milch enthalten ist, klein gedrucktes -> nervig
+3. Nicht immer, manche Sachen sind unverständlich beschrieben (bsp. Stärke)
+4. Ja, defintiv. Ggf. probieren
+5. Keine Sofortreaktion -> 2 Tage später. Kein Bedarf für Medikation (aushaltbar) 
+6. Kommt drauf an. Wenn auch Zusatzstoffe berücksichtigt werden können (weniger Zusatzstoffe, desto besser)
+
 ###
 
 # Brainstorming
