@@ -6,7 +6,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "openfoodfacts-nodejs": "^0.1.0"
   },
   "keywords": [],
   "author": "",

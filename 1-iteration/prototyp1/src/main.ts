@@ -1,5 +1,3 @@
-import OpenFoodFacts from "openfoodfacts_nodejs";
-
 enum Allergen {
   pork,
   fish,
@@ -32,7 +30,18 @@ enum Allergen {
 
 const allergens: Allergen[] = [Allergen.apple, Allergen.pork, Allergen.fish];
 
-const client = new OpenFoodFacts();
-client.getAllergens("5000112546415").then((it) => console.log(it));
+getAllergensFromOpenfoodfacts(5000112546415)
 
+type EAN = number;
 
+async function getAllergensFromOpenfoodfacts(product: EAN): Allergen[] {
+  let res = await fetch("https://world.openfoodfacts.org/api/v0/product/" + product + ".json")
+  if (!res.ok) {
+    console.log("Error getAllergensFromOpenfoodfacts", res);
+  }
+  console.log("isOk", res.ok);
+  let json = await res.json()
+  let allergs = json.product.allergens_from_ingredients;
+
+  console.log("Allergen", allergs);
+}
