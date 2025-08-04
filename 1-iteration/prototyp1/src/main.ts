@@ -28,26 +28,6 @@ enum Allergen {
   red_caviar
 }
 
-async function main() {
-  const allergens: Allergen[] = [Allergen.gluten, Allergen.pork, Allergen.fish];
-
-  let fromApi = await getAllergensFromOpenfoodfacts(8594017140580)
-  // let fromApi = await getAllergensFromOpenfoodfacts(4071800001012)
-  console.log("fromApi", fromApi.map(value => Allergen[value]));
-
-  let warn: Allergen[] = [];
-  for (const allergensKey of allergens) {
-    if (fromApi.includes(allergensKey)) {
-      warn.push(allergensKey);
-    }
-  }
-  console.log("Allergens found: " + warn.map(value => Allergen[value]));
-}
-
-main().then()
-
-type EAN = number;
-
 const allergenMatcher = new Map([
   ["en:pork", Allergen.pork],
   ["en:fish", Allergen.fish],
@@ -78,16 +58,36 @@ const allergenMatcher = new Map([
   ["en:red-caviar", Allergen.red_caviar],
 ])
 
+type EAN = number;
+
+async function main() {
+  const userAllergens: Allergen[] = [Allergen.gluten, Allergen.pork, Allergen.fish];
+
+  let fromApi = await getAllergensFromOpenfoodfacts(8594017140580)
+  // let fromApi = await getAllergensFromOpenfoodfacts(4071800001012)
+  console.log("fromApi", fromApi.map(value => Allergen[value]));
+
+  // match detection
+  let warn: Allergen[] = [];
+  for (const allergensKey of userAllergens) {
+    if (fromApi.includes(allergensKey)) {
+      warn.push(allergensKey);
+    }
+  }
+
+  console.log("Allergens found: " + warn.map(value => Allergen[value]));
+}
+
+main().then()
+
 async function getAllergensFromOpenfoodfacts(product: EAN): Promise<Allergen[]> {
   let res = await fetch("https://world.openfoodfacts.org/api/v0/product/" + product + ".json")
   if (!res.ok) {
     console.log("Error getAllergensFromOpenfoodfacts", res);
   }
-  console.log("isOk", res.ok);
-  let json = await res.json()
-  let allergs: string = json.product.allergens;
+  let allergs: string = (await res.json()).product.allergens;
 
-  console.log("rawAllergenString: ", allergs);
+  // console.log("rawAllergenString: ", allergs);
 
   return allergs.split(",").map((product: string) => allergenMatcher.get(product.trim())).filter(value => value !== undefined);
 }
