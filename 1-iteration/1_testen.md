@@ -20,6 +20,15 @@
 - 9002490263195 -> Redbull
 - 4337256538596 -> Haferflocken
 
+#### Feedback
+Unerwartet wurde die Testperson bei den getesteten Produkten belehrt und somit auch geholfen.
+Alle Produkte waren vorhanden nach denen mittels Barcode gesucht wurde
+Jedoch waren nicht alle Unverträglichekiten der Testperson vertreten.
+Zusätzlich fehlte noch eine Möglichkeiten die Konfiguration der Allergien/Unverträglichkeiten zu speichern.
+Bemängelt wurde zudem auch die Nutzeroberfläche, welche laut der Testperson noch zu unausgereift ist.
+Laut der Testperson würde ein Scanner zur Erfassung der Barcodes die Benutzerfreundlichkeit erhöhem.
+Schließlich würde sich die Testperson freuen, wenn sie mehr Infos wie Kalorien und Vitamine zu dem eingegebenen Artikel angezeigt bekommen würde.
+
 
 ## Ergebnisse
 
@@ -27,4 +36,4 @@ Unser Feldversuch mit Alex ergab, dass wir auch nach Zutaten matchen müssen, da
 Damit wir unsere Zutatenliste zusammen stellen können, müssen wir Personen befragen oder eine Recherche betreiben bzgl. den häzufigsten Unverträglichkeiten.
 Um die Eingabe des Kundens zu erleichtern, benötigt die Anwendung eine Implementierung eines Barcodescanners.
 Zusätzlich fiel uns bzgl. der Zutaten auf, dass es sinnvoll sein könnte bei der Angabe von nicht bekömmlichen Zutaten auch eine stufenweise Angabe mitzugeben. 
-Hierbei könnten Prioritäeten, die auf auf prozentualen Anteilen basieren könnten (0-9% -> Low, 10-29% -> Middle, 30-100% -> High).
+Hierbei könnten Prioritäeten nützlich sein, die auf auf prozentualen Anteilen basieren könnten (0-9% -> Low, 10-29% -> Middle, 30-100% -> High).
