@@ -1,1 +1,29 @@
-
+# Brainstorm
+- Angabe nicht bekömmlicher Zutaten (Unverträglichkeiten)
+-   Liste alle verfügbaren Zutaten zum Anwählen -> Suchfunktion?
+-   Matchen auch nach den Zutaten (Also Überprüfung, ob die Zutaten bei dem Produkt vorhanden sind)
+-   Angabe tierischer Inhaltsprodukte (Angabe einer veganen oder vegetarischen Ernährung)
+- Prioritaeten (0-9% -> Low, 10-29% -> Middle, 30-100% -> High) (Eine Angabe des Anteils der Zutat)
+- Auf "Kann Spuren enthalten" prüfen (Vermerk von minimalen Anteilen einer Zutat identifizieren)
+- Scanner (Scannen via Clientkamera)
+-   Barcodescanner
+-   OCR-Scanner (Scannen der Zutatenliste des Produkts, wenn nicht vorhanden in der Food DB)
+-   Batch/Bulk-Scan (Mehrere Produkte hintereinander Scannen und Ergebnisse bspw. tablearisch darstellen)
+-   Live-Scanner (Scannen ohne Eingabe zwischen Produkten)
+-   Fallback -> Manuelle Eingabe des Barcodes
+- KI-Fallback (Wenn kein Ergebnisse auf der Food DB vorhanden sind)
+- Offline Modus (Speicherung des Food DB Daten auf dem Client
+- Favoriten?
+- Darstellung
+-   Tabellarisch?
+-   Moderne UI-Komponente
+-   Icons für Allergene
+- Mehrere Profile (für Familienmitglieder) (Um mehrere Profilkonfigurationen mit den Werten der Food DB abzugleichen)
+- Push-Benachrichtigung bei Produktänderung
+- Zuletzt gescannte Produkte Liste
+- Feedback zu Produkten (Anlehnung an Twitter/X Community Notes)
+- Barcode Liste importieren können
+- Allergen-Pass (Pro gescanntes Allergen = 1 Punkt)
+- Versionen
+-   Free Version mit Werbung
+-   Werbefreie für 6,99€/Monat
