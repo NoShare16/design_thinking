@@ -1,4 +1,4 @@
-- Allergie Alert App per Barcode
+- Allergie Alert Homescreen per Barcode
 - Erkennung von Produkten
   - Barcode eingeben
   - Barcode einscannen
