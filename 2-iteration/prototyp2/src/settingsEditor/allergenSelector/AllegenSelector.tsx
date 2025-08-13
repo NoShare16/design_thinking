@@ -1,5 +1,7 @@
 import {Command, CommandGroup, CommandInput, CommandItem, CommandList} from "@/components/ui/command.tsx";
 import {Checkbox} from "@radix-ui/react-checkbox";
+import {Switch} from "@/components/ui/switch.tsx";
+import {useState} from "react";
 
 interface AllergenSelectorProps {
     options: string[] | OptionGroup[]
@@ -10,8 +12,10 @@ interface OptionGroup {
     options: string[]
 }
 export default function AllergenSelector({options}: AllergenSelectorProps) {
+    const [set, setSet] = useState(false)
     let isGrouped = typeof options[0] !== "string";
     return <div>
+        <Switch checked={set} onCheckedChange={setSet}/>
         <Checkbox>
             tjejdkjeslk
         </Checkbox>
@@ -31,10 +35,12 @@ function renderGrouping(groups: OptionGroup[]) {
 }
 
 function renderOptions(options: string[]) {
+    const [set, setSet] = useState(false)
     return options.map(value => <CommandItem>
-        <div style={{backgroundColor: "", flex: 1, cursor: "pointer"}}>
+        <div style={{backgroundColor: "", flex: 1, cursor: "pointer", justifyItems: "center", flexDirection: "row"}}>
+            <Switch checked={set} onCheckedChange={setSet}/>
             <Checkbox>
-        {value}
+                {value}
             </Checkbox>
         </div>
     </CommandItem>)
