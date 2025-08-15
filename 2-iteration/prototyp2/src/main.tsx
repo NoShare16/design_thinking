@@ -3,15 +3,14 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import Homescreen from './homescreen/Homescreen.tsx'
 import {createBrowserRouter, createRoutesFromChildren, Route, RouterProvider} from "react-router-dom";
-import AllergenSelector from "@/settingsEditor/allergenSelector/AllegenSelector.tsx";
-import {Allergen} from "@/Allergens.ts";
+import AllergenSelectorTest from "@/settingsEditor/allergenSelector/AllergenSelectorTest.tsx";
 
 const router = createBrowserRouter(
     createRoutesFromChildren(
         <>
             <Route path="*" element={<Homescreen/>}/>
             {/*Temp for testing \/*/}
-            <Route path="/allergenSelector" element={<AllergenSelector options={Object.keys(Allergen).filter(value => isNaN(Number(value)))}/>}/>
+            <Route path="/allergenSelectorTest" element={<AllergenSelectorTest/>}/>
         </>
     )
 )
