@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {BrowserMultiFormatReader, IScannerControls} from "@zxing/browser";
+import {BrowserMultiFormatReader, type IScannerControls} from "@zxing/browser";
 
 const BarcodeScanner: React.FC = () => {
 
@@ -46,8 +46,11 @@ const BarcodeScanner: React.FC = () => {
                     video1,
                     (result, err) => {
                         if (result) {
-                            console.log('Scan-Ergebnis:', result.getText());
+                            console.log('Scan-Ergebnis: ', result.getText());
                             setScannedResult(result.getText());
+                        }
+                        if (err) {
+                            console.error("Scan Error: " + err);
                         }
                     }
                 );
