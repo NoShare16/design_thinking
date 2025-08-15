@@ -6,11 +6,13 @@ import {createBrowserRouter, createRoutesFromChildren, Route, RouterProvider} fr
 import AllergenSelectorTest from "@/settingsEditor/allergenSelector/AllergenSelectorTest.tsx";
 import ProfileManager from "@/settingsEditor/profile_manager/ProfileManager.jsx";
 import BarcodeScannerTest from "@/barcodeScanner/BarcodeScannerTest.tsx";
+import ProductScanner from "@/scannerScreen/ProductScanner.tsx";
 
 const router = createBrowserRouter(
     createRoutesFromChildren(
         <>
             <Route path="*" element={<HomeScreen/>}/>
+            <Route path="/productScanner" element={<ProductScanner/>}/>
             {/*Temp for testing \/*/}
             <Route path="/allergenSelectorTest" element={<AllergenSelectorTest/>}/>
             <Route path="/barCodeScannerTest" element={<BarcodeScannerTest/>}/>
