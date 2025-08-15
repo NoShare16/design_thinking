@@ -4,7 +4,7 @@ import './index.css'
 import Homescreen from './homescreen/Homescreen.tsx'
 import {createBrowserRouter, createRoutesFromChildren, Route, RouterProvider} from "react-router-dom";
 import AllergenSelectorTest from "@/settingsEditor/allergenSelector/AllergenSelectorTest.tsx";
-import BarcodeScanner from "@/barcodeScanner/BarcodeScanner.tsx";
+import BarcodeScannerTest from "@/barcodeScanner/BarcodeScannerTest.tsx";
 
 const router = createBrowserRouter(
     createRoutesFromChildren(
@@ -12,7 +12,7 @@ const router = createBrowserRouter(
             <Route path="*" element={<Homescreen/>}/>
             {/*Temp for testing \/*/}
             <Route path="/allergenSelectorTest" element={<AllergenSelectorTest/>}/>
-            <Route path="/barCodeScannerTest" element={<BarcodeScanner/>}/>
+            <Route path="/barCodeScannerTest" element={<BarcodeScannerTest/>}/>
         </>
     )
 )
