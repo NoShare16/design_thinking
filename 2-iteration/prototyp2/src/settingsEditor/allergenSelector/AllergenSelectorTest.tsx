@@ -1,6 +1,6 @@
 import {useForm,} from "react-hook-form";
 import AllergenSelector from "@/settingsEditor/allergenSelector/AllegenSelector.tsx";
-import {Allergen} from "@/Allergens.ts";
+import {Allergen} from "@/common/Allergens.ts";
 
 
 export default function AllergenSelectorTest() {
