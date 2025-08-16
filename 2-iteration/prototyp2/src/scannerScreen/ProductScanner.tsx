@@ -1,24 +1,29 @@
 import "./ProductScanner.css"
 import {ArrowLeft} from "lucide-react";
+import useVideoDevices from "@/barcodeScanner/UseVideoDevices.tsx";
+import useBarCodeScanner from "@/barcodeScanner/UseBarCodeScanner.tsx";
+import {useEffect, useState} from "react";
 
 export interface ProductScannerProps {
 
 }
 
 export default function ProductScanner(props: ProductScannerProps) {
+  const videoDevices = useVideoDevices();
+  const [selectedDeviceId, setSelectedDeviceId] = useState(videoDevices[0]?.deviceId);
+  const {lastEAN, videoRef, currentResult} = useBarCodeScanner(selectedDeviceId);
+
+  useEffect(() => {
+    setSelectedDeviceId(videoDevices[0]?.deviceId);
+  }, [videoDevices, selectedDeviceId]);
+
   return <div className="productScannerScreen">
     <div className="header">
       <ArrowLeft/>
       <h1>ProductScanner</h1>
     </div>
     <div className="contentBody">
-
-      <div className="cameraCenter">
-        <video>
-
-        </video>
-      </div>
-
+      <video className="viewFinder" ref={videoRef} autoPlay muted playsInline/>
       <div className="productInfo">
         <div className="body">
           <div className="title"></div>
@@ -35,13 +40,13 @@ export default function ProductScanner(props: ProductScannerProps) {
       <div className="result">
         <div className="headline"></div>
         <div className="personList">
-        <div className="person">
-          <div className="iconContainer"></div>
-          <div className="name"></div>
-          <div className="warningCauseList">
-            <div className="warning"></div>
+          <div className="person">
+            <div className="iconContainer"></div>
+            <div className="name"></div>
+            <div className="warningCauseList">
+              <div className="warning"></div>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
