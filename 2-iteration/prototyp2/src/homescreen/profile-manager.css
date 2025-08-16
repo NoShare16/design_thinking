@@ -1,0 +1,144 @@
+/* Layout */
+.pm {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family: system-ui, Segoe UI, Roboto, Inter, Arial, sans-serif;
+  color: #0f172a;
+}
+.pm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.pm-title {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* Buttons */
+.pm-btn {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #111;
+  border-radius: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.pm-btn:hover {
+  background: #f9fafb;
+}
+.pm-btn--primary {
+  background: #111827;
+  color: #fff;
+  border-color: #111827;
+}
+.pm-btn--primary:hover {
+  background: #0b1220;
+}
+.pm-btn--danger {
+  border-color: #fecaca;
+  color: #b91c1c;
+  background: #fff;
+}
+.pm-btn--danger:hover {
+  background: #fef2f2;
+}
+
+/* Form */
+.pm-form {
+  display: grid;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.pm-field {
+  display: grid;
+  gap: 6px;
+}
+.pm-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+.pm-field input[type="text"],
+.pm-field input:not([type]) {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* Allergene-Grid */
+.pm-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (min-width: 640px) {
+  .pm-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 900px) {
+  .pm-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.pm-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: #fff;
+  cursor: pointer;
+  user-select: none;
+}
+.pm-chip input {
+  accent-color: #111827;
+}
+.pm-chip--on {
+  background: #f5f5f5;
+  border-color: #d1d5db;
+}
+
+/* Liste */
+.pm-list {
+  display: grid;
+  gap: 12px;
+}
+.pm-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 14px;
+  display: grid;
+  gap: 8px;
+}
+.pm-card-title h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+.pm-card-body {
+  font-size: 14px;
+  color: #374151;
+}
+.pm-card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pm-empty {
+  color: #6b7280;
+}
