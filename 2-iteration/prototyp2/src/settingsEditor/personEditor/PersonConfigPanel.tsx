@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import AllergenSelector from "@/settingsEditor/allergenSelector/AllegenSelector.tsx";
-import { Allergen } from "@/Allergens";
+import { Allergen } from "@/common/Allergens";
 
 interface Person {
     id: string;

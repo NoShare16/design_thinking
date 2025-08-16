@@ -62,6 +62,7 @@ export default function PersonMenu() {
                         } else {
                             setPeople(people.map(p => p.id === updated.id ? updated : p));
                         }
+                        setSelectedPersonId(null);
                     }}
                 />
             )}

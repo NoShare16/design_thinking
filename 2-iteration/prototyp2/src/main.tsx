@@ -7,6 +7,7 @@ import AllergenSelectorTest from "@/settingsEditor/allergenSelector/AllergenSele
 import ProfileManager from "@/settingsEditor/profile_manager/ProfileManager.jsx";
 import ProductScanner from "@/scannerScreen/ProductScanner.tsx";
 import ImageBlutTest from "@/imageContainer/ImageBlutTest.tsx";
+import PersonMenu from "@/settingsEditor/personEditor/PersonMenu.tsx";
 
 const router = createBrowserRouter(
     createRoutesFromChildren(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
             <Route path="/allergenSelectorTest" element={<AllergenSelectorTest/>}/>
             <Route path="/imageBlurTest" element={<ImageBlutTest/>}/>
             <Route path="/profile_manager" element={<ProfileManager/>}/>
+            <Route path="/person" element={<PersonMenu/>}/>
         </>
     )
 )
