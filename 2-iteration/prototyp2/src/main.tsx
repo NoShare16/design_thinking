@@ -9,7 +9,7 @@ import BarcodeScannerTest from "@/barcodeScanner/BarcodeScannerTest.tsx";
 const router = createBrowserRouter(
     createRoutesFromChildren(
         <>
-            <Route path="*" element={<Homescreen/>}/>
+            <Route path="*" element={<HomeScreen/>}/>
             {/*Temp for testing \/*/}
             <Route path="/allergenSelectorTest" element={<AllergenSelectorTest/>}/>
             <Route path="/barCodeScannerTest" element={<BarcodeScannerTest/>}/>
