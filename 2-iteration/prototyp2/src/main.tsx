@@ -1,9 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import Homescreen from './homescreen/Homescreen.tsx'
+import HomeScreen from "@/homescreen/HomeScreen.tsx"
 import {createBrowserRouter, createRoutesFromChildren, Route, RouterProvider} from "react-router-dom";
 import AllergenSelectorTest from "@/settingsEditor/allergenSelector/AllergenSelectorTest.tsx";
+import ProfileManager from "@/settingsEditor/profile_manager/ProfileManager.jsx";
 import BarcodeScannerTest from "@/barcodeScanner/BarcodeScannerTest.tsx";
 
 const router = createBrowserRouter(
@@ -13,6 +14,7 @@ const router = createBrowserRouter(
             {/*Temp for testing \/*/}
             <Route path="/allergenSelectorTest" element={<AllergenSelectorTest/>}/>
             <Route path="/barCodeScannerTest" element={<BarcodeScannerTest/>}/>
+            <Route path="/profile_manager" element={<ProfileManager/>}/>
         </>
     )
 )
