@@ -34,10 +34,11 @@ interface OpenFoodFactsQueryReturn {
   ingredients_hierarchy: string[]
 }
 
-async function getAllergensFromOpenfoodfacts(product: EANNumber): Promise<Allergen[]> {
+export default async function useOpenFoodFacts(product: EANNumber): Promise<Allergen[]> {
+  //TODO error handling
   const res = await fetch("https://world.openfoodfacts.org/api/v0/product/" + product + ".json")
   if (!res.ok) {
-    console.log("Error getAllergensFromOpenfoodfacts", res);
+    console.log("Error useOpenfoodfacts", res);
   }
   const json = await res.json();
   const allergs: string = json.product.allergens;
