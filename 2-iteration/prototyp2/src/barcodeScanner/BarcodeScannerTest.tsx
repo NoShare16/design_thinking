@@ -3,8 +3,8 @@ import useVideoDevices from "@/barcodeScanner/UseVideoDevices.tsx";
 import useBarCodeScanner from "@/barcodeScanner/UseBarCodeScanner.tsx";
 
 const BarcodeScannerTest: React.FC = () => {
-  const videoDevices = useVideoDevices();
-  const [selectedDeviceId, setSelectedDeviceId] = useState(videoDevices[0]?.deviceId);
+  const videoDevice = useVideoDevices().bestDevice;
+  const [selectedDeviceId, setSelectedDeviceId] = useState(videoDevice?.deviceId);
   const {videoRef, lastEAN, currentResult} = useBarCodeScanner(selectedDeviceId);
 
   return (
@@ -20,12 +20,10 @@ const BarcodeScannerTest: React.FC = () => {
             onChange={e => setSelectedDeviceId(e.target.value)}
             className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded-lg shadow leading-tight focus:outline-none focus:shadow-outline transition duration-200"
           >
-            {videoDevices.length > 0 ? (
-              videoDevices.map((device) => (
-                <option key={device.deviceId} value={device.deviceId}>
-                  {device.label || `Kamera ${device.deviceId}`}
+            {videoDevice ? (
+                <option key={videoDevice.deviceId} value={videoDevice.deviceId}>
+                  {videoDevice.label || `Kamera ${videoDevice.deviceId}`}
                 </option>
-              ))
             ) : (
               <option disabled>Keine Geräte gefunden</option>
             )}
