@@ -32,7 +32,7 @@ export default function HomeScreen() {
           className="btn btn--accent"
           title="Produkt scannen"
           aria-label="Produkt scannen"
-          onClick={() => navigate("/product_scanner")}
+          onClick={() => navigate("/productScanner")}
         >📷 Produkt scannen
         </button>
       </div>

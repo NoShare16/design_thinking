@@ -22,7 +22,7 @@
 
 .productScannerScreen > .contentBody > .viewFinder {
     width: 100%;
-    max-height: 33%;
+    max-height: 30vh;
     object-fit: cover;
     border-radius: .8rem;
     border: 0 solid transparent;
@@ -46,7 +46,7 @@
 
 .productScannerScreen > .contentBody > .productInfo > .body > .contents > .allergens,.ingredients {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .productScannerScreen > .contentBody > .productInfo > .imageContainer {

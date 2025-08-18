@@ -4,7 +4,7 @@ import type {EANNumber} from "@/common/EANNumber.ts";
 
 //WIP:
 
-interface IngredientInfo {
+export interface IngredientInfo {
   //TODO this should be id
   id_name: string,
   percent_estimate: number
@@ -13,15 +13,16 @@ interface IngredientInfo {
   display_name: string
 }
 
-interface ProductInfo {
+export interface ProductInfo {
   name: string
   brand: string
+  ean: EANNumber
   allergens: Allergen[]
   ingredients: IngredientInfo[]
   display_image: string
 }
 
-enum QueryError {
+export enum QueryError {
   NOT_FOUND = 'NOT_FOUND',
   NO_SEARCH = 'NO_SEARCH',
   OTHER = 'OTHER',
