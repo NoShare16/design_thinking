@@ -50,20 +50,21 @@ function WarningResults() {
 
 function ProductInfoBox({product}: { product: ProductInfo }) {
   return <div className="productInfo">
+    <header>
+      <h1 className="title">{product.name}</h1>
+      <div className="imageContainer">
+        <img src={product.display_image} alt={"Image of " + product.name}/>
+      </div>
+    </header>
+    <hr/>
     <div className="body">
-      <div className="title">{product.name}</div>
-      <div className="contents">
-        <div className="allergens">
-          {product.allergens.map((value, i) => <div className="allergenEntry" key={i}>{Allergen[value]}</div>)}
-        </div>
-        <div className="ingredients">
-          {product.ingredients.map((value, i) => <div className="ingredientEntry" key={i}>{value.display_name}</div>)}
-        </div>
+      <div className="allergens">
+        {product.allergens.map((value, i) => <div className="allergenEntry" key={i}>{Allergen[value]}</div>)}
+      </div>
+      <div className="ingredients">
+        {product.ingredients.map((value, i) => <div className="ingredientEntry" key={i}>{value.display_name}</div>)}
       </div>
     </div>
     {/*TODO figure out what to do with weird aspect ratios (Idea 1: Image Blur effect in background)*/}
-    <div className="imageContainer">
-      <img src={product.display_image} alt={"Image of " + product.name}/>
-    </div>
   </div>;
 }

@@ -30,7 +30,28 @@
 
 .productScannerScreen > .contentBody > .productInfo {
     display: flex;
+    flex-direction: column;
+    background-color: lightgray;
+    border: 0 solid transparent;
+    border-radius: 0.5rem;
+    padding: .5rem;
+    gap: .5rem;
+}
+
+.productScannerScreen > .contentBody > .productInfo > header {
+    display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.productScannerScreen > .contentBody > .productInfo > header > .imageContainer {
+    height: 100%;
+    width: 33%;
+    border: 0 solid transparent;
+    border-radius: .2rem;
+    overflow: hidden;
 }
 
 .productScannerScreen > .contentBody > .productInfo > .body {
@@ -39,17 +60,8 @@
     flex: 1;
 }
 
-.productScannerScreen > .contentBody > .productInfo > .body > .contents {
-    display: flex;
-    flex-direction: row;
-}
-
-.productScannerScreen > .contentBody > .productInfo > .body > .contents > .allergens,.ingredients {
+.productScannerScreen > .contentBody > .productInfo > .body > .allergens,.ingredients {
     display: flex;
     flex-direction: column;
 }
 
-.productScannerScreen > .contentBody > .productInfo > .imageContainer {
-    height: 100%;
-    width: 33%;
-}
