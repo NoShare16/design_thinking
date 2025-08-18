@@ -21,11 +21,11 @@ export default function useProfiles() : useProfileReturn {
     } catch (e) {
       console.error("Error loading allergenProfiles: ", e);
     }
-  }, [LS_PROFILES_KEY]);
+  }, [LS_PROFILES_KEY, setProfiles]);
 
   useEffect(() => {
     loadProfiles();
-  })
+  }, [loadProfiles])
 
   // Save to localStorage
   const save = useCallback((toSave: AllergenProfile) => {
