@@ -12,7 +12,7 @@ export default function useFoodWarningMock(persons: any[], product: ProductInfo 
   return [{
     has_warning: true,
     matching_allergens: [Allergen.sesame_seeds, Allergen.lupin],
-    matching_ingredients: ["en:thiamin"],
+    matching_ingredients: ["en:thiamin", "en:thjuwhiwdhwiadhioh"],
     person_name: "h",
   }, {
     has_warning: false,

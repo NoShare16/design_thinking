@@ -10,6 +10,7 @@ import useProfiles from "@/settingsEditor/profile_manager/useProfiles.ts";
 import DiamondAlertIcon from "@/assets/diamond_alert.tsx";
 import DiamondCheckIcon from "@/assets/diamond_check.tsx";
 import AlertIconBare from "@/assets/explamation_mark.tsx";
+import {Allergen} from "@/common/Allergens.ts";
 
 export default function ProductScanner() {
   const videoDevices = useVideoDevices();
@@ -48,10 +49,8 @@ function ProductInfoBox({product}: { product: ProductInfo }) {
     <hr/>
     <div className="body">
       <div className="allergens">
-        {/*{product.allergens.map((value, i) => <div className="allergenEntry" key={i}>{Allergen[value]}</div>)}*/}
       </div>
       <div className="ingredients">
-        {/*{product.ingredients.map((value, i) => <div className="ingredientEntry" key={i}>{value.display_name}</div>)}*/}
       </div>
     </div>
     {/*TODO figure out what to do with weird aspect ratios (Idea 1: Image Blur effect in background)*/}
@@ -59,34 +58,38 @@ function ProductInfoBox({product}: { product: ProductInfo }) {
 }
 
 
+function PersonResult({warning}: { warning: FoodWarningReturn }) {
+  const causeHint = warning
+    .matching_allergens
+    .map((v) => Allergen[v]);
+  causeHint.push(...warning.matching_ingredients);
+
+  return <div className="person">
+    <div className={warning.has_warning ? "circleIcon isWarning" : "circleIcon"}>
+      {warning.has_warning ? <AlertIconBare/> :
+        <Check/>}
+    </div>
+    <div className="name">{warning.person_name}</div>
+    <div className="warningCauseList">
+      {causeHint.length > 3 && causeHint.slice(0, 2).map(value => <div key={value} className="warning">{value}</div>)}
+      {causeHint.length > 3 && <div className="warning">...</div>}
+      {causeHint.length <= 3 && causeHint.map(value => <div key={value} className="warning">{value}</div>)}
+    </div>
+  </div>;
+}
+
 function WarningResults({warnings}: { warnings: FoodWarningReturn[] }) {
   /*TODO this has to be clickable into a popout view because the cause lists could be pretty long*/
   const hasAWarning = warnings.map(value => value.has_warning).reduce((a, b) => a || b);
   return <div className="result productScannerCard">
     <div className="headline">
-      {/*<div className={hasAWarning ? "diamondIcon isWarning" : "diamondIcon"}>*/}
-        {/*{hasAWarning ? <img src="src/assets/explamation_mark.tsx" className="icon"/> :*/}
-        {/*  <Check className="icon"/>}*/}
-        {/*{!hasAWarning ? <img src="../assets/diamond_alert.tsx" className="icon"/> :*/}
-        {/*  <img src="../assets/diamond_check.tsx" className="icon"/>}*/}
-        {hasAWarning ? <DiamondAlertIcon className="warningIcon"/> :
-          <DiamondCheckIcon className="okIcon"/>}
-      {/*</div>*/}
+      {hasAWarning ? <DiamondAlertIcon className="warningIcon"/> :
+        <DiamondCheckIcon className="okIcon"/>}
       <p>Warning</p>
     </div>
     <div className="personList">
       {warnings.map((value, i) => <>
-        <div className="person" key={i}>
-          <div className={value.has_warning ? "circleIcon isWarning" : "circleIcon"}>
-            {value.has_warning ? <AlertIconBare/> :
-              <Check/>}
-          </div>
-          <div className="name">{value.person_name}</div>
-          <div className="warningCauseList">
-            {value.matching_allergens.map((value, i) => <div key={i} className="warning">{value}</div>)}
-            {value.matching_ingredients.map((value, i) => <div key={i} className="warning">{value}</div>)}
-          </div>
-        </div>
+        <PersonResult key={i} warning={value}/>
         <div className="verticalSeparator"/>
       </>)}
     </div>
