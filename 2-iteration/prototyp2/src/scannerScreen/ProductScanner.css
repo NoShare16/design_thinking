@@ -119,7 +119,6 @@
 .result > .personList > .person {
     display: flex;
     flex-direction: column;
-    /*min-width: 25vw;*/
     align-items: center;
     width: clamp(50vw, fit-content, fit-content);
 }
@@ -129,16 +128,25 @@
     border-radius: 1rem;
 }
 
-.result > .personList > .person .circleIcon {
+.circleIcon {
     border-radius: 999999999rem;
     border: 2px solid black;
     padding: .3rem;
     margin: .3rem;
     /*TODO bad green*/
     background-color: lightgreen;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.isWarning {
+.circleIcon > svg {
+    height: 100%;
+    width: 100%;
+}
+
+.circleIcon.isWarning {
     background-color: indianred !important;
 }
 
@@ -150,4 +158,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.carouselPerson {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding-bottom: 10rem;
+}
+
+.carouselPerson > h2 {
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+.carouselPerson > .resultContent {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.carouselPerson > .resultContent > h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
 }

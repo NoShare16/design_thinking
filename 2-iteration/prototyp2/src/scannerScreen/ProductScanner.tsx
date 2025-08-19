@@ -2,7 +2,7 @@ import "./ProductScanner.css"
 import {ArrowLeft, Check} from "lucide-react";
 import useVideoDevices from "@/barcodeScanner/UseVideoDevices.tsx";
 import useBarCodeScanner from "@/barcodeScanner/UseBarCodeScanner.tsx";
-import {useEffect, useState} from "react";
+import {type HTMLAttributes, useEffect, useState} from "react";
 import useEANQueryMock from "@/eanQuery/useEANQueryMock.ts";
 import {type ProductInfo} from "@/eanQuery/useEANQuery.ts";
 import useFoodWarningMock, {type FoodWarningReturn} from "@/warningGenerator/useFoodWarningMock.ts";
@@ -12,7 +12,7 @@ import DiamondCheckIcon from "@/assets/diamond_check.tsx";
 import AlertIconBare from "@/assets/explamation_mark.tsx";
 import {Allergen} from "@/common/Allergens.ts";
 import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
-import {Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious} from "@/components/ui/carousel.tsx";
+import {Carousel, CarouselContent, CarouselItem} from "@/components/ui/carousel.tsx";
 
 export default function ProductScanner() {
   const videoDevices = useVideoDevices();
@@ -52,6 +52,17 @@ function ProductInfoBox({product}: { product: ProductInfo }) {
 }
 
 
+interface CircularWarningIconProps extends HTMLAttributes<any> {
+  isWarning: boolean
+}
+
+function CircularWarningIcon(props: CircularWarningIconProps) {
+  return <div className={props.isWarning ? "circleIcon isWarning" : "circleIcon"} {...props}>
+    {props.isWarning ? <AlertIconBare/> :
+      <Check/>}
+  </div>;
+}
+
 function PersonResult({warning}: { warning: FoodWarningReturn }) {
   const causeHint = warning
     .matching_allergens
@@ -59,10 +70,7 @@ function PersonResult({warning}: { warning: FoodWarningReturn }) {
   causeHint.push(...warning.matching_ingredients);
 
   return <div className="person">
-    <div className={warning.has_warning ? "circleIcon isWarning" : "circleIcon"}>
-      {warning.has_warning ? <AlertIconBare/> :
-        <Check/>}
-    </div>
+    <CircularWarningIcon isWarning={warning.has_warning}/>
     <div className="name">{warning.person_name}</div>
     <div className="warningCauseList">
       {causeHint.length > 3 && causeHint.slice(0, 2).map(value => <div key={value} className="warning">{value}</div>)}
@@ -101,8 +109,9 @@ function WarningResults({warnings}: { warnings: FoodWarningReturn[] }) {
         <CarouselContent>
           {warnings.map((value) =>
             <CarouselItem className="carouselPerson">
+              <CircularWarningIcon isWarning={value.has_warning} style={{width: "5rem"}}/>
               <h2>{value.person_name}</h2>
-              <div className="resultConent">
+              <div className="resultContent">
                 <h3>Allergens:</h3>
                 <div>
                   {value.matching_allergens.map(v => <div>{Allergen[v]}</div>)}
