@@ -1,6 +1,6 @@
 import type { ProductInfo } from "@/common/productQuery.ts";
 
-// -- OFF-Allergene-Whitelist (normalisiert: lowercase, _ -> -)
+// OFF-Allergene, erlaubte Codes (normalisiert)
 const RAW_ALLOWED = [
   "pork",
   "fish",
@@ -35,102 +35,26 @@ const norm = (s: string) => s.trim().toLowerCase().replace(/_/g, "-");
 const stripLocalePrefix = (t: string) => t.replace(/^[a-z]{2,3}:/i, "");
 const slug = (s: string) =>
   norm(stripLocalePrefix(s)).replace(/[^a-z0-9]+/g, "-");
-
 export const ALLOWED_ALLERGENS = new Set(Array.from(RAW_ALLOWED, norm));
 
-// -- Typen
+// Typen
 export interface Profile {
   id: string;
   name: string;
-  // Nur OFF-Codes, normalisiert (siehe ALLOWED_ALLERGENS)
-  allergens: string[];
-  // Frei definierbare Zutaten-Begriffe/Synonyme (z. B. "wheat", "rye", "casein", "malt", ...)
-  ingredients: string[];
+  allergens: string[]; // OFF-Codes, normalisiert
+  ingredients: string[]; // freie Begriffe
 }
 
-export const MatchLevel = {
-  OK: "ok",
-  BLOCK: "block",
-} as const;
+export const MatchLevel = { OK: "ok", BLOCK: "block" } as const;
 export type MatchLevel = (typeof MatchLevel)[keyof typeof MatchLevel];
 
 export interface MatchResult {
   level: MatchLevel;
-  matchedAllergens: string[]; // getroffene Allergen-Codes (normalisiert)
-  matchedIngredients: string[]; // Zutaten-Treffer (Begriffe aus Profil ODER Produktnamen, s.u.)
+  matchedAllergens: string[];
+  matchedIngredients: string[];
 }
 
-// -- 3 harte Profile (Beispiele)
-export const HARD_PROFILES: Profile[] = [
-  {
-    id: "p1",
-    name: "Gluten & Milch (inkl. typische Zutaten)",
-    allergens: [norm("gluten"), norm("milk")],
-    ingredients: [
-      // gluten-typisch
-      "wheat",
-      "rye",
-      "barley",
-      "oats",
-      "spelt",
-      "malted-barley",
-      "malt",
-      "dinkel",
-      // milch-typisch
-      "milk",
-      "lactose",
-      "milk-proteins",
-      "casein",
-      "whey",
-    ],
-  },
-  {
-    id: "p2",
-    name: "Nüsse, Erdnuss & Sesam",
-    allergens: [norm("nuts"), norm("peanuts"), norm("sesame_seeds")],
-    ingredients: [
-      "nuts",
-      "almonds",
-      "hazelnuts",
-      "walnuts",
-      "cashews",
-      "pistachios",
-      "pecan-nuts",
-      "brazil-nuts",
-      "macadamia-nuts",
-      "peanut",
-      "peanuts",
-      "sesame",
-      "sesame-seeds",
-    ],
-  },
-  {
-    id: "p3",
-    name: "Fisch / Krebstiere / Weichtiere",
-    allergens: [norm("fish"), norm("crustaceans"), norm("molluscs")],
-    ingredients: [
-      "fish",
-      "tuna",
-      "salmon",
-      "cod",
-      "herring",
-      "anchovy",
-      "sardine",
-      "shrimp",
-      "prawn",
-      "crab",
-      "lobster",
-      "krill",
-      "oyster",
-      "clam",
-      "mussel",
-      "octopus",
-      "squid",
-    ],
-  },
-];
-
-// -- Matching-Helfer
+// Helpers
 function unique<T>(arr: T[]): T[] {
   const seen = new Set<string>();
   const out: T[] = [];
@@ -144,7 +68,7 @@ function unique<T>(arr: T[]): T[] {
   return out;
 }
 
-// Striktes Allergene↔︎Allergene Matching
+// Allergene↔︎Allergene (strikt via OFF-Codes)
 function matchAllergens(profile: Profile, product: ProductInfo): string[] {
   const productAllergens = new Set(
     product.allergens.map(norm).filter((code) => ALLOWED_ALLERGENS.has(code))
@@ -156,8 +80,7 @@ function matchAllergens(profile: Profile, product: ProductInfo): string[] {
   return unique(hits);
 }
 
-// Striktes Ingredients↔︎Ingredients Matching
-// Regel: wir vergleichen Slugs. Ein Treffer, wenn der Produkt-Ingredient-Slug dem Profil-Term-Slug entspricht ODER ihn enthält (z. B. "malted-barley" enthält "barley").
+// Ingredients↔︎Ingredients (Slug-Gleichheit/Enthalten)
 function matchIngredients(profile: Profile, product: ProductInfo): string[] {
   const terms = profile.ingredients.map(slug);
   if (terms.length === 0) return [];
@@ -174,7 +97,6 @@ function matchIngredients(profile: Profile, product: ProductInfo): string[] {
     const originalName = names[i];
     for (const term of terms) {
       if (ingredientSlug === term || ingredientSlug.includes(term)) {
-        // für die UI: lieber den tatsächlich gefundenen Ingredient-Namen zeigen
         hits.push(originalName || term);
       }
     }
@@ -182,7 +104,7 @@ function matchIngredients(profile: Profile, product: ProductInfo): string[] {
   return unique(hits);
 }
 
-// -- Kern: getrennte Kanäle, beide können blocken
+// Kern
 export function matchProduct(
   profile: Profile,
   product: ProductInfo
