@@ -44,35 +44,37 @@
     display: flex;
     flex-direction: column;
     border-color: lightgray;
-    gap: .5rem;
+    padding: 0;
     flex: 1;
+    position: relative;
 }
 
-.productInfo > .headline {
+.productInfo > .imageContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.5rem;
+    justify-content: flex-end;
+    align-items: flex-start;
 }
 
-.productInfo > .headline > .imageContainer {
-    height: 100%;
-    width: 33%;
+.productInfo > .imageContainer > img {
     border: 0 solid transparent;
-    border-radius: .2rem;
-    overflow: hidden;
+    border-radius: .7rem;
 }
 
-.productInfo > .body {
+.productInfo > .content {
+    position: absolute;
     display: flex;
     flex-direction: column;
-    flex: 1;
+    font-size: 1.5rem;
+    padding: .5rem;
 }
 
-.productInfo > .body > .allergens,.ingredients {
-    display: flex;
-    flex-direction: column;
+.productInfo > .content > h1 {
+    font-size: 1.7rem;
+    background-color: rgba(247, 247, 251, 0.8);
+    border: 0 solid transparent;
+    border-radius: .5rem;
+    padding-right: .2rem;
 }
 
 /*Per Person Results card*/

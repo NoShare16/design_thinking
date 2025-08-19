@@ -40,20 +40,12 @@ export default function ProductScanner() {
 
 function ProductInfoBox({product}: { product: ProductInfo }) {
   return <div className="productInfo productScannerCard">
-    <div className="headline">
+    <div className="imageContainer">
+      <img src={product.display_image} alt={"Image of " + product.name}/>
+    </div>
+    <div className="content">
       <h1 className="title">{product.name}</h1>
-      <div className="imageContainer">
-        <img src={product.display_image} alt={"Image of " + product.name}/>
-      </div>
     </div>
-    <hr/>
-    <div className="body">
-      <div className="allergens">
-      </div>
-      <div className="ingredients">
-      </div>
-    </div>
-    {/*TODO figure out what to do with weird aspect ratios (Idea 1: Image Blur effect in background)*/}
   </div>;
 }
 
