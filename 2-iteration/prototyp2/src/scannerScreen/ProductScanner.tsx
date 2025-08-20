@@ -1,8 +1,7 @@
 import "./ProductScanner.css"
 import {ArrowLeft, Check} from "lucide-react";
-import useVideoDevices from "@/barcodeScanner/UseVideoDevices.tsx";
 import useBarCodeScanner from "@/barcodeScanner/UseBarCodeScanner.tsx";
-import {type HTMLAttributes, useEffect, useState} from "react";
+import {type HTMLAttributes} from "react";
 import useEANQueryMock from "@/eanQuery/useEANQueryMock.ts";
 import {type ProductInfo} from "@/eanQuery/useEANQuery.ts";
 import useFoodWarningMock, {type FoodWarningReturn} from "@/warningGenerator/useFoodWarningMock.ts";
@@ -15,17 +14,12 @@ import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/comp
 import {Carousel, CarouselContent, CarouselItem} from "@/components/ui/carousel.tsx";
 
 export default function ProductScanner() {
-  const videoDevices = useVideoDevices();
-  const [selectedDeviceId, setSelectedDeviceId] = useState(videoDevices[0]?.deviceId);
-  const {lastEAN, videoRef, currentResult} = useBarCodeScanner(selectedDeviceId);
+  const {lastEAN, videoRef, currentResult} = useBarCodeScanner();
   const queryResult = useEANQueryMock(lastEAN)
   const isQueryErr = typeof queryResult === "string";
   const {profiles} = useProfiles();
   const warning = useFoodWarningMock(profiles, !isQueryErr ? queryResult : undefined)
 
-  useEffect(() => {
-    setSelectedDeviceId(videoDevices[0]?.deviceId);
-  }, [videoDevices, selectedDeviceId]);
 
   return <div className="productScannerScreen">
     <header>
@@ -34,6 +28,7 @@ export default function ProductScanner() {
     </header>
     <div className="contentBody">
       <video className="viewFinder productScannerCard" ref={videoRef} autoPlay muted playsInline/>
+      {/*<div>{currentResult.toString()}</div>*/}
       {!isQueryErr && <ProductInfoBox product={queryResult}/>}
       {<WarningResults warnings={warning}/>}
     </div>

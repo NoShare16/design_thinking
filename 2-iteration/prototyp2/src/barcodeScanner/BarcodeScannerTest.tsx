@@ -1,11 +1,11 @@
 import React, {useState} from "react";
-import useVideoDevices from "@/barcodeScanner/UseVideoDevices.tsx";
+import usePrimaryCamera from "@/barcodeScanner/UsePrimaryCamera.tsx";
 import useBarCodeScanner from "@/barcodeScanner/UseBarCodeScanner.tsx";
 
 const BarcodeScannerTest: React.FC = () => {
-  const videoDevice = useVideoDevices().bestDevice;
+  const videoDevice = usePrimaryCamera();
   const [selectedDeviceId, setSelectedDeviceId] = useState(videoDevice?.deviceId);
-  const {videoRef, lastEAN, currentResult} = useBarCodeScanner(selectedDeviceId);
+  const {videoRef, lastEAN, currentResult} = useBarCodeScanner();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">

@@ -1,13 +1,7 @@
 import {useEffect, useState} from "react";
 
-export interface VideoDeviceWithInfo extends MediaDeviceInfo {
-  capabilities?: MediaTrackCapabilities;
-}
-
-export default function useVideoDevices(): {
-  bestDevice?: VideoDeviceWithInfo;
-} {
-    const [bestDevice, setBestDevice] = useState<VideoDeviceWithInfo>();
+export default function useVideoDevices(): MediaTrackCapabilities | undefined {
+    const [bestDevice, setBestDevice] = useState<MediaTrackCapabilities>();
     useEffect(() => {
       (async () => {
         try {
@@ -15,7 +9,7 @@ export default function useVideoDevices(): {
           const allDevices = await navigator.mediaDevices.enumerateDevices();
           const videoDevices = allDevices.filter(d => d.kind === "videoinput");
 
-          const devicesWithCaps: VideoDeviceWithInfo[] = [];
+          const devicesWithCaps: MediaTrackCapabilities[] = [];
 
           for (const device of videoDevices) {
             try {
@@ -25,7 +19,7 @@ export default function useVideoDevices(): {
               const track = stream.getVideoTracks()[0];
               const caps = track.getCapabilities();
 
-              devicesWithCaps.push({ ...device, capabilities: caps });
+              devicesWithCaps.push(caps);
 
               track.stop();
             } catch (err) {
@@ -34,10 +28,10 @@ export default function useVideoDevices(): {
           }
 
           const envCams = devicesWithCaps.filter(d =>
-              d.capabilities?.facingMode?.includes("environment")
+              d.facingMode?.includes("environment")
           );
           if (envCams.length > 0) {
-            const torchCams = envCams.find(d => d.capabilities?.torch);
+            const torchCams = envCams.find(d => d.torch);
             if (torchCams) {
               setBestDevice(torchCams);
             } else {
@@ -51,7 +45,6 @@ export default function useVideoDevices(): {
         }
       })();
     }, []);
-
-    return { bestDevice };
+    return bestDevice;
 }
 

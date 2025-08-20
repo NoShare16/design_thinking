@@ -2,6 +2,7 @@ import {type RefObject, useEffect, useRef, useState} from "react";
 import {Exception as ZxingError} from "@zxing/library";
 import {BrowserMultiFormatReader, type IScannerControls} from "@zxing/browser";
 import type {EANNumber} from "@/common/EANNumber.ts";
+import usePrimaryCamera from "@/barcodeScanner/UsePrimaryCamera.tsx";
 
 interface UseBarcodeScannerReturn {
   videoRef: RefObject<HTMLVideoElement | null>,
@@ -11,14 +12,14 @@ interface UseBarcodeScannerReturn {
   currentResult: EANNumber | ZxingError | string
 }
 
-export default function useBarCodeScanner(selectedVideoDeviceId: string | undefined): UseBarcodeScannerReturn {
+export default function useBarCodeScanner(): UseBarcodeScannerReturn {
+  const primaryCamera = usePrimaryCamera();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [lastEAN, setLastEAN] = useState<EANNumber>(0)
   const [currentResult, setCurrentResult] = useState<EANNumber | ZxingError | string>("Initializing")
 
   useEffect(() => {
-    console.log("iran", selectedVideoDeviceId);
-    if (!selectedVideoDeviceId) {
+    if (primaryCamera == undefined) {
       setCurrentResult("No video device selected");
       return;
     }
@@ -28,7 +29,7 @@ export default function useBarCodeScanner(selectedVideoDeviceId: string | undefi
     (async () => {
       try {
         controls = await codeReader.decodeFromVideoDevice(
-          selectedVideoDeviceId,
+          primaryCamera.deviceId,
           !videoRef.current ? undefined : videoRef.current,
           (result, err) => {
             if (result) {
@@ -38,13 +39,15 @@ export default function useBarCodeScanner(selectedVideoDeviceId: string | undefi
             }
             // explicitly not used else so that currentResult is always overwritten by Error
             if (err) {
-              console.error("Scan Error: " + err);
+              if (err.name !== "NotFoundException2") {
+                console.error("Scan Error: " + err);
+              }
               setCurrentResult(err)
             }
           }
         );
       } catch (err) {
-        const errString = "Fehler beim Starten des Scanners:" + err;
+        const errString = "Fehler beim Starten des Scanners:" + err + " | videoDeviceId: " + primaryCamera.deviceId;
         console.error("Fehler beim Starten des Scanners:", err);
         console.error("errString: ", errString);
         setCurrentResult(errString)
@@ -57,6 +60,6 @@ export default function useBarCodeScanner(selectedVideoDeviceId: string | undefi
         console.log("Scanner gestoppt.");
       }
     };
-  }, [selectedVideoDeviceId, videoRef]);
+  }, [primaryCamera]);
   return {videoRef, lastEAN, currentResult}
 }
