@@ -8,7 +8,8 @@ export default function AllergenSelectorTest() {
     allergens: string[],
   }
 
-  const {handleSubmit, setValue, getValues} = useForm<TestFormFields>({ defaultValues: { allergens: []}})
+  const {handleSubmit, setValue, getValues, watch} = useForm<TestFormFields>({ defaultValues: { allergens: []}})
+  const selectedAllergens = watch("allergens");
 
   function handleAdd(value: string) {
     setValue("allergens", [...getValues().allergens, value])
@@ -25,7 +26,7 @@ export default function AllergenSelectorTest() {
   }
 
   return <div>
-    <AllergenSelector options={Object.keys(Allergen).filter(v => isNaN(Number(v)))} add={handleAdd} remove={handleRemove} />
+    <AllergenSelector options={Object.keys(Allergen).filter(v => isNaN(Number(v)))} add={handleAdd} remove={handleRemove} selectedAllergens={selectedAllergens}/>
     <button onClick={handleSubmit(submit)}>Save</button>
   </div>
 }

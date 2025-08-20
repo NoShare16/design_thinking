@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import AllergenSelector from "@/screens/settingsEditor/allergenSelector/AllegenSelector.tsx";
 import { Allergen } from "@/common/Allergens.ts";
@@ -14,25 +15,34 @@ interface PersonConfigPanelProps {
 }
 
 export function PersonConfigPanel({ person, update }: PersonConfigPanelProps) {
-    const { register, handleSubmit, setValue, getValues } = useForm<Person>({
-        defaultValues: person
+    const { register, handleSubmit, setValue, getValues, reset } = useForm<Person>({
+        defaultValues: person,
     });
 
+    // Wichtig: Bei Personenwechsel das Formular auf die neue Person resetten
+    useEffect(() => {
+        reset(person);
+    }, [person, reset]);
+
     function handleAddAllergen(value: string) {
-        setValue("allergens", [...getValues().allergens, value]);
+        const current = getValues().allergens ?? [];
+        if (current.includes(value)) return; // doppelte vermeiden
+        setValue("allergens", [...current, value], { shouldDirty: true });
     }
 
     function handleRemoveAllergen(value: string) {
-        setValue("allergens", getValues().allergens.filter((a) => a !== value));
+        const current = getValues().allergens ?? [];
+        setValue("allergens", current.filter(a => a !== value), { shouldDirty: true });
     }
 
     function onSubmit(data: Person) {
-        update(data);
+        // id der aktuellen Person mitgeben (falls RHF sie streicht)
+        update({ ...data, id: person.id });
         console.log("Updated person:", data);
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} style={{ border: "1px solid gray", padding: "10px", borderRadius: "5px" }}>
+        <form onSubmit={handleSubmit(onSubmit)} style={{ border: "1px solid gray", padding: 10, borderRadius: 5 }}>
             <div>
                 <label>Name:</label>
                 <input {...register("name")} />
@@ -44,10 +54,11 @@ export function PersonConfigPanel({ person, update }: PersonConfigPanelProps) {
                     options={Object.keys(Allergen).filter(v => isNaN(Number(v)))}
                     add={handleAddAllergen}
                     remove={handleRemoveAllergen}
+                    selectedAllergens={getValues().allergens}
                 />
             </div>
 
-            <button type="submit">Save</button>
+            <button type="submit">Speichern</button>
         </form>
     );
 }
