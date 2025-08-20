@@ -82,7 +82,6 @@ function PersonResult({warning}: { warning: FoodWarningReturn }) {
 }
 
 function WarningResults({warnings}: { warnings: FoodWarningReturn[] }) {
-  /*TODO this has to be clickable into a popout view because the cause lists could be pretty long*/
   const hasAWarning = warnings.map(value => value.has_warning).reduce((a, b) => a || b);
   return <Sheet>
     <SheetTrigger>
