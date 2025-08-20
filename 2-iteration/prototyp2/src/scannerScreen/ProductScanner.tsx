@@ -41,6 +41,7 @@ export default function ProductScanner() {
 }
 
 function ProductInfoBox({product}: { product: ProductInfo }) {
+  //TODO sheet with detailed product infos
   return <div className="productInfo productScannerCard">
     <div className="imageContainer">
       <img src={product.display_image} alt={"Image of " + product.name}/>
@@ -74,7 +75,7 @@ function PersonResult({warning}: { warning: FoodWarningReturn }) {
     <div className="name">{warning.person_name}</div>
     <div className="warningCauseList">
       {causeHint.length > 3 && causeHint.slice(0, 2).map(value => <div key={value} className="warning">{value}</div>)}
-      {causeHint.length > 3 && <div className="warning">...</div>}
+      {causeHint.length > 3 && <div className="warning">and {causeHint.length -2} others...</div>}
       {causeHint.length <= 3 && causeHint.map(value => <div key={value} className="warning">{value}</div>)}
     </div>
   </div>;
