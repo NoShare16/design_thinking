@@ -23,12 +23,10 @@ export default function PersonSelector({ people, onSelect, onRemove }: Props) {
                         <CommandItem
                             key={p.id}
                             className="personSelectorItem"
-                            // CommandItem hat onSelect-Event-API
                             onSelect={() => onSelect(p.id)}
                         >
                             <div>
                                 {p.name}
-                                {/* getrennte Remove-Aktion; stopPropagation, damit kein Select auslöst */}
                                 <button
                                     type="button"
                                     className="selectionIcon"

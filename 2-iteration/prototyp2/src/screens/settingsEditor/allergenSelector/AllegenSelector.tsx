@@ -35,7 +35,14 @@ export default function AllergenSelector({options, add, remove, selectedAllergen
                 ))}
               </CommandGroup>
           )) :
-        (options as unknown as string[]).map((v, i) => <Option key={i} onSelected={add} onRemoved={remove} selected={selectedAllergens.includes(v)}>{v}</Option>)
+        (options as unknown as string[]).map((v, i) =>
+            <Option
+                key={i}
+                onSelected={add}
+                onRemoved={remove}
+                selected={selectedAllergens.includes(v)}>
+              {v}
+            </Option>)
       }
     </CommandList>
   </Command>;
@@ -46,7 +53,6 @@ function Option({children, onSelected, onRemoved, selected}: {
   onSelected: (value: string) => void,
   onRemoved: (value: string) => void,
   selected: boolean
-
 }) {
   const [set, setSet] = useState<boolean>(false)
   return <CommandItem className="allergenSelectorItem">

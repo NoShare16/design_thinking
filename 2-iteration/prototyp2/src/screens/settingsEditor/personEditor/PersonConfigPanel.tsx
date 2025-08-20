@@ -19,14 +19,13 @@ export function PersonConfigPanel({ person, update }: PersonConfigPanelProps) {
         defaultValues: person,
     });
 
-    // Wichtig: Bei Personenwechsel das Formular auf die neue Person resetten
     useEffect(() => {
         reset(person);
     }, [person, reset]);
 
     function handleAddAllergen(value: string) {
         const current = getValues().allergens ?? [];
-        if (current.includes(value)) return; // doppelte vermeiden
+        if (current.includes(value)) return;
         setValue("allergens", [...current, value], { shouldDirty: true });
     }
 
@@ -36,7 +35,6 @@ export function PersonConfigPanel({ person, update }: PersonConfigPanelProps) {
     }
 
     function onSubmit(data: Person) {
-        // id der aktuellen Person mitgeben (falls RHF sie streicht)
         update({ ...data, id: person.id });
         console.log("Updated person:", data);
     }
@@ -47,7 +45,6 @@ export function PersonConfigPanel({ person, update }: PersonConfigPanelProps) {
                 <label>Name:</label>
                 <input {...register("name")} />
             </div>
-
             <div>
                 <label>Allergene:</label>
                 <AllergenSelector
@@ -57,7 +54,6 @@ export function PersonConfigPanel({ person, update }: PersonConfigPanelProps) {
                     selectedAllergens={getValues().allergens}
                 />
             </div>
-
             <button type="submit">Speichern</button>
         </form>
     );

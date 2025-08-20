@@ -44,7 +44,6 @@ export default function PersonMenu() {
         setAddingNew(false);
     };
 
-    // remove by id (not by name!)
     const removePerson = (id: string) => {
         setPeople(prev => prev.filter(p => p.id !== id));
         if (selectedPersonId === id) setSelectedPersonId(null);
