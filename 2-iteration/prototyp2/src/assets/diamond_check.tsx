@@ -23,7 +23,7 @@
 // </svg>
 import type {SVGAttributes} from "react";
 
-export default function DiamondCheckIcon(props: SVGAttributes<any>) {
+export default function DiamondCheckIcon(props: SVGAttributes<SVGElement>) {
   return <svg
     width="21.990881"
     height="21.990881"

@@ -1,7 +1,8 @@
 import "./ImageContainer.css"
+import type {ReactNode} from "react";
 
 export interface ImageContainerProps {
-  children: HTMLImageElement | any
+  children: ReactNode
 }
 
 export default function ImageContainer({children}: ImageContainerProps) {

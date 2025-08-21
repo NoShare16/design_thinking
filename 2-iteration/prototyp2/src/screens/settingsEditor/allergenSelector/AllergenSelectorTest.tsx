@@ -20,7 +20,7 @@ export default function AllergenSelectorTest() {
     setValue("allergens", value1);
   }
 
-  function submit(value: any) {
+  function submit(value: TestFormFields) {
     console.log("submit", value)
   }
 

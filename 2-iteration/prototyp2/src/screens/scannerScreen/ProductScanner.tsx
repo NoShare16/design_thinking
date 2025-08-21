@@ -48,7 +48,7 @@ function ProductInfoBox({product}: { product: ProductInfo }) {
 }
 
 
-interface CircularWarningIconProps extends HTMLAttributes<any> {
+interface CircularWarningIconProps extends HTMLAttributes<HTMLDivElement> {
   isWarning: boolean
 }
 

@@ -1,5 +1,4 @@
 import type {Allergen} from "@/common/Allergens.ts";
-import useOpenFoodFacts from "@/common/eanQuery/openFoodFacts/useOpenFoodFacts.ts";
 import type {EANNumber} from "@/common/EANNumber.ts";
 
 //WIP:
