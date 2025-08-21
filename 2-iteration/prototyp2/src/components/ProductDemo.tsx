@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { queryProductByEAN, QueryError } from "@/common/productQuery.ts";
 import type { ProductInfo } from "@/common/productQuery.ts";
-import { matchProduct, MatchLevel } from "@/lib/matching";
+import { matchProduct, MatchLevel } from "@/common/matching";
 import type { Profile } from "@/common/matching.ts";
-import { loadProfiles } from "@/lib/profileStorage";
+import { loadProfiles } from "@/common/profileStorage";
 
 export default function ProductDemo() {
   const [ean, setEan] = useState("");
