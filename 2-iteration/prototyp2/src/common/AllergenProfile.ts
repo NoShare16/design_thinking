@@ -1,4 +1,4 @@
-import type {Allergen} from "@/Allergens.ts";
+import type {Allergen} from "@/common/Allergens.ts";
 
 export interface AllergenProfile {
   name: string;

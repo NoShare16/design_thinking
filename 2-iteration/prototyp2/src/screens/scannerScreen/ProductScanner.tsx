@@ -5,7 +5,7 @@ import {type HTMLAttributes} from "react";
 import useEANQueryMock from "@/common/eanQuery/useEANQueryMock.ts";
 import {type ProductInfo} from "@/common/eanQuery/useEANQuery.ts";
 import useFoodWarningMock, {type FoodWarningReturn} from "@/common/warningGenerator/useFoodWarningMock.ts";
-import useProfiles from "@/screens/settingsEditor/profile_manager/useProfiles.ts";
+import useProfiles from "@/common/useProfiles.ts";
 import DiamondAlertIcon from "@/assets/diamond_alert.tsx";
 import DiamondCheckIcon from "@/assets/diamond_check.tsx";
 import AlertIconBare from "@/assets/explamation_mark.tsx";

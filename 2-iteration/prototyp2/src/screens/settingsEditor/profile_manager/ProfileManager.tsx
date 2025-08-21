@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./profile-manager.css";
 
 // Storage key
-const LS_PROFILES_KEY = "aa_profiles"; // Array<Profile>
+const LS_PROFILES_KEY = "allergenProfiles"; // Array<Profile>
 
 // Simple id generator
 const uid = () => Math.random().toString(36).slice(2, 10);
