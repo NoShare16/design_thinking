@@ -1,0 +1,146 @@
+import type {EANNumber} from "@/common/EANNumber.ts";
+import {type ProductInfo, QueryError} from "@/common/eanQuery/useEANQuery.ts";
+import {Allergen} from "@/common/Allergens.ts";
+
+export default function useEANQueryMock(ean: EANNumber): ProductInfo | QueryError {
+  return {
+    ean: 3175680011480,
+    name: "Biscuits au sésame",
+    brand: "Gerblé",
+    display_image: "https://images.openfoodfacts.org/images/products/317/568/001/1480/front_en.221.400.jpg",
+    allergens: [Allergen.gluten, Allergen.sesame_seeds],
+    ingredients: [{
+      id_name: "en:wheat-flour",
+      display_name: "wheat-flour",
+      percent_estimate: 57,
+      percent_max: 57,
+      percent_min: 57,
+    }, {
+      id_name: "en:unrefined-cane-sugar",
+      display_name:"unrefined-cane-sugar",
+      percent_estimate: 10.8,
+      percent_max: 11,
+      percent_min: 10.6,
+    }, {
+      id_name: "en:colza-oil",
+      display_name:"colza-oil",
+      percent_estimate: 10.8,
+      percent_max: 11,
+      percent_min: 10.6,
+    }, {
+      id_name: "en:sesame",
+      display_name:"sesame",
+      percent_estimate: 10.6,
+      percent_max: 10.6,
+      percent_min: 10.6,
+    }, {
+      id_name: "en:wheat-germ",
+      display_name: "wheat-germ",
+      percent_estimate: 5.4,
+      percent_max: 5.4,
+      percent_min: 5.4,
+    }, {
+      id_name: "en:whole-wheat-flour",
+      display_name: "whole-wheat-flour",
+      percent_estimate: 5.4,
+      percent_max: 4.1,
+      percent_min: 5.4,
+    }, {
+      id_name: "en:natural-flavouring",
+      display_name: "natural-flavouring",
+      percent_estimate: 0,
+      percent_max: 0.400000000000006,
+      percent_min: 0,
+    }, {
+      id_name: "en:magnesium",
+      display_name: "magnesium",
+      percent_estimate: 0,
+      percent_max: 0.400000000000006,
+      percent_min: 0,
+    }, {
+      id_name: "en:emulsifier",
+      display_name: "emulsifier",
+      percent_estimate: 0,
+      percent_max: 0.400000000000006,
+      percent_min: 0,
+    }, {
+      id_name: "en:raising-agent",
+      display_name: "raising-agent",
+      percent_estimate: 0,
+      percent_max: 0.400000000000006,
+      percent_min: 0,
+    }, {
+      id_name: "en:sea-salt",
+      display_name: "sea-salt",
+      percent_estimate: 0,
+      percent_max: 0.38,
+      percent_min: 0,
+    }, {
+      id_name: "en:wheat-starch",
+      display_name: "wheat-starch",
+      percent_estimate: 0,
+      percent_max: 0.38,
+      percent_min: 0,
+    }, {
+      id_name: "en:vitamins",
+      display_name: "vitamins",
+      percent_estimate: 0,
+      percent_max: 0.38,
+      percent_min: 0,
+    }, {
+      id_name: "en:vitamin-e",
+      display_name: "vitamin-e",
+      percent_estimate: 0,
+      percent_max: 0.38,
+      percent_min: 0,
+    }, {
+      id_name: "en:e375",
+      display_name: "e375",
+      percent_estimate: 0,
+      percent_max: 0.38,
+      percent_min: 0,
+    }, {
+      id_name: "en:vitamin-b6",
+      display_name: "vitamin-b6",
+      percent_estimate: 0,
+      percent_max: 0.38,
+      percent_min: 0,
+    }, {
+      id_name: "en:thiamin",
+      display_name: "thiamin",
+      percent_estimate: 0,
+      percent_max: 0.38,
+      percent_min: 0,
+    }, {
+      id_name: "en:folic-acid",
+      display_name: "folic-acid",
+      percent_estimate: 0,
+      percent_max: 0.38,
+      percent_min: 0,
+    }, {
+      id_name: "en:e322",
+      display_name: "e322",
+      percent_estimate: 0,
+      percent_max: 0.400000000000006,
+      percent_min: 0,
+    }, {
+      id_name: "en:e336",
+      display_name: "e336",
+      percent_estimate: 0,
+      percent_max: 0.400000000000006,
+      percent_min: 0,
+    }, {
+      id_name: "en:e500",
+      display_name: "e500",
+      percent_estimate: 0,
+      percent_max: 0.200000000000003,
+      percent_min: 0,
+    }, {
+      id_name: "en:e503",
+      display_name: "e503",
+      percent_estimate: 0,
+      percent_max: 0.133333333333335,
+      percent_min: 0,
+    }]
+  }
+}

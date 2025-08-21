@@ -1,7 +1,7 @@
-import React, { useMemo, useState } from "react";
-import { queryProductByEAN, QueryError } from "@/lib/productQuery";
-import type { ProductInfo } from "@/lib/productQuery";
-import { HARD_PROFILES, matchProduct } from "@/lib/matching";
+import { useMemo, useState } from "react";
+import { queryProductByEAN, QueryError } from "@/common/productQuery.ts";
+import type { ProductInfo } from "@/common/productQuery.ts";
+import { HARD_PROFILES, matchProduct } from "@/common/matching.ts";
 
 export default function ProductDemo() {
   const [ean, setEan] = useState("");
