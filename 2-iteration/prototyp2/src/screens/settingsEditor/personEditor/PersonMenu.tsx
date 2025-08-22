@@ -28,6 +28,9 @@ function savePeople(arr: Person[]) {
     localStorage.setItem(LS_PEOPLE_KEY, JSON.stringify(arr));
 }
 
+// TODO check if your code likes fine. I rebased and it _looked_ okay, but i didn't check thoroughly
+// TODO use useProfiles() hock, it does most of your save logic, (but also uses a different key)
+// TODO if we are gonna use this, this one needs some more styling, bit of color. Maybe stronger highlighting, borders, alternating background colors for the list, just something to spice it up
 export default function PersonMenu() {
     const [people, setPeople] = useState<Person[]>(loadPeople);
     const [selectedPersonId, setSelectedPersonId] = useState<string | null>(null);
