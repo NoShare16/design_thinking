@@ -33,7 +33,6 @@ export default function useBarCodeScanner(): UseBarcodeScannerReturn {
           !videoRef.current ? undefined : videoRef.current,
           (result, err) => {
             if (result) {
-              console.log('Scan-Ergebnis: ', result);
               setLastEAN(Number(result.getText()));
               setCurrentResult(Number(result.getText()));
             }
