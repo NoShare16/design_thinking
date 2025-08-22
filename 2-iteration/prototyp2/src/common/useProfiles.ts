@@ -9,11 +9,10 @@ interface useProfileReturn {
 }
 
 export default function useProfiles() : useProfileReturn {
-  const LS_PROFILES_KEY = "allergenProfiles";
-  const {value, set} = useLocalStorage<AllergenProfile[]>(LS_PROFILES_KEY, []);
+  const {value, set} = useLocalStorage<AllergenProfile[]>("allergenProfiles", []);
 
   const save = useCallback((toSave: AllergenProfile) => {
-    set([...value, toSave]);
+    set([...value.filter(value1 => value1.name !== toSave.name), toSave]);
   }, [value, set]);
 
   const remove = useCallback((name: string) => {

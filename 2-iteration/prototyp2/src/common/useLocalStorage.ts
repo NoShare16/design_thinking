@@ -1,4 +1,4 @@
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 export interface LocalStorageReturn<T> {
   value: T,
@@ -18,6 +18,8 @@ export function useLocalStorage<T>(id: string, initialValue: T): LocalStorageRet
       console.error("Error loading allergenProfiles: ", e);
     }
   }, [id, setValue]);
+
+  useEffect(() => loadProfiles(), [loadProfiles, id]);
 
   const save = useCallback((value: T) => {
     localStorage.setItem(id, JSON.stringify(value));
