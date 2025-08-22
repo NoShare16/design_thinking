@@ -184,6 +184,14 @@
 
 
 /*Popup*/
+.sheetContent {
+    /*overflow: scroll;*/
+}
+
+.detailSection {
+    padding: 0 1rem;
+}
+
 .carouselPerson {
     display: flex;
     flex-direction: column;
@@ -201,6 +209,8 @@
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
+    height: 100%;
+    padding-bottom: 1rem;
 }
 
 .carouselPerson > .resultContent > h3 {

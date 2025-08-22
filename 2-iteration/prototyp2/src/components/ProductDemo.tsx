@@ -1,9 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
-import { queryProductByEAN, QueryError } from "@/common/productQuery.ts";
-import type { ProductInfo } from "@/common/productQuery.ts";
-import { matchProduct, MatchLevel } from "@/common/matching";
-import type { Profile } from "@/common/matching.ts";
-import { loadProfiles } from "@/common/profileStorage";
+import {useEffect, useMemo, useState} from "react";
+import type {ProductInfo} from "@/common/productQuery.ts";
+import {QueryError, queryProductByEAN} from "@/common/productQuery.ts";
+import {MatchLevel, matchProduct} from "@/common/matching";
+import type {Profile} from "@/common/matching.ts";
+import {loadProfiles} from "@/common/profileStorage";
+import "./ProductDemo.css"
+import {DetailedProductInfos} from "@/components/DetailedProductInfos.tsx";
 
 export default function ProductDemo() {
   const [ean, setEan] = useState("");
@@ -56,8 +58,6 @@ export default function ProductDemo() {
         fontFamily: "system-ui, Segoe UI, Roboto, Inter, Arial, sans-serif",
       }}
     >
-      <StyleBlock />
-
       {/* Suche */}
       <section className="pd-card">
         <h2 className="pd-title">Produkt-Suche per EAN</h2>
@@ -97,41 +97,7 @@ export default function ProductDemo() {
 
       {/* Produktinfos */}
       {product && (
-        <section className="pd-card">
-          <h3 className="pd-subtitle">Produkt</h3>
-          <div className="pd-info">
-            <div className="pd-line">
-              <span className="pd-k">Name</span>
-              <span className="pd-v">{product.name || "–"}</span>
-            </div>
-            <div className="pd-line">
-              <span className="pd-k">Marke</span>
-              <span className="pd-v">{product.brand || "–"}</span>
-            </div>
-            <div className="pd-line">
-              <span className="pd-k">EAN</span>
-              <span className="pd-v">{product.ean}</span>
-            </div>
-            <div className="pd-line">
-              <span className="pd-k">Allergene (aus Quelle)</span>
-              <span className="pd-v">
-                {product.allergens.length
-                  ? product.allergens.join(", ")
-                  : "keine Angabe"}
-              </span>
-            </div>
-            <div className="pd-line">
-              <span className="pd-k">Zutaten</span>
-              <span className="pd-v">
-                {product.ingredients.length
-                  ? product.ingredients
-                      .map((i) => i.display_name || i.id_name)
-                      .join(", ")
-                  : "keine Angabe"}
-              </span>
-            </div>
-          </div>
-        </section>
+        <DetailedProductInfos product={product} className="pd-card"/>
       )}
 
       {/* Profile + Ergebnisanzeige (OK/BLOCK) */}
@@ -205,52 +171,5 @@ export default function ProductDemo() {
         </section>
       )}
     </div>
-  );
-}
-
-// kleines CSS als Component – hält alles in einer Datei
-function StyleBlock() {
-  return (
-    <style>{`
-      .pd-card{border:1px solid #e5e7eb;border-radius:16px;padding:16px;margin:14px 0;background:#fff}
-      .pd-title{margin:0 0 8px;font-size:22px;font-weight:800;color:#0f172a}
-      .pd-subtitle{margin:0 0 10px;font-size:16px;font-weight:700;color:#111827}
-      .pd-row{display:flex;gap:8px;align-items:center}
-      .pd-input{flex:1;border:1px solid #d1d5db;border-radius:10px;padding:10px 12px;font-size:14px}
-      .pd-btn{border:1px solid #111827;background:#111827;color:#fff;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}
-      .pd-btn[disabled]{opacity:.6;cursor:not-allowed}
-      .pd-btn--primary:hover{filter:brightness(1.05)}
-      .pd-error{margin-top:8px;color:#b91c1c;font-weight:600}
-      .pd-info{display:grid;gap:6px}
-      .pd-line{display:grid;grid-template-columns:160px 1fr;gap:8px;align-items:start}
-      .pd-k{font-size:13px;color:#6b7280}
-      .pd-v{font-size:14px;color:#111827}
-
-      /* Grid für viele Profile: 3 pro Zeile (min 220px) + Scroll */
-      .pd-profiles-grid{
-        display:grid;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap:10px;
-        max-height:320px;
-        overflow:auto;
-        padding-right:4px;
-      }
-
-      .pd-empty{color:#6b7280}
-      .pd-profile{border:1px solid #e5e7eb;border-radius:12px;padding:10px 12px}
-      .pd-profile--ok{background:#f0fdf4;border-color:#bbf7d0}
-      .pd-profile--block{background:#fef2f2;border-color:#fecaca}
-      .pd-pill{display:flex;gap:8px;align-items:center;justify-content:space-between}
-      .pd-dot{width:10px;height:10px;border-radius:999px;background:#10b981;box-shadow:0 0 0 2px #fff}
-      .pd-profile--block .pd-dot{background:#ef4444}
-      .pd-profile-name{font-weight:700;color:#111827}
-      .pd-badge{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;font-weight:700}
-      .pd-badge--ok{border-color:#86efac;color:#065f46}
-      .pd-badge--block{border-color:#fecaca;color:#991b1b}
-      .pd-reasons{margin-top:8px;font-size:13px;color:#991b1b}
-      @media (max-width: 520px){
-        .pd-line{grid-template-columns:1fr}
-      }
-    `}</style>
   );
 }

@@ -12,6 +12,7 @@ import AlertIconBare from "@/assets/explamation_mark.tsx";
 import {Allergen} from "@/common/Allergens.ts";
 import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/shadcn/components/ui/sheet.tsx";
 import {Carousel, CarouselContent, CarouselItem} from "@/shadcn/components/ui/carousel.tsx";
+import {DetailedProductInfos} from "@/components/DetailedProductInfos.tsx";
 
 export default function ProductScanner() {
   const {lastEAN, videoRef, currentResult} = useBarCodeScanner();
@@ -35,7 +36,7 @@ export default function ProductScanner() {
 
 function ResultCard({product, warnings}: { product: ProductInfo, warnings: FoodWarningReturn[] }) {
   const hasAWarning = warnings.map(value => value.has_warning).reduce((a, b) => a || b);
-  return <DetailPopup warnings={warnings}>
+  return <DetailPopup warnings={warnings} product={product}>
     <div className={hasAWarning ? "hasWarning productScannerCard" : "isOkay productScannerCard"}>
       <div className="productInfo">
         <div className="imageContainer">
@@ -85,39 +86,49 @@ function PersonResult({warning}: { warning: FoodWarningReturn }) {
 type DetailPopupProps = {
   children: ReactNode;
   warnings: FoodWarningReturn[]
+  product: ProductInfo;
 };
 
-function DetailPopup({warnings, children}: DetailPopupProps) {
+function DetailPopup({warnings, children, product}: DetailPopupProps) {
   return <Sheet>
     <SheetTrigger className="sheetTrigger">
       {children}
     </SheetTrigger>
-    <SheetContent side="bottom" style={{height: "100%", backgroundColor: "white"}}>
+    <SheetContent side="bottom" style={{backgroundColor: "white", height: "100%"}}>
       <SheetHeader>
-        <SheetTitle className="sheetTitle">
-          Warning results
-        </SheetTitle>
+        <SheetTitle className="sheetTitle">Details</SheetTitle>
       </SheetHeader>
-      <Carousel orientation="horizontal" opts={{loop: true}}>
-        <CarouselContent>
-          {warnings.map((value) =>
-            <CarouselItem className="carouselPerson">
-              <CircularWarningIcon isWarning={value.has_warning} style={{width: "5rem"}}/>
-              <h2>{value.person_name}</h2>
-              <div className="resultContent">
-                <h3>Allergens:</h3>
-                <div>
-                  {value.matching_allergens.map(v => <div>{Allergen[v]}</div>)}
-                </div>
-                <h3>Incompatible ingredients:</h3>
-                <div>
-                  {value.matching_ingredients.map(v => <div>{v}</div>)}
-                </div>
-              </div>
-            </CarouselItem>
-          )}
-        </CarouselContent>
-      </Carousel>
+      <div className="sheetContent">
+        <DetailedProductInfos product={product} className="detailSection"/>
+        <div className="detailSection">
+          <h3 className="pd-subtitle">Personen:</h3>
+          <Carousel orientation="horizontal" opts={{loop: true}}>
+            <CarouselContent>
+              {warnings.map((value) =>
+                <CarouselItem className="carouselPerson">
+                  <CircularWarningIcon isWarning={value.has_warning} style={{width: "5rem"}}/>
+                  <h2>{value.person_name}</h2>
+                  <div className="resultContent">
+                    <h3>Allergens:</h3>
+                    <div>
+                      {value.matching_allergens.map(v => <div>{Allergen[v]}</div>)}
+                    </div>
+                    <h3>Incompatible ingredients:</h3>
+                    <div>
+                      {value.matching_ingredients.map(v => <div>{v}</div>)}
+                      {value.matching_ingredients.map(v => <div>{v}</div>)}
+                      {value.matching_ingredients.map(v => <div>{v}</div>)}
+                      {value.matching_ingredients.map(v => <div>{v}</div>)}
+                      {value.matching_ingredients.map(v => <div>{v}</div>)}
+                      <div>ENDE</div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              )}
+            </CarouselContent>
+          </Carousel>
+        </div>
+      </div>
     </SheetContent>
   </Sheet>
 }
