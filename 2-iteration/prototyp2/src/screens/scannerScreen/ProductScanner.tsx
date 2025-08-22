@@ -1,7 +1,7 @@
 import "./ProductScanner.css"
 import {ArrowLeft, Check} from "lucide-react";
 import useBarCodeScanner from "@/common/barcodeScanner/UseBarCodeScanner.ts";
-import {type HTMLAttributes} from "react";
+import {type HTMLAttributes, type ReactNode} from "react";
 import useEANQueryMock from "@/common/eanQuery/useEANQueryMock.ts";
 import {type ProductInfo} from "@/common/eanQuery/useEANQuery.ts";
 import useFoodWarningMock, {type FoodWarningReturn} from "@/common/warningGenerator/useFoodWarningMock.ts";
@@ -14,12 +14,11 @@ import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/shad
 import {Carousel, CarouselContent, CarouselItem} from "@/shadcn/components/ui/carousel.tsx";
 
 export default function ProductScanner() {
-  const {lastEAN, videoRef} = useBarCodeScanner();
+  const {lastEAN, videoRef, currentResult} = useBarCodeScanner();
   const queryResult = useEANQueryMock(lastEAN)
   const isQueryErr = typeof queryResult === "string";
   const {profiles} = useProfiles();
   const warning = useFoodWarningMock(profiles, !isQueryErr ? queryResult : undefined)
-
 
   return <div className="productScannerScreen">
     <header>
@@ -28,35 +27,42 @@ export default function ProductScanner() {
     </header>
     <div className="contentBody">
       <video className="viewFinder productScannerCard" ref={videoRef} autoPlay muted playsInline/>
-      {/*<div>{currentResult.toString()}</div>*/}
-      {!isQueryErr && <ProductInfoBox product={queryResult}/>}
-      {<WarningResults warnings={warning}/>}
+      {!isQueryErr && <ResultCard product={queryResult} warnings={warning}/>}
+      {isQueryErr && currentResult.toString()}
     </div>
   </div>
 }
 
-function ProductInfoBox({product}: { product: ProductInfo }) {
+function ResultCard({product, warnings}: { product: ProductInfo, warnings: FoodWarningReturn[] }) {
+  const hasAWarning = warnings.map(value => value.has_warning).reduce((a, b) => a || b);
   //TODO sheet with detailed product infos
-  return <div className="productInfo productScannerCard">
-    <div className="imageContainer">
-      <img src={product.display_image} alt={"Image of " + product.name}/>
-    </div>
-    <div className="content">
-      <h1 className="title">{product.name}</h1>
-    </div>
-  </div>;
-}
-
-
-interface CircularWarningIconProps extends HTMLAttributes<HTMLDivElement> {
-  isWarning: boolean
-}
-
-function CircularWarningIcon(props: CircularWarningIconProps) {
-  return <div className={props.isWarning ? "circleIcon isWarning" : "circleIcon"} {...props}>
-    {props.isWarning ? <AlertIconBare/> :
-      <Check/>}
-  </div>;
+  return <DetailPopup warnings={warnings}>
+    <div className={hasAWarning ? "hasWarning productScannerCard" : "isOkay productScannerCard"}>
+      <div className="productInfo">
+        <div className="imageContainer">
+          <img src={product.display_image} alt={"Image of " + product.name}/>
+        </div>
+        <div className="content">
+          <h1>{product.name}</h1>
+          <h3>EAN: #{product.ean}</h3>
+          <h2>{product.brand}</h2>
+        </div>
+      </div>
+      <hr/>
+      <div className="warnings">
+        <div className="headline">
+          {hasAWarning ? <DiamondAlertIcon className="warningIcon"/> :
+            <DiamondCheckIcon className="okIcon"/>}
+          <p>{hasAWarning ? "Warning" : "Okay"}</p>
+        </div>
+        <div className="personList">
+          {warnings.map((value, i) => <>
+            <PersonResult key={i} warning={value}/>
+            <div className="verticalSeparator"/>
+          </>)}
+        </div>
+      </div>    </div>
+  </DetailPopup>;
 }
 
 function PersonResult({warning}: { warning: FoodWarningReturn }) {
@@ -70,29 +76,21 @@ function PersonResult({warning}: { warning: FoodWarningReturn }) {
     <div className="name">{warning.person_name}</div>
     <div className="warningCauseList">
       {causeHint.length > 3 && causeHint.slice(0, 2).map(value => <div key={value} className="warning">{value}</div>)}
-      {causeHint.length > 3 && <div className="warning">and {causeHint.length -2} others...</div>}
+      {causeHint.length > 3 && <div className="warning">and {causeHint.length - 2} others...</div>}
       {causeHint.length <= 3 && causeHint.map(value => <div key={value} className="warning">{value}</div>)}
     </div>
   </div>;
 }
 
-function WarningResults({warnings}: { warnings: FoodWarningReturn[] }) {
-  const hasAWarning = warnings.map(value => value.has_warning).reduce((a, b) => a || b);
+type DetailPopupProps = {
+  children: ReactNode;
+  warnings: FoodWarningReturn[]
+};
+
+function DetailPopup({warnings, children}: DetailPopupProps) {
   return <Sheet>
     <SheetTrigger>
-      <div className="result productScannerCard">
-        <div className="headline">
-          {hasAWarning ? <DiamondAlertIcon className="warningIcon"/> :
-            <DiamondCheckIcon className="okIcon"/>}
-          <p>Warning</p>
-        </div>
-        <div className="personList">
-          {warnings.map((value, i) => <>
-            <PersonResult key={i} warning={value}/>
-            <div className="verticalSeparator"/>
-          </>)}
-        </div>
-      </div>
+      {children}
     </SheetTrigger>
     <SheetContent side="bottom" style={{height: "100%", backgroundColor: "white"}}>
       <SheetHeader>
@@ -122,4 +120,15 @@ function WarningResults({warnings}: { warnings: FoodWarningReturn[] }) {
       </Carousel>
     </SheetContent>
   </Sheet>
+}
+
+interface CircularWarningIconProps extends HTMLAttributes<HTMLDivElement> {
+  isWarning: boolean
+}
+
+function CircularWarningIcon(props: CircularWarningIconProps) {
+  return <div className={props.isWarning ? "circleIcon isWarning" : "circleIcon"} {...props}>
+    {props.isWarning ? <AlertIconBare/> :
+      <Check/>}
+  </div>;
 }
