@@ -1,49 +1,9 @@
-import type { ProductInfo } from "@/common/productQuery.ts";
-
-// OFF-Allergene, erlaubte Codes (normalisiert)
-const RAW_ALLOWED = [
-  "pork",
-  "fish",
-  "celery",
-  "peanuts",
-  "sulphur_dioxide_and_sulphites",
-  "crustaceans",
-  "beef",
-  "eggs",
-  "lupin",
-  "apple",
-  "gluten",
-  "nuts",
-  "soybeans",
-  "orange",
-  "milk",
-  "matsutake",
-  "kiwi",
-  "none",
-  "gelatin",
-  "peach",
-  "sesame_seeds",
-  "banana",
-  "yamaimo",
-  "chicken",
-  "molluscs",
-  "mustard",
-  "red_caviar",
-] as const;
+import type {ProductInfo} from "@/common/productQuery.ts";
+import type {AllergenProfile} from "@/common/model/AllergenProfile.ts";
 
 const norm = (s: string) => s.trim().toLowerCase().replace(/_/g, "-");
 const stripLocalePrefix = (t: string) => t.replace(/^[a-z]{2,3}:/i, "");
-const slug = (s: string) =>
-  norm(stripLocalePrefix(s)).replace(/[^a-z0-9]+/g, "-");
-export const ALLOWED_ALLERGENS = new Set(Array.from(RAW_ALLOWED, norm));
-
-// Typen
-export interface Profile {
-  id: string;
-  name: string;
-  allergens: string[]; // OFF-Codes, normalisiert
-  ingredients: string[]; // freie Begriffe
-}
+const slug = (s: string) => norm(stripLocalePrefix(s)).replace(/[^a-z0-9]+/g, "-");
 
 export const MatchLevel = { OK: "ok", BLOCK: "block" } as const;
 export type MatchLevel = (typeof MatchLevel)[keyof typeof MatchLevel];
@@ -69,10 +29,8 @@ function unique<T>(arr: T[]): T[] {
 }
 
 // Allergene↔︎Allergene (strikt via OFF-Codes)
-function matchAllergens(profile: Profile, product: ProductInfo): string[] {
-  const productAllergens = new Set(
-    product.allergens.map(norm).filter((code) => ALLOWED_ALLERGENS.has(code))
-  );
+function matchAllergens(profile: AllergenProfile, product: ProductInfo): string[] {
+  const productAllergens = new Set(product.allergens.map(norm));
   const hits: string[] = [];
   for (const code of profile.allergens) {
     if (productAllergens.has(code)) hits.push(code);
@@ -81,7 +39,7 @@ function matchAllergens(profile: Profile, product: ProductInfo): string[] {
 }
 
 // Ingredients↔︎Ingredients (Slug-Gleichheit/Enthalten)
-function matchIngredients(profile: Profile, product: ProductInfo): string[] {
+function matchIngredients(profile: AllergenProfile, product: ProductInfo): string[] {
   const terms = profile.ingredients.map(slug);
   if (terms.length === 0) return [];
 
@@ -106,10 +64,11 @@ function matchIngredients(profile: Profile, product: ProductInfo): string[] {
 
 // Kern
 export function matchProduct(
-  profile: Profile,
+  profile: AllergenProfile,
   product: ProductInfo
 ): MatchResult {
   const matchedAllergens = matchAllergens(profile, product);
+  // TODO commented out because the ingredients are not yet saved to the profile, so ingredients would be undefined
   // const matchedIngredients = matchIngredients(profile, product);
   const matchedIngredients: string[] = [];
 

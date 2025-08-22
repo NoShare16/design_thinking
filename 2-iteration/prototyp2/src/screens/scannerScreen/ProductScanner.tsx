@@ -1,76 +1,22 @@
 import "./ProductScanner.css"
 import {ArrowLeft, Check} from "lucide-react";
-import useBarCodeScanner from "@/common/barcodeScanner/UseBarCodeScanner.ts";
-import {type HTMLAttributes, type ReactNode, useEffect, useState} from "react";
+import useBarCodeScanner from "@/common/hooks/useBarCodeScanner.ts";
+import {type HTMLAttributes, type ReactNode} from "react";
 import {type FoodWarningReturn} from "@/common/warningGenerator/useFoodWarningMock.ts";
-import useProfiles from "@/common/useProfiles.ts";
 import DiamondAlertIcon from "@/assets/diamond_alert.tsx";
 import DiamondCheckIcon from "@/assets/diamond_check.tsx";
 import AlertIconBare from "@/assets/explamation_mark.tsx";
-import {Allergen} from "@/common/Allergens.ts";
 import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/shadcn/components/ui/sheet.tsx";
 import {Carousel, CarouselContent, CarouselItem} from "@/shadcn/components/ui/carousel.tsx";
 import {DetailedProductInfos} from "@/components/DetailedProductInfos.tsx";
-import {type ProductInfo, QueryError, queryProductByEAN} from "@/common/productQuery.ts";
-import type {EANNumber} from "@/common/EANNumber.ts";
-import {matchProduct} from "@/common/matching.ts";
-
-function useEANQuery(ean: EANNumber) {
-  const [product, setProduct] = useState<ProductInfo|undefined>(undefined)
-  const [error, setError] = useState<string|undefined>("")
-  const [loading, setLoading] = useState<boolean>(true)
-
-  useEffect(() => {
-    setLoading(true);
-    setError(undefined);
-
-    (async () => {
-      try {
-        const data = await queryProductByEAN(ean.toString());
-        setProduct(data);
-      } catch (e: unknown) {
-        if (e instanceof Error && e.message === QueryError.NOT_FOUND) {
-          setError("Produkt nicht gefunden.");
-        } else if (e instanceof Error) {
-          setError("Fehler: " + e.message);
-        } else {
-          setError("Unbekannter Fehler");
-        }
-      } finally {
-        setLoading(false);
-      }
-    })()
-  },[ean])
-  return {product, error, loading};
-}
-
-function useWarning(product: ProductInfo | undefined) {
-  const {profiles} = useProfiles();
-  const [warnings, setWarnings] = useState<FoodWarningReturn[]>([])
-
-  useEffect(() => {
-    if (!product) {
-      setWarnings([])
-    } else {
-      const map = profiles.map((p) => {
-        const d = matchProduct(p, product);
-        return {
-          person_name: p.name,
-          matching_allergens: d.matchedAllergens,
-          matching_ingredients: d.matchedIngredients,
-          has_warning: d.matchedIngredients.length + d.matchedIngredients.length > 0
-        }
-      });
-      setWarnings(map);
-    }
-  }, [product, profiles]);
-  return warnings;
-}
+import {type ProductInfo} from "@/common/productQuery.ts";
+import {useFoodWarnings} from "@/common/hooks/useFoodWarnings.ts";
+import {useEANQuery} from "@/common/hooks/useEANQuery.ts";
 
 export default function ProductScanner() {
   const {lastEAN, videoRef, currentResult} = useBarCodeScanner();
   const {product, error, loading} = useEANQuery(lastEAN);
-  const warning = useWarning(product)
+  const warning = useFoodWarnings(product)
 
   return <div className="productScannerScreen">
     <header>
@@ -162,7 +108,7 @@ function DetailPopup({warnings, children, product}: DetailPopupProps) {
                   <div className="resultContent">
                     <h3>Allergens:</h3>
                     <div>
-                      {value.matching_allergens.map(v => <div>{Allergen[v]}</div>)}
+                      {value.matching_allergens.map(v => <div>{v}</div>)}
                     </div>
                     <h3>Incompatible ingredients:</h3>
                     <div>

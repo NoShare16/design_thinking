@@ -27,34 +27,3 @@ export enum Allergen {
     mustard,
     red_caviar
 }
-
-export const allergenMatcher = new Map([
-    ["en:pork", Allergen.pork],
-    ["en:fish", Allergen.fish],
-    ["en:celery", Allergen.celery],
-    ["en:peanuts", Allergen.peanuts],
-    ["en:sulphur-dioxide-and-sulphites", Allergen.sulphur_dioxide_and_sulphites],
-    ["en:crustaceans", Allergen.crustaceans],
-    ["en:beef", Allergen.beef],
-    ["en:eggs", Allergen.eggs],
-    ["en:lupin", Allergen.lupin],
-    ["en:apple", Allergen.apple],
-    ["en:gluten", Allergen.gluten],
-    ["en:nuts", Allergen.nuts],
-    ["en:soybeans", Allergen.soybeans],
-    ["en:orange", Allergen.orange],
-    ["en:milk", Allergen.milk],
-    ["en:matsutake", Allergen.matsutake],
-    ["en:kiwi", Allergen.kiwi],
-    ["en:none", Allergen.none],
-    ["en:gelatin", Allergen.gelatin],
-    ["en:peach", Allergen.peach],
-    ["en:sesame-seeds", Allergen.sesame_seeds],
-    ["en:banana", Allergen.banana],
-    ["en:yamaimo", Allergen.yamaimo],
-    ["en:chicken", Allergen.chicken],
-    ["en:molluscs", Allergen.molluscs],
-    ["en:mustard", Allergen.mustard],
-    ["en:red-caviar", Allergen.red_caviar],
-])
-

@@ -1,6 +1,6 @@
-import type {AllergenProfile} from "@/common/AllergenProfile.ts";
+import type {AllergenProfile} from "@/common/model/AllergenProfile.ts";
 import {useCallback} from "react";
-import {useLocalStorage} from "@/common/useLocalStorage.ts";
+import {useLocalStorage} from "@/common/hooks/useLocalStorage.ts";
 
 interface useProfileReturn {
   profiles: AllergenProfile[];

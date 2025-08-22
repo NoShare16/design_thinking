@@ -1,8 +1,8 @@
 import {type RefObject, useEffect, useRef, useState} from "react";
 import {Exception as ZxingError} from "@zxing/library";
 import {BrowserMultiFormatReader, type IScannerControls} from "@zxing/browser";
-import type {EANNumber} from "@/common/EANNumber.ts";
-import usePrimaryCamera from "@/common/barcodeScanner/UsePrimaryCamera.ts";
+import type {EANNumber} from "@/common/model/EANNumber.ts";
+import usePrimaryCamera from "@/common/hooks/usePrimaryCamera.ts";
 
 interface UseBarcodeScannerReturn {
   videoRef: RefObject<HTMLVideoElement | null>,
