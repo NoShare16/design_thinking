@@ -15,6 +15,14 @@
     border-color: lightgreen;
 }
 
+.textCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
 /*Page Stack Simulation*/
 .productScannerScreen {
     height: 100%;

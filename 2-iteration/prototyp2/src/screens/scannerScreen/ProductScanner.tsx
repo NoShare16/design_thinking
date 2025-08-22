@@ -1,7 +1,7 @@
 import "./ProductScanner.css"
 import {ArrowLeft, Check} from "lucide-react";
 import useBarCodeScanner from "@/common/hooks/useBarCodeScanner.ts";
-import {type HTMLAttributes, type ReactNode} from "react";
+import {type HTMLAttributes, type ReactNode, useEffect, useState} from "react";
 import {type FoodWarningReturn} from "@/common/warningGenerator/useFoodWarningMock.ts";
 import DiamondAlertIcon from "@/assets/diamond_alert.tsx";
 import DiamondCheckIcon from "@/assets/diamond_check.tsx";
@@ -15,10 +15,17 @@ import {useEANQuery} from "@/common/hooks/useEANQuery.ts";
 import {useNavigate} from "react-router-dom";
 
 export default function ProductScanner() {
-  const {lastEAN, videoRef, currentResult} = useBarCodeScanner();
-  const {product, error, loading} = useEANQuery(lastEAN);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const {lastEAN, videoRef, error: scannerError} = useBarCodeScanner();
+  const {product, error: queryError, loading} = useEANQuery(lastEAN);
   const warning = useFoodWarnings(product)
   const nav = useNavigate();
+
+  useEffect(() => {
+    if (lastEAN != 0) {
+      setIsInitialLoad(false);
+    }
+  }, [lastEAN]);
 
   return <div className="productScannerScreen">
     <header onClick={() => nav("/")}>
@@ -27,15 +34,20 @@ export default function ProductScanner() {
     </header>
     <div className="contentBody">
       <video className="viewFinder productScannerCard" ref={videoRef} autoPlay muted playsInline/>
-      {!error && !loading && warning.length > 0 && <ResultCard product={product!} warnings={warning}/>}
-      {error && currentResult.toString()}
-      {error && error}
+      {!isInitialLoad && product && <ResultCard product={product!} warnings={warning}/>}
+      {isInitialLoad &&
+        <div className="productScannerCard textCard">Halte ein Produkt in die mitte der Kamera um es zu scannen</div>}
+      {loading && <div className="productScannerCard textCard">Loading...</div>}
+      {scannerError && <div className="productScannerCard textCard">
+        {"Es ist ein Fehler beim Scannen des Produktes aufgetreten: " + scannerError.toString()}
+      </div>}
+      {queryError && <div className="productScannerCard textCard">{queryError.toString()}</div>}
     </div>
   </div>
 }
 
 function ResultCard({product, warnings}: { product: ProductInfo, warnings: FoodWarningReturn[] }) {
-  const hasAWarning = warnings.map(value => value.has_warning).reduce((a, b) => a || b);
+  const hasAWarning = warnings.map(value => value.has_warning).reduce((a, b) => a || b, false);
   return <DetailPopup warnings={warnings} product={product}>
     <div className={hasAWarning ? "hasWarning productScannerCard" : "isOkay productScannerCard"}>
       <div className="productInfo">
@@ -115,11 +127,6 @@ function DetailPopup({warnings, children, product}: DetailPopupProps) {
                     <h3>Incompatible ingredients:</h3>
                     <div>
                       {value.matching_ingredients.map(v => <div>{v}</div>)}
-                      {value.matching_ingredients.map(v => <div>{v}</div>)}
-                      {value.matching_ingredients.map(v => <div>{v}</div>)}
-                      {value.matching_ingredients.map(v => <div>{v}</div>)}
-                      {value.matching_ingredients.map(v => <div>{v}</div>)}
-                      <div>ENDE</div>
                     </div>
                   </div>
                 </CarouselItem>
