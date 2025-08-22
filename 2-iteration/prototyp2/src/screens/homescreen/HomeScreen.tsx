@@ -21,7 +21,6 @@ export default function HomeScreen() {
             aria-label="Neues Profil anlegen"
             onClick={() => navigate("/product_demo")}
           >🔎 Demo Query</button>
-          {/*TODO fix path when done*/}
           <button
             className="btn btn--neutral"
             title="Profile verwalten"

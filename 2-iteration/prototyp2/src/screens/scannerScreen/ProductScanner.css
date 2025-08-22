@@ -168,7 +168,6 @@
     border: 2px solid black;
     padding: .3rem;
     margin: .3rem;
-    /*TODO bad green*/
     background-color: lightgreen;
     aspect-ratio: 1;
     display: flex;

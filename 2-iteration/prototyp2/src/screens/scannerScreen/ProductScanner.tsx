@@ -12,14 +12,16 @@ import {DetailedProductInfos} from "@/components/DetailedProductInfos.tsx";
 import {type ProductInfo} from "@/common/productQuery.ts";
 import {useFoodWarnings} from "@/common/hooks/useFoodWarnings.ts";
 import {useEANQuery} from "@/common/hooks/useEANQuery.ts";
+import {useNavigate} from "react-router-dom";
 
 export default function ProductScanner() {
   const {lastEAN, videoRef, currentResult} = useBarCodeScanner();
   const {product, error, loading} = useEANQuery(lastEAN);
   const warning = useFoodWarnings(product)
+  const nav = useNavigate();
 
   return <div className="productScannerScreen">
-    <header>
+    <header onClick={() => nav("/")}>
       <ArrowLeft/>
       <h1>ProductScanner</h1>
     </header>

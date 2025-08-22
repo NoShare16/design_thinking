@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./profile-manager.css";
+import {useNavigate, useNavigation} from "react-router-dom";
 
 // Storage key
 const LS_PROFILES_KEY = "allergenProfiles"; // Array<Profile>
@@ -80,6 +81,7 @@ function ProfileForm({ onSave }) {
     <form onSubmit={submit} className="pm-form">
       <div className="pm-field">
         <label>Profilname</label>
+        {/*TODO bitte 'Nutten' fixen*/}
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -144,8 +146,11 @@ function ProfilesList({ profiles, onDelete }) {
 }
 
 // Main component
-export default function ProfileManager({ onBack }) {
+export default function ProfileManager() {
+  // TODO also has the same scrolling issue
+  // TODO man kann noch keine Ingredients hinzufügen
   const [profiles, setProfiles] = useState(loadProfiles);
+  const nav = useNavigate();
 
   useEffect(() => {
     saveProfiles(profiles);
@@ -163,11 +168,9 @@ export default function ProfileManager({ onBack }) {
     <div className="pm">
       <div className="pm-header">
         <div className="pm-title">Profile</div>
-        {onBack && (
-          <button className="pm-btn" onClick={onBack}>
+          <button className="pm-btn" onClick={() => nav("/")}>
             ← Zurück
           </button>
-        )}
       </div>
 
       <ProfileForm onSave={onSave} />

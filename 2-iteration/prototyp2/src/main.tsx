@@ -21,7 +21,8 @@ const router = createBrowserRouter(
       <Route path="/productScanner" element={<ProductScanner/>}/>
       {/*Temp for testing \/*/}
       <Route path="/allergenSelectorTest" element={<AllergenSelectorTest/>}/>
-      <Route path="/profile_manager" element={<ProfileManager/>}/><Route path="/person" element={<PersonMenu/>}/>
+      <Route path="/profile_manager" element={<ProfileManager/>}/>
+      <Route path="/person" element={<PersonMenu/>}/>
       <Route path="/product_demo" element={<ProductDemo/>}/>
       <Route path="/person" element={<PersonMenu/>}/>
     </>
