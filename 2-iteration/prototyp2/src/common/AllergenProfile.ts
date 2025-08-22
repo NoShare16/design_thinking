@@ -1,6 +1,6 @@
-import type {Allergen} from "@/common/Allergens.ts";
-
 export interface AllergenProfile {
+  id: string;
   name: string;
-  allergens: Allergen[];
+  allergens: string[];
+  ingredients: string[];
 }

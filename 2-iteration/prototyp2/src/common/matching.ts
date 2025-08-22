@@ -110,7 +110,8 @@ export function matchProduct(
   product: ProductInfo
 ): MatchResult {
   const matchedAllergens = matchAllergens(profile, product);
-  const matchedIngredients = matchIngredients(profile, product);
+  // const matchedIngredients = matchIngredients(profile, product);
+  const matchedIngredients: string[] = [];
 
   if (matchedAllergens.length > 0 || matchedIngredients.length > 0) {
     return { level: MatchLevel.BLOCK, matchedAllergens, matchedIngredients };
