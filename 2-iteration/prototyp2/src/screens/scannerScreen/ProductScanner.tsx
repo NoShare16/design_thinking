@@ -35,7 +35,6 @@ export default function ProductScanner() {
 
 function ResultCard({product, warnings}: { product: ProductInfo, warnings: FoodWarningReturn[] }) {
   const hasAWarning = warnings.map(value => value.has_warning).reduce((a, b) => a || b);
-  //TODO sheet with detailed product infos
   return <DetailPopup warnings={warnings}>
     <div className={hasAWarning ? "hasWarning productScannerCard" : "isOkay productScannerCard"}>
       <div className="productInfo">
@@ -61,7 +60,8 @@ function ResultCard({product, warnings}: { product: ProductInfo, warnings: FoodW
             <div className="verticalSeparator"/>
           </>)}
         </div>
-      </div>    </div>
+      </div>
+    </div>
   </DetailPopup>;
 }
 
@@ -89,7 +89,7 @@ type DetailPopupProps = {
 
 function DetailPopup({warnings, children}: DetailPopupProps) {
   return <Sheet>
-    <SheetTrigger>
+    <SheetTrigger className="sheetTrigger">
       {children}
     </SheetTrigger>
     <SheetContent side="bottom" style={{height: "100%", backgroundColor: "white"}}>
