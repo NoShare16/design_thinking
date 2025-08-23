@@ -2,14 +2,18 @@ import { useEffect, useState } from "react";
 import PersonSelector from "./PersonSelector.tsx";
 import { PersonConfigPanel } from "./PersonConfigPanel.tsx";
 import { AddButton } from "@/shadcn/components/ui/addButton.tsx";
+import { X } from "lucide-react";
+import "./PersonMenu.css";
+import {useNavigate} from "react-router-dom";
 
 interface Person {
     id: string;
     name: string;
     allergens: string[];
+    ingredients: string[];
 }
 
-const LS_PEOPLE_KEY = "aa_people";
+const LS_PEOPLE_KEY = "allergenProfiles";
 
 // Load from localStorage
 function loadPeople(): Person[] {
@@ -53,48 +57,60 @@ export default function PersonMenu() {
     };
 
     const selectedPerson = people.find(p => p.id === selectedPersonId) || null;
+    const navigate = useNavigate();
 
     return (
-        <div style={{ display: "flex", gap: 20 }}>
-            <div>
-                <h3>Personen</h3>
-
-                {/* zeigt existierende Personen; kein Hinzufügen hier */}
-                <PersonSelector
-                    people={people}
-                    onSelect={openPerson}
-                    onRemove={removePerson}
-                />
-
-                {/* Neue Person anlegen: erst beim Speichern wirklich in people einfügen */}
-                <AddButton
-                    onClick={() => {
-                        const id = "new-" + Date.now();
-                        setSelectedPersonId(id);
-                        setAddingNew(true);
-                    }}
-                />
+        <div className="personMenuLayout">
+            <div className="personMenuSidebar">
+                <div className="sidebarHeader">
+                    <button
+                        className="closeButton"
+                        onClick={() => navigate("/*")}
+                        aria-label="Schließen"
+                    >
+                        <X size={30} />
+                    </button>
+                </div>
+                <div className="sidebarSearch">
+                    <PersonSelector
+                        people={people}
+                        onSelect={openPerson}
+                        onRemove={removePerson}
+                    />
+                </div>
+                <div className="sidebarFooter">
+                    <AddButton className="btn btn--accent"
+                        onClick={() => {
+                            const id = "new-" + Date.now();
+                            setSelectedPersonId(id);
+                            setAddingNew(true);
+                        }}>
+                    </AddButton>
+                </div>
             </div>
 
             {selectedPersonId && (
-                <PersonConfigPanel
-                    person={
-                        addingNew
-                            ? { id: selectedPersonId, name: "", allergens: [] }
-                            : (selectedPerson as Person)
-                    }
-                    update={(updated) => {
-                        if (addingNew) {
-                            // neu anlegen
-                            setPeople(prev => [...prev, updated]);
-                            setAddingNew(false);
-                        } else {
-                            // vorhandene Person per id ersetzen
-                            setPeople(prev => prev.map(p => (p.id === updated.id ? updated : p)));
+                <div className="fullscreenPanel">
+                    <PersonConfigPanel
+                        person={
+                            addingNew
+                                ? { id: selectedPersonId, name: "", allergens: [], ingredients: [] }
+                                : (selectedPerson as Person)
                         }
-                        setSelectedPersonId(null);
-                    }}
-                />
+                        update={(updated) => {
+                            if (addingNew) {
+                                setPeople((prev) => [...prev, updated]);
+                                setAddingNew(false);
+                                setSelectedPersonId(updated.id);
+                            } else {
+                                setPeople((prev) =>
+                                    prev.map((p) => (p.id === updated.id ? updated : p))
+                                );
+                            }
+                            setSelectedPersonId(null);
+                        }}
+                    />
+                </div>
             )}
         </div>
     );

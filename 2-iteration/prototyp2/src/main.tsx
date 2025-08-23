@@ -10,9 +10,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import AllergenSelectorTest from "@/screens/settingsEditor/allergenSelector/AllergenSelectorTest.tsx";
-import ProfileManager from "@/screens/settingsEditor/profile_manager/ProfileManager.tsx";
 import ProductScanner from "@/screens/scannerScreen/ProductScanner.tsx";
 import PersonMenu from "@/screens/settingsEditor/personEditor/PersonMenu.tsx";
+import {PersonConfigPanel} from "@/screens/settingsEditor/personEditor/PersonConfigPanel.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromChildren(
@@ -21,8 +21,8 @@ const router = createBrowserRouter(
       <Route path="/productScanner" element={<ProductScanner/>}/>
       {/*Temp for testing \/*/}
       <Route path="/allergenSelectorTest" element={<AllergenSelectorTest/>}/>
-      <Route path="/profile_manager" element={<ProfileManager/>}/>
       <Route path="/person" element={<PersonMenu/>}/>
+      <Route path="/person/:id" element={<PersonConfigPanel />}/>
       <Route path="/product_demo" element={<ProductDemo/>}/>
     </>
   )

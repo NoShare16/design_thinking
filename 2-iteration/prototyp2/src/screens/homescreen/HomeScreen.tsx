@@ -25,7 +25,7 @@ export default function HomeScreen() {
             className="btn btn--neutral"
             title="Profile verwalten"
             aria-label="Profile verwalten"
-            onClick={() => navigate("/profile_manager")}
+            onClick={() => navigate("/person")}
           >⚙️ Profile verwalten</button>
           <button
             className="btn btn--accent"

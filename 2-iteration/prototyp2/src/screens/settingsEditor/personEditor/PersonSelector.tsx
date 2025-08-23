@@ -5,6 +5,7 @@ interface Person {
     id: string;
     name: string;
     allergens: string[];
+    ingredients: string[];
 }
 
 interface Props {
@@ -26,7 +27,7 @@ export default function PersonSelector({ people, onSelect, onRemove }: Props) {
                             onSelect={() => onSelect(p.id)}
                         >
                             <div>
-                                {p.name}
+                                🚹{p.name}
                                 <button
                                     type="button"
                                     className="selectionIcon"

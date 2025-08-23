@@ -68,9 +68,7 @@ export function matchProduct(
   product: ProductInfo
 ): MatchResult {
   const matchedAllergens = matchAllergens(profile, product);
-  // TODO commented out because the ingredients are not yet saved to the profile, so ingredients would be undefined
-  // const matchedIngredients = matchIngredients(profile, product);
-  const matchedIngredients: string[] = [];
+  const matchedIngredients = matchIngredients(profile, product);
 
   if (matchedAllergens.length > 0 || matchedIngredients.length > 0) {
     return { level: MatchLevel.BLOCK, matchedAllergens, matchedIngredients };
