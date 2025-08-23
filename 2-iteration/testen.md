@@ -8,9 +8,9 @@ Die BLOCK/OK-Anzeigen sind sofort verständlich – grün bedeutet „sicher“,
 
 Schön, dass direkt erklärt wird, warum blockiert wird (Liste der Allergene/Zutaten). Das schafft Vertrauen.
 
-## Nutzung der Suche
+## Nutzung der Suche und Scanner
 
-Als neuer Nutzer weiß ich sofort: „Hier gebe ich den Barcode ein.“
+Als neuer Nutzer weiß ich sofort: „Hier gebe ich den Barcode ein“ oder halt "Ich weiß, dass ich den Barcode hinten scannen muss".
 
 Gut, dass Beispiel-EAN (4071800001012) in der Placeholder steht.
 
