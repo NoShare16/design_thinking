@@ -14,7 +14,7 @@ Als neuer Nutzer weiß ich sofort: „Hier gebe ich den Barcode ein“ oder halt
 
 Gut, dass Beispiel-EAN (4071800001012) in der Placeholder steht.
 
-Kritik: Wenn ich eine falsche EAN eingebe, bekomme eine für mich unverständliche Fehlermeldung → ich würde mir eine Info wünschen wie „Bitte prüfen Sie die EAN oder probieren Sie einen anderen Barcode“.
+Kritik: Wenn ich eine falsche EAN eingebe, bekomme eine für mich unverständliche Fehlermeldung → ich würde mir eine Info wünschen wie „Bitte prüfen Sie die EAN oder probieren Sie einen anderen Barcode“. Außerdem sind die Screen uneinheitlich für Suche und Scanner.
 
 ## Produktinfos
 
