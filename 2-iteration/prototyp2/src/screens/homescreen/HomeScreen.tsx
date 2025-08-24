@@ -75,7 +75,9 @@ export default function HomeScreen() {
         <article className="card">
           <div className="card__icon">⚠️</div>
           <h3 className="card__title">Warnungen</h3>
-          <p className="card__text">Klare Hinweise zu Allergenen und Spuren.</p>
+          <p className="card__text">
+            Klare Hinweise zu Allergenen und Zutaten.
+          </p>
           <div className="chip--green">Fertig</div>
         </article>
       </section>
