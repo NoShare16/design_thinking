@@ -2,7 +2,7 @@ import {
   useState,
   type HTMLAttributes,
   type ReactNode,
-  FormEvent,
+    type FormEvent,
 } from "react";
 import { ArrowLeft, Check } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +39,6 @@ import {
   type RecentSearch,
 } from "@/common/searchStorage";
 
-// Styles: nutzt Scanner-Layout + Demo-Ergänzungen
 import "../screens/scannerScreen/ProductScanner.css";
 import "./ProductDemo.css";
 
@@ -52,7 +51,6 @@ export default function ProductDemo() {
   const [loading, setLoading] = useState(false);
   const [touched, setTouched] = useState(false);
 
-  // Zuletzt gesucht (aus LocalStorage)
   const [recents, setRecents] = useState<RecentSearch[]>(() =>
     getRecentSearches()
   );
@@ -74,7 +72,6 @@ export default function ProductDemo() {
       const data = await queryProductByEAN(eanTrim);
       setProduct(data);
 
-      // In "zuletzt gesucht" speichern (max. 5, dedupe)
       setRecents(
         addRecentSearch({
           ean: data.ean,

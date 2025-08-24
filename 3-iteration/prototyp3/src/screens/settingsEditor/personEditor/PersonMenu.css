@@ -1,17 +1,17 @@
-/* --- Layout: Sidebar + Main ---------------------------------------------- */
+
 
 html, body {
     height: 100%;
     margin: 0;
-    overflow: hidden; /* Verhindert doppelte Scrollleisten auf manchen Geräten */
+    overflow: hidden;
 }
 
 .personMenuLayout {
     display: grid;
     grid-template-columns: minmax(280px, 340px) 1fr;
     width: 100vw;
-    height: 100dvh; /* Neu: Verwendet dvh für dynamische mobile Anpassung */
-    position: fixed; /* Neu: Fixiert das Layout auf dem gesamten Bildschirm */
+    height: 100dvh;
+    position: fixed;
     background: linear-gradient(180deg, #ffffff 0, #f7f7fb 100%);
     color: var(--text);
     z-index: 10;
@@ -24,7 +24,7 @@ html, body {
     }
 }
 
-/* --- Sidebar ------------------------------------------------------------- */
+
 .personMenuSidebar {
     display: flex;
     flex-direction: column;
@@ -32,8 +32,8 @@ html, body {
     border-right: 1px solid #e5e7eb;
     box-shadow: var(--shadow);
     padding: 16px;
-    height: 100%; /* Passt sich der Höhe des .personMenuLayout-Containers an */
-    overflow-y: auto; /* Statt 'scroll' */
+    height: 100%;
+    overflow-y: auto;
 }
 
 @media (max-width: 920px) {
@@ -41,8 +41,8 @@ html, body {
         border-right: 0;
         border-bottom: 1px solid #e5e7eb;
         height: auto;
-        max-height: 100dvh; /* Stellt sicher, dass die Sidebar auf kleinen Bildschirmen nicht über den sichtbaren Bereich hinausragt */
-        overflow-y: auto; /* Scrollen auf mobilen Geräten ermöglichen */
+        max-height: 100dvh;
+        overflow-y: auto;
     }
 }
 
@@ -84,32 +84,32 @@ html, body {
 .sidebarSearch {
     flex: 1;
     min-height: 0;
-    overflow-y: auto; /* Neu: Ermöglicht das Scrollen des Inhalts */
+    overflow-y: auto;
 }
 
 .sidebarFooter {
     position: sticky;
-    bottom: 0; /* immer unten sichtbar */
-    padding: 8px 0; /* Angepasst */
+    bottom: 0;
+    padding: 8px 0;
     display: flex;
     justify-content: center;
     border-top: 1px solid #eee;
-    background: #fff; /* evtl Overlap vermeiden */
-    z-index: 10; /* Neu: Stellt sicher, dass der Footer sichtbar bleibt */
+    background: #fff;
+    z-index: 10;
 }
 
-/* --- Fullscreen Config Panel --------------------------------------------- */
+
 .fullscreenPanel {
     position: fixed;
     inset: 0;
     width: 100vw;
-    height: 100dvh; /* Neu: Nutzt dvh für dynamische Anpassung auf mobilen Geräten */
+    height: 100dvh;
     z-index: 50;
     display: flex;
     flex-direction: column;
     background: linear-gradient(180deg, #ffffff 0, #f9fafb 100%);
     padding: clamp(16px, 4vw, 32px);
-    overflow-y: auto; /* Statt 'scroll' */
+    overflow-y: auto;
     animation: panelFadeIn 0.25s ease;
 }
 
@@ -118,7 +118,7 @@ html, body {
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* --- Formular & Form Actions --------------------------------------------- */
+
 .configForm {
     display: flex;
     flex-direction: column;
@@ -136,7 +136,7 @@ html, body {
     align-items: center;
 }
 
-/* --- Scrollbar Styling --------------------------------------------------- */
+
 .personMenuSidebar::-webkit-scrollbar,
 .fullscreenPanel::-webkit-scrollbar { width: 10px; height: 10px; }
 

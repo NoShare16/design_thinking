@@ -15,7 +15,6 @@ interface Person {
 
 const LS_PEOPLE_KEY = "allergenProfiles";
 
-// Load from localStorage
 function loadPeople(): Person[] {
     try {
         const raw = localStorage.getItem(LS_PEOPLE_KEY);
@@ -27,7 +26,6 @@ function loadPeople(): Person[] {
     }
 }
 
-// Save to localStorage
 function savePeople(arr: Person[]) {
     localStorage.setItem(LS_PEOPLE_KEY, JSON.stringify(arr));
 }

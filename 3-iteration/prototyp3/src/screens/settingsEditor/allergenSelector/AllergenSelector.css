@@ -7,14 +7,14 @@
   overflow: hidden;
 }
 
-/* Input */
+
 .allergenSelector .cmd-input,
 .allergenSelector [cmdk-input] {
   padding: 12px 14px;
   font-size: 14px;
 }
 
-/* Group heading */
+
 .allergenSelector [cmdk-group-heading] {
   padding: 10px 14px 6px;
   font-size: 11px;
@@ -23,7 +23,7 @@
   color: var(--muted);
 }
 
-/* Item */
+
 .allergenSelectorItem {
   padding: 8px 10px;
   transition: background 0.2s ease;
@@ -40,7 +40,7 @@
   font-size: 14px;
 }
 
-/* Check icon */
+
 .allergenSelectorItem .selectionIcon {
   width: 22px;
   height: 22px;

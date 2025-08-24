@@ -1,4 +1,4 @@
-/* Wrapper aligns with shadcn Command */
+
 .personSelector {
   width: 100%;
   border: 1px solid #e5e7eb;
@@ -8,15 +8,12 @@
   overflow: hidden;
 }
 
-/* Command input spacing handled by shadcn; add refinement if needed */
 .personSelector .cmd-input,
 .personSelector [cmdk-input] {
   padding: 12px 14px;
   font-size: 14px;
 }
 
-/* Items */
-/* Personeneintrag */
 .personSelectorItem {
   padding: 12px 16px;
   cursor: pointer;
@@ -31,14 +28,14 @@
   background: #f3f4f6;
 }
 
-/* linke seite: icon + name */
+
 .personSelectorItem div {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-/* name hervorheben */
+
 .personSelectorItem span.name {
   font-size: 18px;
   font-weight: 600;
@@ -46,7 +43,7 @@
   color: var(--text);
 }
 
-/* löschen button (×) bleibt kompakt */
+
 .personSelectorItem .selectionIcon {
   appearance: none;
   border: none;

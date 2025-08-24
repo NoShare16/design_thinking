@@ -1,306 +1,291 @@
-/* nutzt die gleichen Karten wie der Scanner */
 .eanSearchCard {
-  display: grid;
-  gap: 10px;
+    display: grid;
+    gap: 10px;
 }
 
-/* Label über dem Feld – unaufdringlich */
 .eanLabel {
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-left: 2px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-left: 2px;
 }
 
-/* Input + Button in einer Reihe */
 .eanRow {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 8px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
 }
 
-/* modernes Eingabefeld */
 .eanInput {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  background: #fff;
-  box-shadow: var(--shadow);
-  font-size: 16px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.06s ease;
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    box-shadow: var(--shadow);
+    font-size: 16px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.06s ease;
 }
 .eanInput::placeholder {
-  color: #9ca3af;
+    color: #9ca3af;
 }
 .eanInput:hover {
-  border-color: #d1d5db;
+    border-color: #d1d5db;
 }
 .eanInput:focus {
-  outline: 2px solid transparent;
-  border-color: #6366f1;
-  box-shadow: 0 0 0 4px var(--ring), var(--shadow);
-  transform: translateY(-1px);
+    outline: 2px solid transparent;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px var(--ring), var(--shadow);
+    transform: translateY(-1px);
 }
 
-/* Suchen-Button im Scanner-Stil */
 .eanBtn {
-  border: 1px solid #4c1d95;
-  background: var(--accent);
-  color: #fff;
-  padding: 12px 16px;
-  border-radius: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: var(--shadow);
-  transition: transform 0.06s ease, box-shadow 0.2s ease, filter 0.2s ease,
+    border: 1px solid #4c1d95;
+    background: var(--accent);
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: transform 0.06s ease, box-shadow 0.2s ease, filter 0.2s ease,
     background 0.2s ease;
 }
 .eanBtn:hover {
-  transform: translateY(-1px);
-  filter: brightness(0.98);
+    transform: translateY(-1px);
+    filter: brightness(0.98);
 }
 .eanBtn:active {
-  transform: translateY(0);
+    transform: translateY(0);
 }
 .eanBtn[disabled] {
-  opacity: 0.6;
-  cursor: not-allowed;
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
-/* mobile – Button unter das Feld */
 @media (max-width: 520px) {
-  .eanRow {
-    grid-template-columns: 1fr;
-  }
+    .eanRow {
+        grid-template-columns: 1fr;
+    }
 }
 
-/* DetailedProductInfos.css */
 .pd-title {
-  margin: 0 0 8px;
-  font-size: 22px;
-  font-weight: 800;
-  color: #0f172a;
+    margin: 0 0 8px;
+    font-size: 22px;
+    font-weight: 800;
+    color: #0f172a;
 }
 
 .pd-subtitle {
-  margin: 0 0 10px;
-  font-size: 16px;
-  font-weight: 700;
-  color: #111827;
+    margin: 0 0 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
 }
 
 .pd-info {
-  display: grid;
-  gap: 8px;
+    display: grid;
+    gap: 8px;
 }
 
 .pd-line {
-  display: grid;
-  grid-template-columns: 160px 1fr; /* Label | Wert */
-  gap: 10px;
-  align-items: start;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 10px;
+    align-items: start;
 }
 
 .pd-k {
-  /* key/label */
-  font-size: 14px;
-  color: #6b7280;
+    font-size: 14px;
+    color: #6b7280;
 }
 
 .pd-v {
-  /* value */
-  font-size: 16px;
-  color: #111827;
-  word-break: break-word;
+    font-size: 16px;
+    color: #111827;
+    word-break: break-word;
 }
 
 @media (max-width: 520px) {
-  .pd-line {
-    grid-template-columns: 1fr;
-  }
+    .pd-line {
+        grid-template-columns: 1fr;
+    }
 }
-/* --- Recent Searches ----------------------------------------------------- */
+
 .recentBox {
-  margin-top: 6px;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: var(--shadow);
-  padding: 8px;
+    margin-top: 6px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: var(--shadow);
+    padding: 8px;
 }
 
 .recentHeader {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 2px 4px 6px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 2px 4px 6px;
 }
 
 .recentList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 6px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 6px;
 }
 
 .recentItemRow {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 8px;
-  align-items: center;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: center;
 }
 
 .recentItem {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  width: 100%;
-  text-align: left;
-
-  padding: 10px 12px;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  background: #f9fafb;
-  cursor: pointer;
-  transition: transform 0.06s ease, background 0.2s ease, border-color 0.2s ease,
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    width: 100%;
+    text-align: left;
+    padding: 10px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #f9fafb;
+    cursor: pointer;
+    transition: transform 0.06s ease, background 0.2s ease, border-color 0.2s ease,
     box-shadow 0.2s ease;
 }
 .recentItem:hover {
-  background: #f3f4f6;
-  transform: translateY(-1px);
-  box-shadow: var(--shadow);
+    background: #f3f4f6;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
 }
 .recentItem:active {
-  transform: translateY(0);
+    transform: translateY(0);
 }
 
 .recentName {
-  font-weight: 700;
-  color: #111827;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    font-weight: 700;
+    color: #111827;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .recentEan {
-  font-size: 12px;
-  color: #6b7280;
+    font-size: 12px;
+    color: #6b7280;
 }
 
 .recentRemove {
-  width: 28px;
-  height: 28px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.06s ease;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.06s ease;
 }
 .recentRemove:hover {
-  background: #fee2e2;
-  color: #b91c1c;
-  transform: translateY(-1px);
+    background: #fee2e2;
+    color: #b91c1c;
+    transform: translateY(-1px);
 }
 
-/* Dark Mode */
 @media (prefers-color-scheme: dark) {
-  .recentBox {
-    background: #0f172a;
-    border-color: #1f2937;
-  }
-  .recentHeader {
-    color: #94a3b8;
-  }
-  .recentItem {
-    background: #101827;
-    border-color: #1f2937;
-  }
-  .recentItem:hover {
-    background: #0f1a2a;
-  }
-  .recentName {
-    color: #e5e7eb;
-  }
-  .recentEan {
-    color: #9ca3af;
-  }
-  .recentRemove {
-    background: #111827;
-    border-color: #1f2937;
-    color: #e5e7eb;
-  }
-  .recentRemove:hover {
-    background: #3f1a1a;
-    color: #fecaca;
-  }
+    .recentBox {
+        background: #0f172a;
+        border-color: #1f2937;
+    }
+    .recentHeader {
+        color: #94a3b8;
+    }
+    .recentItem {
+        background: #101827;
+        border-color: #1f2937;
+    }
+    .recentItem:hover {
+        background: #0f1a2a;
+    }
+    .recentName {
+        color: #e5e7eb;
+    }
+    .recentEan {
+        color: #9ca3af;
+    }
+    .recentRemove {
+        background: #111827;
+        border-color: #1f2937;
+        color: #e5e7eb;
+    }
+    .recentRemove:hover {
+        background: #3f1a1a;
+        color: #fecaca;
+    }
 }
-/* --- Force full-screen & scrolling for this page ------------------------ */
+
 .productScannerScreen {
-  position: fixed; /* entkoppelt vom #root-Flex */
-  inset: 0; /* top/right/bottom/left: 0 */
-  width: 100vw;
-  height: 100dvh; /* besser auf Mobile als 100vh */
-  overflow: auto; /* <-- Scrollen aktiv */
-  -webkit-overflow-scrolling: touch; /* sanftes iOS-Scrollen */
-  background: linear-gradient(180deg, #ffffff 0, #f7f7fb 100%);
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    background: linear-gradient(180deg, #ffffff 0, #f7f7fb 100%);
 }
 
-/* Inhalt soll normal wachsen, nicht stauchen */
 .productScannerScreen > .contentBody {
-  min-height: 0;
-  padding-bottom: 24px; /* Platz fürs Ende */
+    min-height: 0;
+    padding-bottom: 24px;
 }
 
-/* Karten sollen ihre natürliche Höhe haben (nicht 100%) */
 .productScannerCard {
-  height: auto; /* override */
+    height: auto;
 }
 
-/* Der Trigger (Ergebnis-Karte) soll nicht das gesamte restliche Layout
-   auf volle Höhe ziehen – daher kein flex:1 hier */
 .sheetTrigger {
-  flex: initial; /* override von „flex: 1“ */
-  display: block;
+    flex: initial;
+    display: block;
 }
 
-/* Das Kamerabild / die EAN-Suchkarte nicht zu groß machen */
 .viewFinder {
-  max-height: 30vh; /* schon vorhanden – passt */
+    max-height: 30vh;
 }
-/* --- Popup Details scrollable ----------------------------------- */
+
 .sheetContent {
-  height: 100%;
-  overflow-y: auto; /* <-- Scrollbar */
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch; /* smooth scroll iOS */
-  display: flex;
-  flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
 }
 
 .sheetContent .sheetTitle {
-  position: sticky; /* Header bleibt fix */
-  top: 0;
-  background: white;
-  padding: 1rem;
-  z-index: 5;
-  border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    background: white;
+    padding: 1rem;
+    z-index: 5;
+    border-bottom: 1px solid #e5e7eb;
 }
 
 .sheetContent .detailSection {
-  padding: 1rem;
-  flex-shrink: 0; /* normale Blöcke */
+    padding: 1rem;
+    flex-shrink: 0;
 }
 
 .sheetContent .carouselPerson {
-  flex: 0 0 auto; /* verhält sich normal im Scroll */
-  width: 100%;
+    flex: 0 0 auto;
+    width: 100%;
 }
+
 .carouselViewport {
-  overflow: hidden; /* <- blendet links/rechts aus */
+    overflow: hidden;
 }

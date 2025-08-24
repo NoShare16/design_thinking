@@ -7,14 +7,12 @@
   overflow: hidden;
 }
 
-/* Input */
 .ingredientSelector .cmd-input,
 .ingredientSelector [cmdk-input] {
   padding: 12px 14px;
   font-size: 14px;
 }
 
-/* Group heading (from shadcn CommandGroup) */
 .ingredientSelector [cmdk-group-heading] {
   padding: 10px 14px 6px;
   font-size: 11px;
@@ -23,7 +21,6 @@
   color: var(--muted);
 }
 
-/* Item */
 .ingredientSelectorItem {
   padding: 8px 10px;
   transition: background 0.2s ease;
@@ -32,7 +29,6 @@
   background: #f7f7fb;
 }
 
-/* Inner row (text + check icon) */
 .ingredientSelectorItem > div {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -41,7 +37,6 @@
   font-size: 14px;
 }
 
-/* Check icon container */
 .ingredientSelectorItem .selectionIcon {
   width: 22px;
   height: 22px;
@@ -55,7 +50,6 @@
     box-shadow 0.2s ease;
 }
 
-/* When selected, parent adds lucide Check – accent the chip look */
 .ingredientSelectorItem svg {
   width: 16px;
   height: 16px;

@@ -39,7 +39,7 @@ export default function IngredientSelector({ options, add, remove, selectedingre
                 {isGrouped
                     ? (options as OptionGroup[]).map((group, i) => {
                         const groupOptions = group.options.filter(o => visibleOptions.includes(o));
-                        if (groupOptions.length === 0) return null; // leere Gruppen ausblenden
+                        if (groupOptions.length === 0) return null;
                         return (
                             <CommandGroup key={i} heading={group.title}>
                                 {groupOptions.map((o, j) => (
