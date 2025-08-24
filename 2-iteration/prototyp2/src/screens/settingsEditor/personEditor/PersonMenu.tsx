@@ -109,6 +109,7 @@ export default function PersonMenu() {
                             }
                             setSelectedPersonId(null);
                         }}
+                        onClose={() => setSelectedPersonId(null)}
                     />
                 </div>
             )}

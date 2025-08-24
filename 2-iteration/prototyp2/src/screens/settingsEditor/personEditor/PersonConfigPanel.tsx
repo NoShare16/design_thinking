@@ -5,7 +5,6 @@ import { Allergen } from "@/common/Allergens.ts";
 import IngredientSelector from "@/screens/settingsEditor/ingredientsSelector/ingredientSelector.tsx";
 import { ingredients } from "@/common/Ingredients.ts";
 import {X} from "lucide-react";
-import {useNavigate} from "react-router-dom";
 import "./PersonMenu.css";
 
 interface Person {
@@ -18,13 +17,13 @@ interface Person {
 interface PersonConfigPanelProps {
     person: Person;
     update: (person: Person) => void;
+    onClose: () => void;
 }
 
-export function PersonConfigPanel({ person, update }: PersonConfigPanelProps) {
+export function PersonConfigPanel({ person, update, onClose }: PersonConfigPanelProps) {
     const { register, handleSubmit, setValue, getValues, reset } = useForm<Person>({
         defaultValues: person,
     });
-    const navigate = useNavigate();
 
     useEffect(() => {
         reset(person);
@@ -61,7 +60,7 @@ export function PersonConfigPanel({ person, update }: PersonConfigPanelProps) {
         <div className="fullscreenPanel">
             <button
                 className="closeButton"
-                onClick={() => navigate("/person")}
+                onClick={onClose}
                 aria-label="Schließen"
             >
                 <X size={25} />
