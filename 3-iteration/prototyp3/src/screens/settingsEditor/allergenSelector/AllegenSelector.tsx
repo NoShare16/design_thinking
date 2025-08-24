@@ -1,7 +1,6 @@
 import {Command, CommandGroup, CommandInput, CommandItem, CommandList} from "@/shadcn/components/ui/command.tsx";
 import {Check} from "lucide-react";
 import "./AllergenSelector.css";
-import {useState} from "react";
 
 interface AllergenSelectorProps {
   options: string[] | OptionGroup[],
@@ -54,19 +53,17 @@ function Option({children, onSelected, onRemoved, selected}: {
   onRemoved: (value: string) => void,
   selected: boolean
 }) {
-  const [set, setSet] = useState<boolean>(false)
   return <CommandItem className="allergenSelectorItem">
     <div onClick={() => {
-      if (set || selected) {
+      if (selected) {
         onRemoved(children)
       } else {
         onSelected(children)
       }
-      setSet(!set)
     }}>
       {children}
       <div className="selectionIcon">
-        {(set || selected) && <Check />}
+        {selected && <Check />}
       </div>
     </div>
   </CommandItem>
