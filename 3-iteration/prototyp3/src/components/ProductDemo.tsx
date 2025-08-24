@@ -1,12 +1,12 @@
 import {
-  useEffect,
-  useMemo,
   useState,
   type HTMLAttributes,
   type ReactNode,
+  FormEvent,
 } from "react";
 import { ArrowLeft, Check } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+
 import { DetailedProductInfos } from "@/components/DetailedProductInfos.tsx";
 import {
   type ProductInfo,
@@ -14,9 +14,11 @@ import {
   queryProductByEAN,
 } from "@/common/productQuery.ts";
 import { useFoodWarnings } from "@/common/hooks/useFoodWarnings.ts";
+
 import DiamondAlertIcon from "@/assets/diamond_alert.tsx";
 import DiamondCheckIcon from "@/assets/diamond_check.tsx";
 import AlertIconBare from "@/assets/explamation_mark.tsx";
+
 import {
   Sheet,
   SheetContent,
@@ -29,6 +31,15 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/shadcn/components/ui/carousel.tsx";
+
+import {
+  getRecentSearches,
+  addRecentSearch,
+  removeRecentSearch,
+  type RecentSearch,
+} from "@/common/searchStorage";
+
+// Styles: nutzt Scanner-Layout + Demo-Ergänzungen
 import "../screens/scannerScreen/ProductScanner.css";
 import "./ProductDemo.css";
 
@@ -39,22 +50,37 @@ export default function ProductDemo() {
   const [product, setProduct] = useState<ProductInfo | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [touched, setTouched] = useState(false); // um Initialzustand wie beim Scanner nachzubilden
+  const [touched, setTouched] = useState(false);
+
+  // Zuletzt gesucht (aus LocalStorage)
+  const [recents, setRecents] = useState<RecentSearch[]>(() =>
+    getRecentSearches()
+  );
 
   const warnings = useFoodWarnings(product);
 
-  async function handleSearch(e?: React.FormEvent) {
+  async function handleSearch(e?: FormEvent) {
     if (e) e.preventDefault();
     setTouched(true);
+
     const eanTrim = ean.trim();
     if (!eanTrim) return;
 
     setLoading(true);
     setProduct(undefined);
     setError(null);
+
     try {
       const data = await queryProductByEAN(eanTrim);
       setProduct(data);
+
+      // In "zuletzt gesucht" speichern (max. 5, dedupe)
+      setRecents(
+        addRecentSearch({
+          ean: data.ean,
+          name: data.name || "Unbenanntes Produkt",
+        })
+      );
     } catch (err: unknown) {
       if (err instanceof Error && err.message === QueryError.NOT_FOUND) {
         setError("Produkt nicht gefunden.");
@@ -104,6 +130,41 @@ export default function ProductDemo() {
               {loading ? "Lade…" : "Suchen"}
             </button>
           </div>
+
+          {/* Zuletzt gesucht */}
+          {recents.length > 0 && (
+            <div className="recentBox">
+              <div className="recentHeader">Letzte Suchen</div>
+              <ul className="recentList">
+                {recents.map((r) => (
+                  <li key={r.ean} className="recentItemRow">
+                    <button
+                      type="button"
+                      className="recentItem"
+                      onClick={() => {
+                        setEan(r.ean);
+                        // Optional: direkt suchen
+                        // setTouched(true); handleSearch();
+                      }}
+                      title={r.name ? `${r.name} — ${r.ean}` : r.ean}
+                    >
+                      <span className="recentName">
+                        {r.name || "Unbenannt"}
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      className="recentRemove"
+                      aria-label={`Suche ${r.ean} entfernen`}
+                      onClick={() => setRecents(removeRecentSearch(r.ean))}
+                    >
+                      ×
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </form>
 
         {/* Ergebnis-Karte wie im Scanner */}
@@ -111,7 +172,7 @@ export default function ProductDemo() {
           <ResultCard product={product} warnings={warnings} />
         )}
 
-        {/* Initial- oder Statuskarten wie beim Scanner */}
+        {/* Initial-/Statuskarten */}
         {!touched && (
           <div className="productScannerCard textCard">
             Gib eine EAN ein und bestätige mit „Suchen“.
@@ -130,6 +191,13 @@ export default function ProductDemo() {
 
 /* ====== Reuse der Darstellung aus dem Scanner ====== */
 
+type FoodWarningReturn = {
+  person_name: string;
+  has_warning: boolean;
+  matching_allergens: string[];
+  matching_ingredients: string[];
+};
+
 function ResultCard({
   product,
   warnings,
@@ -137,9 +205,7 @@ function ResultCard({
   product: ProductInfo;
   warnings: FoodWarningReturn[];
 }) {
-  const hasAWarning = warnings
-    .map((value) => value.has_warning)
-    .reduce((a, b) => a || b, false);
+  const hasAWarning = warnings.map((w) => w.has_warning).some(Boolean);
 
   return (
     <DetailPopup warnings={warnings} product={product}>
@@ -172,10 +238,13 @@ function ResultCard({
           </div>
           <div className="personList">
             {warnings.map((value, i) => (
-              <>
-                <PersonResult key={i} warning={value} />
+              <div
+                key={`${value.person_name}-${i}`}
+                style={{ display: "contents" }}
+              >
+                <PersonResult warning={value} />
                 <div className="verticalSeparator" />
-              </>
+              </div>
             ))}
           </div>
         </div>
@@ -183,13 +252,6 @@ function ResultCard({
     </DetailPopup>
   );
 }
-
-type FoodWarningReturn = {
-  person_name: string;
-  has_warning: boolean;
-  matching_allergens: string[];
-  matching_ingredients: string[];
-};
 
 function PersonResult({ warning }: { warning: FoodWarningReturn }) {
   const causeHint = [
@@ -203,18 +265,18 @@ function PersonResult({ warning }: { warning: FoodWarningReturn }) {
       <div className="name">{warning.person_name}</div>
       <div className="warningCauseList">
         {causeHint.length > 3 &&
-          causeHint.slice(0, 2).map((value) => (
-            <div key={value} className="warning">
-              {value}
+          causeHint.slice(0, 2).map((v) => (
+            <div key={v} className="warning">
+              {v}
             </div>
           ))}
         {causeHint.length > 3 && (
           <div className="warning">and {causeHint.length - 2} others...</div>
         )}
         {causeHint.length <= 3 &&
-          causeHint.map((value) => (
-            <div key={value} className="warning">
-              {value}
+          causeHint.map((v) => (
+            <div key={v} className="warning">
+              {v}
             </div>
           ))}
       </div>
@@ -246,7 +308,10 @@ function DetailPopup({ warnings, children, product }: DetailPopupProps) {
             <Carousel orientation="horizontal" opts={{ loop: true }}>
               <CarouselContent>
                 {warnings.map((value, i) => (
-                  <CarouselItem key={i} className="carouselPerson">
+                  <CarouselItem
+                    key={`${value.person_name}-${i}`}
+                    className="carouselPerson"
+                  >
                     <CircularWarningIcon
                       isWarning={value.has_warning}
                       style={{ width: "5rem" }}

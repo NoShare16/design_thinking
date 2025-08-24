@@ -121,3 +121,122 @@
     grid-template-columns: 1fr;
   }
 }
+/* --- Recent Searches ----------------------------------------------------- */
+.recentBox {
+  margin-top: 6px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--shadow);
+  padding: 8px;
+}
+
+.recentHeader {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 2px 4px 6px;
+}
+
+.recentList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.recentItemRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.recentItem {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #f9fafb;
+  cursor: pointer;
+  transition: transform 0.06s ease, background 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.recentItem:hover {
+  background: #f3f4f6;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+.recentItem:active {
+  transform: translateY(0);
+}
+
+.recentName {
+  font-weight: 700;
+  color: #111827;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.recentEan {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.recentRemove {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.06s ease;
+}
+.recentRemove:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+  transform: translateY(-1px);
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .recentBox {
+    background: #0f172a;
+    border-color: #1f2937;
+  }
+  .recentHeader {
+    color: #94a3b8;
+  }
+  .recentItem {
+    background: #101827;
+    border-color: #1f2937;
+  }
+  .recentItem:hover {
+    background: #0f1a2a;
+  }
+  .recentName {
+    color: #e5e7eb;
+  }
+  .recentEan {
+    color: #9ca3af;
+  }
+  .recentRemove {
+    background: #111827;
+    border-color: #1f2937;
+    color: #e5e7eb;
+  }
+  .recentRemove:hover {
+    background: #3f1a1a;
+    color: #fecaca;
+  }
+}
