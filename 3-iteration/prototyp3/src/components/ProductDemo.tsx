@@ -309,36 +309,41 @@ function DetailPopup({ warnings, children, product }: DetailPopupProps) {
           <DetailedProductInfos product={product} className="detailSection" />
           <div className="detailSection">
             <h3 className="pd-subtitle">Personen:</h3>
-            <Carousel orientation="horizontal" opts={{ loop: true }}>
-              <CarouselContent>
-                {warnings.map((value, i) => (
-                  <CarouselItem
-                    key={`${value.person_name}-${i}`}
-                    className="carouselPerson"
-                  >
-                    <CircularWarningIcon
-                      isWarning={value.has_warning}
-                      style={{ width: "5rem" }}
-                    />
-                    <h2>{value.person_name}</h2>
-                    <div className="resultContent">
-                      <h3>Allergens:</h3>
-                      <div>
-                        {value.matching_allergens.map((v) => (
-                          <div key={v}>{v}</div>
-                        ))}
+            <div className="carouselViewport">
+              <Carousel
+                orientation="horizontal"
+                opts={{ loop: true, containScroll: "trimSnaps" }}
+              >
+                <CarouselContent>
+                  {warnings.map((value, i) => (
+                    <CarouselItem
+                      key={`${value.person_name}-${i}`}
+                      className="carouselPerson"
+                    >
+                      <CircularWarningIcon
+                        isWarning={value.has_warning}
+                        style={{ width: "5rem" }}
+                      />
+                      <h2>{value.person_name}</h2>
+                      <div className="resultContent">
+                        <h3>Allergens:</h3>
+                        <div>
+                          {value.matching_allergens.map((v) => (
+                            <div key={v}>{v}</div>
+                          ))}
+                        </div>
+                        <h3>Incompatible ingredients:</h3>
+                        <div>
+                          {value.matching_ingredients.map((v) => (
+                            <div key={v}>{v}</div>
+                          ))}
+                        </div>
                       </div>
-                      <h3>Incompatible ingredients:</h3>
-                      <div>
-                        {value.matching_ingredients.map((v) => (
-                          <div key={v}>{v}</div>
-                        ))}
-                      </div>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            </div>
           </div>
         </div>
       </SheetContent>

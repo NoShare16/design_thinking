@@ -273,3 +273,34 @@
 .viewFinder {
   max-height: 30vh; /* schon vorhanden – passt */
 }
+/* --- Popup Details scrollable ----------------------------------- */
+.sheetContent {
+  height: 100%;
+  overflow-y: auto; /* <-- Scrollbar */
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; /* smooth scroll iOS */
+  display: flex;
+  flex-direction: column;
+}
+
+.sheetContent .sheetTitle {
+  position: sticky; /* Header bleibt fix */
+  top: 0;
+  background: white;
+  padding: 1rem;
+  z-index: 5;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.sheetContent .detailSection {
+  padding: 1rem;
+  flex-shrink: 0; /* normale Blöcke */
+}
+
+.sheetContent .carouselPerson {
+  flex: 0 0 auto; /* verhält sich normal im Scroll */
+  width: 100%;
+}
+.carouselViewport {
+  overflow: hidden; /* <- blendet links/rechts aus */
+}
