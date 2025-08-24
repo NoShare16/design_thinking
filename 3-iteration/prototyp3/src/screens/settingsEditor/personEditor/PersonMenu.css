@@ -134,3 +134,12 @@
 .fullscreenPanel::-webkit-scrollbar-thumb:hover {
   background: #d1d5db;
 }
+
+.formActions {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    z-index: 60;
+}

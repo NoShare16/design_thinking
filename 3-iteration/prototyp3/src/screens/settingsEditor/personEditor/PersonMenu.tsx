@@ -38,12 +38,10 @@ export default function PersonMenu() {
     const [selectedPersonId, setSelectedPersonId] = useState<string | null>(null);
     const [addingNew, setAddingNew] = useState(false);
 
-    // persist every change
     useEffect(() => {
         savePeople(people);
     }, [people]);
 
-    // open existing person by id
     const openPerson = (id: string) => {
         setSelectedPersonId(id);
         setAddingNew(false);

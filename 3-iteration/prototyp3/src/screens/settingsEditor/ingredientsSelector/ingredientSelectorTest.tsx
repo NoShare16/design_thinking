@@ -28,7 +28,6 @@ export default function IngredientSelectorTest() {
   }
 
   return <div>
-    {/* Hier wird das 'ingredients'-Array verwendet */}
     <IngredientSelector
         options={ingredients.map(i => i.name)}
         add={handleAdd}
