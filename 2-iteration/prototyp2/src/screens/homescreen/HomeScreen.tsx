@@ -1,5 +1,5 @@
 import "./HomeScreen.css";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function HomeScreen() {
   const navigate = useNavigate();
@@ -20,19 +20,25 @@ export default function HomeScreen() {
             title="Neues Profil anlegen"
             aria-label="Neues Profil anlegen"
             onClick={() => navigate("/product_demo")}
-          >🔎 Demo Query</button>
+          >
+            🔎 Demo Query
+          </button>
           <button
             className="btn btn--neutral"
             title="Profile verwalten"
             aria-label="Profile verwalten"
             onClick={() => navigate("/person")}
-          >⚙️ Profile verwalten</button>
+          >
+            ⚙️ Profile verwalten
+          </button>
           <button
             className="btn btn--accent"
             title="Produkt scannen"
             aria-label="Produkt scannen"
             onClick={() => navigate("/productScanner")}
-          >📷 Produkt scannen</button>
+          >
+            📷 Produkt scannen
+          </button>
         </div>
 
         <div className="hero__note">
@@ -48,7 +54,7 @@ export default function HomeScreen() {
           <p className="card__text">
             Lege individuelle Allergie-Profile an (z. B. für Familie).
           </p>
-          <div className="chip">Geplant</div>
+          <div className="chip--green">Fertig</div>
         </article>
 
         <article className="card">
@@ -58,7 +64,7 @@ export default function HomeScreen() {
             Barcode oder Zutatenliste prüfen und sofortige Ampelbewertung
             erhalten.
           </p>
-          <div className="chip">Geplant</div>
+          <div className="chip--green">Fertig</div>
         </article>
 
         <article className="card">
@@ -75,7 +81,7 @@ export default function HomeScreen() {
           <div className="card__icon">⚠️</div>
           <h3 className="card__title">Warnungen</h3>
           <p className="card__text">Klare Hinweise zu Allergenen und Spuren.</p>
-          <div className="chip">Geplant</div>
+          <div className="chip--green">Fertig</div>
         </article>
       </section>
 

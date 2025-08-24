@@ -195,9 +195,14 @@ body,
   border: 1px solid #e5e7eb;
 }
 .chip--green {
+  align-self: start;
+  display: inline-block;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 999px;
   background: #ecfdf5;
   color: #065f46;
-  border-color: #a7f3d0;
+  border-color: 1px solid #a7f3d0;
 }
 .chip--yellow {
   background: #fffbeb;
