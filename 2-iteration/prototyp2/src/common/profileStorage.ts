@@ -1,6 +1,6 @@
 import type { Profile } from "@/lib/matching";
 
-const LS_KEY = "aa_profiles";
+const LS_KEY = "allergenProfiles";
 
 // strings normalisieren: lowercase, "_" -> "-"
 const normAllergen = (s: string) => s.trim().toLowerCase().replace(/_/g, "-");
