@@ -40,11 +40,6 @@ export default function HomeScreen() {
             📷 Produkt scannen
           </button>
         </div>
-
-        <div className="hero__note">
-          * Buttons sind Platzhalter – Funktionen folgen in der nächsten
-          Iteration.
-        </div>
       </header>
 
       <section className="features" aria-label="Funktionen">
