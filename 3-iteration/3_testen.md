@@ -19,7 +19,6 @@ Feldversuch
 
 ### Usability & mobile Bedienung
 - Scrollen in langen Listen nicht immer flüssig.  
-- „Add“-Button teilweise schwer erreichbar bei geöffneter Tastatur.  
 - Farben & Kontraste insgesamt gut; alternative Markierungen für farbenblinde Nutzer empfehlenswert.  
 
 ### Vertrauen & Datenquelle
