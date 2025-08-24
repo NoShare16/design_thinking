@@ -94,6 +94,10 @@ export default function ProductDemo() {
     }
   }
 
+  function truncateName(name: string, max = 25) {
+    return name.length > max ? name.slice(0, max - 1) + "…" : name;
+  }
+
   return (
     <div className="productScannerScreen">
       <header onClick={() => nav("/")}>
@@ -149,7 +153,7 @@ export default function ProductDemo() {
                       title={r.name ? `${r.name} — ${r.ean}` : r.ean}
                     >
                       <span className="recentName">
-                        {r.name || "Unbenannt"}
+                        {truncateName(r.name || "Unbenannt")}
                       </span>
                     </button>
                     <button

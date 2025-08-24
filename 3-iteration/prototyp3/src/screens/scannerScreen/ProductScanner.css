@@ -1,225 +1,258 @@
 .productScannerCard {
-    border: 5px solid lightgray;
-    border-radius: 1rem;
-    padding: .5rem;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+  border: 5px solid lightgray;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .productScannerCard.hasWarning {
-    border-color: indianred;
-
+  border-color: indianred;
 }
 .productScannerCard.isOkay {
-    border-color: lightgreen;
+  border-color: lightgreen;
 }
 
 .textCard {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
 }
 
 /*Page Stack Simulation*/
 .productScannerScreen {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .productScannerScreen > header {
-    display: flex;
-    flex-direction: row;
-    padding: 1rem;
-    gap: .5rem;
-    align-items: center;
-    font-weight: bold;
-    font-size: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  gap: 0.5rem;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 /*Start actual page content*/
 .productScannerScreen > .contentBody {
-    display: flex;
-    flex-direction: column;
-    padding: 0 1rem 1rem;
-    gap: .5rem;
-    flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem 1rem;
+  gap: 0.5rem;
+  flex: 1;
 }
 
 .viewFinder {
-    width: 100%;
-    max-height: 30vh;
-    object-fit: cover;
-    padding: 0;
+  width: 100%;
+  max-height: 30vh;
+  object-fit: cover;
+  padding: 0;
 }
 
 /*ProductInfo and Scanner Error card*/
 .sheetTrigger {
-    flex: 1;
+  flex: 1;
 }
 
 .productInfo {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border-color: lightgray;
-    padding: 0;
-    flex: 1;
-    background-color: rgba(247, 247, 251, 0.8);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-color: lightgray;
+  padding: 0;
+  flex: 1;
+  background-color: rgba(247, 247, 251, 0.8);
 }
 
 .productInfo > .imageContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 33.33%;
-    height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 33.33%;
+  height: 100%;
 }
 
 .productInfo > .imageContainer > img {
-    border: 0 solid transparent;
-    border-radius: .7rem;
-    height: 100%;
-    width: fit-content;
+  border: 0 solid transparent;
+  border-radius: 0.7rem;
+  height: 100%;
+  width: fit-content;
 }
 
 .productInfo > .content {
-    display: flex;
-    flex-direction: column;
-    font-size: 1.5rem;
-    padding: .5rem;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  padding: 0.5rem;
 }
 
 .productInfo > .content > h1 {
-    font-size: 1.7rem;
-    font-weight: bold;
+  font-size: 1.7rem;
+  font-weight: bold;
 }
 .productInfo > .content > h2 {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 .productInfo > .content > h3 {
-    font-size: .6rem;
-    color: var(--muted);
+  font-size: 0.6rem;
+  color: var(--muted);
 }
 
 /*Per Person Results card*/
 .warnings {
-    display: flex;
-    flex-direction: column;
-    border-radius: 1rem;
-    padding: 0 .5rem .5rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  padding: 0 0.5rem 0.5rem;
 }
 
 .warnings > .headline {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: .5rem;
-    font-size: 2rem;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 2rem;
+  width: 100%;
 }
 
-.warningIcon, .okIcon {
-    scale: 1.4;
-    stroke-width: 1.3;
+.warningIcon,
+.okIcon {
+  scale: 1.4;
+  stroke-width: 1.3;
 }
 
 .warnings > .headline > .warningIcon {
-    fill: indianred;
+  fill: indianred;
 }
 
 .warnings > .headline > .okIcon {
-    fill: lightgreen;
+  fill: lightgreen;
 }
 
 .warnings > .personList {
-    display: flex;
-    flex-direction: row;
-    gap: .5rem;
-    max-width: 100%;
-    overflow-x: scroll;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  max-width: 100%;
+  overflow-x: scroll;
 }
 
 .warnings > .personList > .person {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: clamp(50vw, fit-content, fit-content);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: clamp(50vw, fit-content, fit-content);
 }
 
 .warnings > .personList > .verticalSeparator {
-    border: 1px solid lightgray;
-    border-radius: 1rem;
+  border: 1px solid lightgray;
+  border-radius: 1rem;
 }
 .circleIcon.isWarning {
-    background-color: indianred !important;
+  background-color: indianred !important;
 }
 
 .warnings > .personList > .person > .name {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 .warnings > .personList > .person > .warningCauseList {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /*Circle Icon*/
 .circleIcon {
-    border-radius: 999999999rem;
-    border: 2px solid black;
-    padding: .3rem;
-    margin: .3rem;
-    background-color: lightgreen;
-    aspect-ratio: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  border-radius: 999999999rem;
+  border: 2px solid black;
+  padding: 0.3rem;
+  margin: 0.3rem;
+  background-color: lightgreen;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .circleIcon > svg {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
-
 
 /*Popup*/
 .sheetContent {
-    /*overflow: scroll;*/
+  /*overflow: scroll;*/
 }
 
 .detailSection {
-    padding: 0 1rem;
+  padding: 0 1rem;
 }
 
 .carouselPerson {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    padding-bottom: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  padding-bottom: 10rem;
 }
 
 .carouselPerson > h2 {
-    font-size: 2.2rem;
-    font-weight: bold;
+  font-size: 2.2rem;
+  font-weight: bold;
 }
 
 .carouselPerson > .resultContent {
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-    height: 100%;
-    padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 100%;
+  padding-bottom: 1rem;
 }
 
 .carouselPerson > .resultContent > h3 {
-    font-size: 1.5rem;
-    font-weight: bold;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* --- Force full-screen & scrolling for this page ------------------------ */
+.productScannerScreen {
+  position: fixed; /* entkoppelt vom #root-Flex */
+  inset: 0; /* top/right/bottom/left: 0 */
+  width: 100vw;
+  height: 100dvh; /* besser auf Mobile als 100vh */
+  overflow: auto; /* <-- Scrollen aktiv */
+  -webkit-overflow-scrolling: touch; /* sanftes iOS-Scrollen */
+  background: linear-gradient(180deg, #ffffff 0, #f7f7fb 100%);
+}
+
+/* Inhalt soll normal wachsen, nicht stauchen */
+.productScannerScreen > .contentBody {
+  min-height: 0;
+  padding-bottom: 24px; /* Platz fürs Ende */
+}
+
+/* Karten sollen ihre natürliche Höhe haben (nicht 100%) */
+.productScannerCard {
+  height: auto; /* override */
+}
+
+/* Der Trigger (Ergebnis-Karte) soll nicht das gesamte restliche Layout
+   auf volle Höhe ziehen – daher kein flex:1 hier */
+.sheetTrigger {
+  flex: initial; /* override von „flex: 1“ */
+  display: block;
+}
+
+/* Das Kamerabild / die EAN-Suchkarte nicht zu groß machen */
+.viewFinder {
+  max-height: 30vh; /* schon vorhanden – passt */
 }

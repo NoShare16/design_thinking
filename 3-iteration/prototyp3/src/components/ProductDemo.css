@@ -240,3 +240,36 @@
     color: #fecaca;
   }
 }
+/* --- Force full-screen & scrolling for this page ------------------------ */
+.productScannerScreen {
+  position: fixed; /* entkoppelt vom #root-Flex */
+  inset: 0; /* top/right/bottom/left: 0 */
+  width: 100vw;
+  height: 100dvh; /* besser auf Mobile als 100vh */
+  overflow: auto; /* <-- Scrollen aktiv */
+  -webkit-overflow-scrolling: touch; /* sanftes iOS-Scrollen */
+  background: linear-gradient(180deg, #ffffff 0, #f7f7fb 100%);
+}
+
+/* Inhalt soll normal wachsen, nicht stauchen */
+.productScannerScreen > .contentBody {
+  min-height: 0;
+  padding-bottom: 24px; /* Platz fürs Ende */
+}
+
+/* Karten sollen ihre natürliche Höhe haben (nicht 100%) */
+.productScannerCard {
+  height: auto; /* override */
+}
+
+/* Der Trigger (Ergebnis-Karte) soll nicht das gesamte restliche Layout
+   auf volle Höhe ziehen – daher kein flex:1 hier */
+.sheetTrigger {
+  flex: initial; /* override von „flex: 1“ */
+  display: block;
+}
+
+/* Das Kamerabild / die EAN-Suchkarte nicht zu groß machen */
+.viewFinder {
+  max-height: 30vh; /* schon vorhanden – passt */
+}
