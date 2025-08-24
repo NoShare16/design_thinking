@@ -21,9 +21,11 @@ interface PersonConfigPanelProps {
 }
 
 export function PersonConfigPanel({ person, update, onClose }: PersonConfigPanelProps) {
-    const { register, handleSubmit, setValue, getValues, reset } = useForm<Person>({
+    const { register, handleSubmit, setValue, getValues, reset, watch } = useForm<Person>({
         defaultValues: person,
     });
+
+
 
     useEffect(() => {
         reset(person);
@@ -78,7 +80,7 @@ export function PersonConfigPanel({ person, update, onClose }: PersonConfigPanel
                         options={Object.keys(Allergen).filter(v => isNaN(Number(v)))}
                         add={handleAddAllergen}
                         remove={handleRemoveAllergen}
-                        selectedAllergens={getValues().allergens}
+                        selectedAllergens={watch("allergens")}
                     />
                 </div>
 
@@ -88,7 +90,7 @@ export function PersonConfigPanel({ person, update, onClose }: PersonConfigPanel
                         options={ingredients.map(i => i.name).filter(v => isNaN(Number(v)))}
                         add={handleAddIngredient}
                         remove={handleRemoveIngredient}
-                        selectedingredients={getValues().ingredients || []}
+                        selectedingredients={watch("ingredients") || []}
                     />
                 </div>
 
