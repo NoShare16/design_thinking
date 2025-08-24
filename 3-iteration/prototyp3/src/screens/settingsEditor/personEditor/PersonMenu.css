@@ -1,207 +1,136 @@
-/* Variablen für konsistente Farben & Schatten */
-:root {
-    --muted: #6b7280;
-    --text: #0f172a;
-    --primary: #111827;
-    --accent: #5b21b6;
-    --ring: rgba(99, 102, 241, 0.25);
-    --border: #e5e7eb;
-    --shadow: 0 10px 30px rgba(2, 6, 23, 0.12);
-    --radius: 16px;
-}
-
-* {
-    box-sizing: border-box;
-}
-
-html,
-body,
-#root {
-    height: 100%;
-    margin: 0;
-    color: var(--text);
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
-}
-
-/* Layout */
+/* --- Layout: Sidebar + Main ---------------------------------------------- */
 .personMenuLayout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-    width: 100%;
-    height: 100%;
+  position: fixed; /* entkoppelt vom zentrierten #root */
+  inset: 0; /* top:0 right:0 bottom:0 left:0 */
+  width: 100vw;
+  height: 100vh;
+  margin: 0 !important;
+
+  display: grid;
+  grid-template-columns: minmax(280px, 340px) 1fr;
+  background: linear-gradient(180deg, #ffffff 0, #f7f7fb 100%);
+  color: var(--text);
+
+  z-index: 10; /* über normalen Inhalten */
+  isolation: isolate;
 }
 
-/* Panel geöffnet auf größeren Screens */
-@media (min-width: 768px) {
-    .personMenuLayout.hasPanel {
-        grid-template-columns: 300px 1fr;
-    }
+@media (max-width: 920px) {
+  .personMenuLayout {
+    grid-template-columns: 1fr; /* Mobile: Sidebar oben */
+  }
 }
 
-/* Spalten dürfen schrumpfen */
-.personMenuSidebar, .personMenuCol {
-    min-width: 0;
-}
-
-/* Sidebar-Struktur */
+/* --- Sidebar ------------------------------------------------------------- */
 .personMenuSidebar {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    border-right: 1px solid var(--border);
-    padding: 16px;
-    background: var(--surface);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #fff;
+  border-right: 1px solid #e5e7eb;
+  box-shadow: var(--shadow);
+  padding: 16px;
+
+  min-height: 0; /* wichtig für Flex + Scrollbar */
+  overflow: hidden;
 }
 
-/* Header der Sidebar */
+@media (max-width: 920px) {
+  .personMenuSidebar {
+    border-right: 0;
+    border-bottom: 1px solid #e5e7eb;
+  }
+}
+
 .sidebarHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
-/* Close-Button */
 .closeButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 6px;
-    border-radius: 8px;
-    transition: background 0.2s ease, transform 0.1s ease;
+  appearance: none;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  cursor: pointer;
+
+  transition: transform 0.08s ease, box-shadow 0.2s ease, background 0.2s ease,
+    border-color 0.2s ease;
+  box-shadow: var(--shadow);
 }
 .closeButton:hover {
-    background: #f3f4f6;
-    transform: translateY(-1px);
+  transform: translateY(-1px);
+  background: #f3f4f6;
+}
+.closeButton:active {
+  transform: translateY(0);
+}
+.closeButton:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: 0 0 0 4px var(--ring);
 }
 
-/* Scrollbarer Bereich */
 .sidebarSearch {
-    flex: 1 1 auto;
-    overflow-y: auto;
-    margin-bottom: 12px;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  border-radius: var(--radius);
 }
 
-/* Footer mit Add-Button */
 .sidebarFooter {
-    display: flex;
-    justify-content: center;
-    padding-top: 12px;
-    border-top: 1px solid var(--border);
-}
-.sidebarFooter > * {
-    margin: 0 auto;
+  padding-top: 8px;
+  display: flex;
+  justify-content: center;
 }
 
-/* Person Selector volle Breite */
-.personSelector {
-    width: 100% !important;
-    display: block;
-}
-
-/* Vollbild-Panel */
+/* --- Fullscreen Config Panel --------------------------------------------- */
 .fullscreenPanel {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--surface);
-    z-index: 999;
-    overflow: auto;
-    box-shadow: var(--shadow);
+  position: fixed; /* Overlay über alles */
+  inset: 0; /* top, right, bottom, left */
+  width: 100vw;
+  height: 100vh;
+  z-index: 50; /* über Sidebar */
+
+  display: flex;
+  flex-direction: column;
+
+  background: linear-gradient(180deg, #ffffff 0, #f9fafb 100%);
+  padding: clamp(16px, 4vw, 32px);
+  overflow-y: auto;
+
+  animation: panelFadeIn 0.25s ease;
 }
 
-.fullscreenPanel > form {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    overflow: auto;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* Close Overlay */
-.closeOverlay {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    cursor: pointer;
-    background: var(--accent);
-    color: #fff;
-    padding: 6px 8px;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: background 0.2s ease, transform 0.1s ease;
-}
-.closeOverlay:hover {
-    background: #4c1d95;
-    transform: translateY(-1px);
-}
-
-/* Buttons */
-.btn {
-    border: 1px solid var(--border);
-    background: var(--surface);
-    color: var(--text);
-    padding: 12px 16px;
-    border-radius: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: var(--shadow);
-    width: auto;
-    justify-content: center;
-    align-items: center;
-}
-.btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 14px 34px rgba(2, 6, 23, 0.15);
-}
-.btn:active {
+@keyframes panelFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
     transform: translateY(0);
+  }
 }
 
-.btn--primary {
-    background: var(--primary);
-    color: #fff;
-    border-color: #111827;
+/* --- Scrollbar Styling --------------------------------------------------- */
+.personMenuSidebar::-webkit-scrollbar,
+.fullscreenPanel::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
 }
-.btn--primary:hover {
-    background: #0b1220;
+.personMenuSidebar::-webkit-scrollbar-thumb,
+.fullscreenPanel::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+  border-radius: 8px;
 }
-
-.btn--accent {
-    background: var(--accent);
-    color: #fff;
-    border-color: #4c1d95;
-}
-.btn--accent:hover {
-    background: #4c1d95;
-}
-
-.btn--neutral {
-    background: #fff;
-    color: #111;
-}
-
-.configForm {
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
-}
-
-
-.formInput {
-    padding: 10px 12px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background-color: var(--surface);
-    color: var(--text);
-    font-size: 14px;
-}
-
-.formActions {
-
-    justify-content: center;
-    align-items: center;
+.personMenuSidebar::-webkit-scrollbar-thumb:hover,
+.fullscreenPanel::-webkit-scrollbar-thumb:hover {
+  background: #d1d5db;
 }
