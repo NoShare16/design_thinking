@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PersonSelector from "./PersonSelector.tsx";
 import { PersonConfigPanel } from "./PersonConfigPanel.tsx";
 import { AddButton } from "@/shadcn/components/ui/addButton.tsx";
-import { X } from "lucide-react";
+import {ArrowLeft} from "lucide-react";
 import "./PersonMenu.css";
 import {useNavigate} from "react-router-dom";
 
@@ -59,13 +59,9 @@ export default function PersonMenu() {
         <div className="personMenuLayout">
             <div className="personMenuSidebar">
                 <div className="sidebarHeader">
-                    <button
-                        className="closeButton"
-                        onClick={() => navigate("/*")}
-                        aria-label="Schließen"
-                    >
-                        <X size={30} />
-                    </button>
+                    <header onClick={() => navigate("/")}>
+                        <ArrowLeft/><h1>Person Menu</h1>
+                    </header>
                 </div>
                 <div className="sidebarSearch">
                     <PersonSelector
