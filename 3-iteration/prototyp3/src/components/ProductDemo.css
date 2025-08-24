@@ -1,0 +1,167 @@
+.pd-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 16px;
+    margin: 14px 0;
+    background: #fff
+}
+
+.pd-title {
+    margin: 0 0 8px;
+    font-size: 22px;
+    font-weight: 800;
+    color: #0f172a
+}
+
+.pd-subtitle {
+    margin: 0 0 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827
+}
+
+.pd-row {
+    display: flex;
+    gap: 8px;
+    align-items: center
+}
+
+.pd-input {
+    flex: 1;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 14px
+}
+
+.pd-btn {
+    border: 1px solid #111827;
+    background: #111827;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-weight: 700;
+    cursor: pointer
+}
+
+.pd-btn[disabled] {
+    opacity: .6;
+    cursor: not-allowed
+}
+
+.pd-btn--primary:hover {
+    filter: brightness(1.05)
+}
+
+.pd-error {
+    margin-top: 8px;
+    color: #b91c1c;
+    font-weight: 600
+}
+
+.pd-info {
+    display: grid;
+    gap: 6px
+}
+
+.pd-line {
+    display: grid;
+    grid-template-columns:160px 1fr;
+    gap: 8px;
+    align-items: start
+}
+
+.pd-k {
+    font-size: 13px;
+    color: #6b7280
+}
+
+.pd-v {
+    font-size: 14px;
+    color: #111827
+}
+
+/* Grid für viele Profile: 3 pro Zeile (min 220px) + Scroll */
+.pd-profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    max-height: 320px;
+    overflow: auto;
+    padding-right: 4px;
+}
+
+.pd-empty {
+    color: #6b7280
+}
+
+.pd-profile {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 10px 12px
+}
+
+.pd-profile--ok {
+    background: #f0fdf4;
+    border-color: #bbf7d0
+}
+
+.pd-profile--block {
+    background: #fef2f2;
+    border-color: #fecaca
+}
+
+.pd-pill {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between
+}
+
+.pd-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: #10b981;
+    box-shadow: 0 0 0 2px #fff
+}
+
+.pd-profile--block .pd-dot {
+    background: #ef4444
+}
+
+.pd-profile-name {
+    font-weight: 700;
+    color: #111827
+}
+
+.pd-badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    font-weight: 700
+}
+
+.pd-badge--ok {
+    border-color: #86efac;
+    color: #065f46
+}
+
+.pd-badge--block {
+    border-color: #fecaca;
+    color: #991b1b
+}
+
+.pd-reasons {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #991b1b
+}
+
+@media (max-width: 520px) {
+    .pd-wrapping-line {
+        grid-template-columns:1fr
+    }
+}
