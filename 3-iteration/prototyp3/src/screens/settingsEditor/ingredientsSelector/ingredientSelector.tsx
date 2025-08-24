@@ -15,37 +15,59 @@ interface OptionGroup {
   options: string[]
 }
 
-export default function IngredientSelector({options, add, remove, selectedingredients}: IngredientSelectorProps) {
-  const isGrouped = (options as OptionGroup[])[0]?.options !== undefined;
+export default function IngredientSelector({ options, add, remove, selectedingredients }: IngredientSelectorProps) {
+    const isGrouped = (options as OptionGroup[])[0]?.options !== undefined;
+    const [searchValue, setSearchValue] = useState("");
 
-  return <Command className="ingredientSelector">
-    <CommandInput placeholder="Wähle deine Unverträglichkeiten"/>
-    <CommandList>
-      {isGrouped
-          ? (options as OptionGroup[]).map((group, i) => (
-              <CommandGroup key={i} heading={group.title}>
-                {group.options.map((o, i) => (
-                    <Option
-                        key={i}
-                        onSelected={add}
-                        onRemoved={remove}
-                        selected={selectedingredients.includes(o)}>
-                      {o}
-                    </Option>
-                ))}
-              </CommandGroup>
-          )) :
-          (options as unknown as string[]).map((v, i) =>
-              <Option
-                  key={i}
-                  onSelected={add}
-                  onRemoved={remove}
-                  selected={selectedingredients.includes(v)}>
-                {v}
-              </Option>)
-      }
-    </CommandList>
-  </Command>;
+
+    const allOptions: string[] = isGrouped
+        ? (options as OptionGroup[]).flatMap(group => group.options)
+        : (options as unknown as string[]);
+
+    const visibleOptions = searchValue
+        ? allOptions.filter(v => v.toLowerCase().includes(searchValue.toLowerCase()))
+        : allOptions.filter(v => selectedingredients.includes(v));
+
+    return (
+        <Command className="ingredientSelector">
+            <CommandInput
+                placeholder="Wähle deine Unverträglichkeiten"
+                value={searchValue}
+                onValueChange={setSearchValue}
+            />
+            <CommandList>
+                {isGrouped
+                    ? (options as OptionGroup[]).map((group, i) => {
+                        const groupOptions = group.options.filter(o => visibleOptions.includes(o));
+                        if (groupOptions.length === 0) return null; // leere Gruppen ausblenden
+                        return (
+                            <CommandGroup key={i} heading={group.title}>
+                                {groupOptions.map((o, j) => (
+                                    <Option
+                                        key={j}
+                                        onSelected={add}
+                                        onRemoved={remove}
+                                        selected={selectedingredients.includes(o)}
+                                    >
+                                        {o}
+                                    </Option>
+                                ))}
+                            </CommandGroup>
+                        );
+                    })
+                    : visibleOptions.map((v, i) => (
+                        <Option
+                            key={i}
+                            onSelected={add}
+                            onRemoved={remove}
+                            selected={selectedingredients.includes(v)}
+                        >
+                            {v}
+                        </Option>
+                    ))}
+            </CommandList>
+        </Command>
+    );
 }
 
 function Option({children, onSelected, onRemoved, selected}: {
@@ -54,19 +76,17 @@ function Option({children, onSelected, onRemoved, selected}: {
   onRemoved: (value: string) => void,
   selected: boolean
 }) {
-  const [set, setSet] = useState<boolean>(false)
   return <CommandItem className="ingredientSelectorItem">
     <div onClick={() => {
-      if (set || selected) {
+      if (selected) {
         onRemoved(children)
       } else {
         onSelected(children)
       }
-      setSet(!set)
     }}>
       {children}
       <div className="selectionIcon">
-        {(set || selected) && <Check />}
+        {(selected) && <Check />}
       </div>
     </div>
   </CommandItem>
