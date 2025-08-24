@@ -1,175 +1,293 @@
-import {useEffect, useMemo, useState} from "react";
-import type {ProductInfo} from "@/common/productQuery.ts";
-import {QueryError, queryProductByEAN} from "@/common/productQuery.ts";
-import {MatchLevel, matchProduct} from "@/common/matching";
-import type {Profile} from "@/common/matching.ts";
-import {loadProfiles} from "@/common/profileStorage";
-import "./ProductDemo.css"
-import {DetailedProductInfos} from "@/components/DetailedProductInfos.tsx";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  type HTMLAttributes,
+  type ReactNode,
+} from "react";
+import { ArrowLeft, Check } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { DetailedProductInfos } from "@/components/DetailedProductInfos.tsx";
+import {
+  type ProductInfo,
+  QueryError,
+  queryProductByEAN,
+} from "@/common/productQuery.ts";
+import { useFoodWarnings } from "@/common/hooks/useFoodWarnings.ts";
+import DiamondAlertIcon from "@/assets/diamond_alert.tsx";
+import DiamondCheckIcon from "@/assets/diamond_check.tsx";
+import AlertIconBare from "@/assets/explamation_mark.tsx";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/shadcn/components/ui/sheet.tsx";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/shadcn/components/ui/carousel.tsx";
+import "../screens/scannerScreen/ProductScanner.css";
+import "./ProductDemo.css";
 
 export default function ProductDemo() {
+  const nav = useNavigate();
+
   const [ean, setEan] = useState("");
-  const [product, setProduct] = useState<ProductInfo | null>(null);
+  const [product, setProduct] = useState<ProductInfo | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [profiles, setProfiles] = useState<Profile[]>([]);
+  const [touched, setTouched] = useState(false); // um Initialzustand wie beim Scanner nachzubilden
 
-  // Profile aus localStorage laden (nur einmal beim Mount)
-  useEffect(() => {
-    setProfiles(loadProfiles());
-  }, []);
+  const warnings = useFoodWarnings(product);
 
-  async function handleSearch() {
+  async function handleSearch(e?: React.FormEvent) {
+    if (e) e.preventDefault();
+    setTouched(true);
+    const eanTrim = ean.trim();
+    if (!eanTrim) return;
+
     setLoading(true);
-    setProduct(null);
+    setProduct(undefined);
     setError(null);
-
     try {
-      const data = await queryProductByEAN(ean.trim());
+      const data = await queryProductByEAN(eanTrim);
       setProduct(data);
-    } catch (e: unknown) {
-      if (e instanceof Error && e.message === QueryError.NOT_FOUND) {
+    } catch (err: unknown) {
+      if (err instanceof Error && err.message === QueryError.NOT_FOUND) {
         setError("Produkt nicht gefunden.");
-      } else if (e instanceof Error) {
-        setError("Fehler: " + e.message);
+      } else if (err instanceof Error) {
+        setError("Fehler: " + err.message);
       } else {
-        setError("Unbekannter Fehler");
+        setError("Unbekannter Fehler.");
       }
     } finally {
       setLoading(false);
     }
   }
 
-  // Ergebnisse für alle Profile berechnen, sobald ein Produkt da ist
-  const profileMatches = useMemo(() => {
-    if (!product) return [];
-    return profiles.map((p) => ({
-      id: p.id,
-      name: p.name,
-      result: matchProduct(p, product),
-    }));
-  }, [product, profiles]);
+  return (
+    <div className="productScannerScreen">
+      <header onClick={() => nav("/")}>
+        <ArrowLeft />
+        <h1>ProductDemo</h1>
+      </header>
+
+      <div className="contentBody">
+        {/* EAN Suchkarte an Stelle der Kamera */}
+        <form
+          className="productScannerCard eanSearchCard"
+          onSubmit={handleSearch}
+        >
+          <label htmlFor="ean-input" className="eanLabel">
+            EAN suchen
+          </label>
+          <div className="eanRow">
+            <input
+              id="ean-input"
+              type="text"
+              inputMode="numeric"
+              autoComplete="off"
+              placeholder="EAN eingeben (z. B. 4071800001012)"
+              value={ean}
+              onChange={(e) => setEan(e.target.value)}
+              className="eanInput"
+            />
+            <button
+              type="submit"
+              className="eanBtn"
+              disabled={!ean.trim() || loading}
+              aria-busy={loading}
+            >
+              {loading ? "Lade…" : "Suchen"}
+            </button>
+          </div>
+        </form>
+
+        {/* Ergebnis-Karte wie im Scanner */}
+        {touched && product && (
+          <ResultCard product={product} warnings={warnings} />
+        )}
+
+        {/* Initial- oder Statuskarten wie beim Scanner */}
+        {!touched && (
+          <div className="productScannerCard textCard">
+            Gib eine EAN ein und bestätige mit „Suchen“.
+          </div>
+        )}
+        {loading && (
+          <div className="productScannerCard textCard">Loading...</div>
+        )}
+        {touched && !loading && error && (
+          <div className="productScannerCard textCard">{error}</div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ====== Reuse der Darstellung aus dem Scanner ====== */
+
+function ResultCard({
+  product,
+  warnings,
+}: {
+  product: ProductInfo;
+  warnings: FoodWarningReturn[];
+}) {
+  const hasAWarning = warnings
+    .map((value) => value.has_warning)
+    .reduce((a, b) => a || b, false);
 
   return (
-    <div
-      style={{
-        maxWidth: 760,
-        margin: "0 auto",
-        fontFamily: "system-ui, Segoe UI, Roboto, Inter, Arial, sans-serif",
-      }}
-    >
-      {/* Suche */}
-      <section className="pd-card">
-        <h2 className="pd-title">Produkt-Suche per EAN</h2>
-        <div className="pd-row">
-          <input
-            type="text"
-            inputMode="numeric"
-            placeholder="EAN eingeben (z. B. 4071800001012)"
-            value={ean}
-            onChange={(e) => setEan(e.target.value)}
-            className="pd-input"
-          />
+    <DetailPopup warnings={warnings} product={product}>
+      <div
+        className={
+          hasAWarning
+            ? "hasWarning productScannerCard"
+            : "isOkay productScannerCard"
+        }
+      >
+        <div className="productInfo">
+          <div className="imageContainer">
+            <img src={product.display_image} alt={"Image of " + product.name} />
+          </div>
+          <div className="content">
+            <h1>{product.name}</h1>
+            <h3>EAN: #{product.ean}</h3>
+            <h2>{product.brand}</h2>
+          </div>
         </div>
-        <div className="pd-row" style={{ marginTop: 8 }}>
-          <button
-            onClick={handleSearch}
-            disabled={!ean.trim() || loading}
-            className="pd-btn pd-btn--primary"
-            aria-busy={loading}
-          >
-            {loading ? "Lade…" : "Suchen"}
-          </button>
-          <button
-            onClick={() => {
-              setEan("");
-              setProduct(null);
-              setError(null);
-            }}
-            className="pd-btn"
-            disabled={loading}
-          >
-            Zurücksetzen
-          </button>
+        <hr />
+        <div className="warnings">
+          <div className="headline">
+            {hasAWarning ? (
+              <DiamondAlertIcon className="warningIcon" />
+            ) : (
+              <DiamondCheckIcon className="okIcon" />
+            )}
+            <p>{hasAWarning ? "Warning" : "Okay"}</p>
+          </div>
+          <div className="personList">
+            {warnings.map((value, i) => (
+              <>
+                <PersonResult key={i} warning={value} />
+                <div className="verticalSeparator" />
+              </>
+            ))}
+          </div>
         </div>
-        {error && <div className="pd-error">{error}</div>}
-      </section>
+      </div>
+    </DetailPopup>
+  );
+}
 
-      {/* Produktinfos */}
-      {product && (
-        <DetailedProductInfos product={product} className="pd-card"/>
-      )}
+type FoodWarningReturn = {
+  person_name: string;
+  has_warning: boolean;
+  matching_allergens: string[];
+  matching_ingredients: string[];
+};
 
-      {/* Profile + Ergebnisanzeige (OK/BLOCK) */}
-      {product && (
-        <section className="pd-card">
-          <h3 className="pd-subtitle">Profile (Match)</h3>
+function PersonResult({ warning }: { warning: FoodWarningReturn }) {
+  const causeHint = [
+    ...warning.matching_allergens,
+    ...warning.matching_ingredients,
+  ];
 
-          {profiles.length === 0 ? (
-            <div className="pd-empty">
-              Keine Profile gefunden. Lege Profile im Profilmanager an.
+  return (
+    <div className="person">
+      <CircularWarningIcon isWarning={warning.has_warning} />
+      <div className="name">{warning.person_name}</div>
+      <div className="warningCauseList">
+        {causeHint.length > 3 &&
+          causeHint.slice(0, 2).map((value) => (
+            <div key={value} className="warning">
+              {value}
             </div>
-          ) : (
-            <div className="pd-profiles-grid">
-              {profileMatches.map(({ id, name, result }) => {
-                const isBlock = result.level === MatchLevel.BLOCK;
-                const title = isBlock
-                  ? [
-                      result.matchedAllergens.length
-                        ? `Allergene: ${result.matchedAllergens.join(", ")}`
-                        : null,
-                      result.matchedIngredients.length
-                        ? `Zutaten: ${result.matchedIngredients.join(", ")}`
-                        : null,
-                    ]
-                      .filter(Boolean)
-                      .join(" | ")
-                  : "OK";
+          ))}
+        {causeHint.length > 3 && (
+          <div className="warning">and {causeHint.length - 2} others...</div>
+        )}
+        {causeHint.length <= 3 &&
+          causeHint.map((value) => (
+            <div key={value} className="warning">
+              {value}
+            </div>
+          ))}
+      </div>
+    </div>
+  );
+}
 
-                return (
-                  <div
-                    key={id}
-                    className={`pd-profile ${
-                      isBlock ? "pd-profile--block" : "pd-profile--ok"
-                    }`}
-                    aria-label={`${name}: ${isBlock ? "BLOCK" : "OK"}`}
-                    title={title}
-                  >
-                    <div className="pd-pill">
-                      <span className="pd-dot" />
-                      <span className="pd-profile-name">{name}</span>
-                      <span
-                        className={`pd-badge ${
-                          isBlock ? "pd-badge--block" : "pd-badge--ok"
-                        }`}
-                      >
-                        {isBlock ? "BLOCK" : "OK"}
-                      </span>
-                    </div>
+type DetailPopupProps = {
+  children: ReactNode;
+  warnings: FoodWarningReturn[];
+  product: ProductInfo;
+};
 
-                    {isBlock && (
-                      <div className="pd-reasons">
-                        {result.matchedAllergens.length > 0 && (
-                          <div>
-                            <strong>Allergene:</strong>{" "}
-                            {result.matchedAllergens.join(", ")}
-                          </div>
-                        )}
-                        {result.matchedIngredients.length > 0 && (
-                          <div>
-                            <strong>Zutaten:</strong>{" "}
-                            {result.matchedIngredients.join(", ")}
-                          </div>
-                        )}
+function DetailPopup({ warnings, children, product }: DetailPopupProps) {
+  return (
+    <Sheet>
+      <SheetTrigger className="sheetTrigger">{children}</SheetTrigger>
+      <SheetContent
+        side="bottom"
+        style={{ backgroundColor: "white", height: "100%" }}
+      >
+        <SheetHeader>
+          <SheetTitle className="sheetTitle">Details</SheetTitle>
+        </SheetHeader>
+        <div className="sheetContent">
+          <DetailedProductInfos product={product} className="detailSection" />
+          <div className="detailSection">
+            <h3 className="pd-subtitle">Personen:</h3>
+            <Carousel orientation="horizontal" opts={{ loop: true }}>
+              <CarouselContent>
+                {warnings.map((value, i) => (
+                  <CarouselItem key={i} className="carouselPerson">
+                    <CircularWarningIcon
+                      isWarning={value.has_warning}
+                      style={{ width: "5rem" }}
+                    />
+                    <h2>{value.person_name}</h2>
+                    <div className="resultContent">
+                      <h3>Allergens:</h3>
+                      <div>
+                        {value.matching_allergens.map((v) => (
+                          <div key={v}>{v}</div>
+                        ))}
                       </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </section>
-      )}
+                      <h3>Incompatible ingredients:</h3>
+                      <div>
+                        {value.matching_ingredients.map((v) => (
+                          <div key={v}>{v}</div>
+                        ))}
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          </div>
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
+}
+
+interface CircularWarningIconProps extends HTMLAttributes<HTMLDivElement> {
+  isWarning: boolean;
+}
+
+function CircularWarningIcon(props: CircularWarningIconProps) {
+  return (
+    <div
+      className={props.isWarning ? "circleIcon isWarning" : "circleIcon"}
+      {...props}
+    >
+      {props.isWarning ? <AlertIconBare /> : <Check />}
     </div>
   );
 }
