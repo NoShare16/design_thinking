@@ -1,3 +1,5 @@
+
+
 .productScannerCard {
     border: 5px solid lightgray;
     border-radius: 1rem;
@@ -202,8 +204,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    height: 100%; /* Behält die volle Höhe des übergeordneten Elements */
     padding-bottom: 10rem;
+    overflow-y: auto; /* Wichtig: Ermöglicht das Scrollen des gesamten Karussell-Elements */
+    box-sizing: border-box; /* Neu: Stellt sicher, dass Padding nicht zu Überläufen führt */
 }
 
 .carouselPerson > h2 {
@@ -214,8 +218,8 @@
 .carouselPerson > .resultContent {
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
-    height: 100%;
+    overflow-y: auto; /* Aktiviert das Scrollen für den Inhaltsbereich */
+    flex-grow: 1; /* Neu: Erlaubt dem Container, den verbleibenden Platz einzunehmen */
     padding-bottom: 1rem;
 }
 

@@ -47,8 +47,13 @@ export default function ProductScanner() {
 }
 
 function ResultCard({product, warnings}: { product: ProductInfo, warnings: FoodWarningReturn[] }) {
-  const hasAWarning = warnings.map(value => value.has_warning).reduce((a, b) => a || b, false);
-  return <DetailPopup warnings={warnings} product={product}>
+    const sortedWarnings = [...warnings].sort((a, b) => {
+        const countA = a.matching_allergens.length + a.matching_ingredients.length;
+        const countB = b.matching_allergens.length + b.matching_ingredients.length;
+        return countB - countA;
+    });
+    const hasAWarning = sortedWarnings.some(value => value.has_warning);
+    return <DetailPopup warnings={warnings} product={product}>
     <div className={hasAWarning ? "hasWarning productScannerCard" : "isOkay productScannerCard"}>
       <div className="productInfo">
         <div className="imageContainer">
@@ -68,7 +73,7 @@ function ResultCard({product, warnings}: { product: ProductInfo, warnings: FoodW
           <p>{hasAWarning ? "Warning" : "Okay"}</p>
         </div>
         <div className="personList">
-          {warnings.map((value, i) => <>
+          {sortedWarnings.map((value, i) => <>
             <PersonResult key={i} warning={value}/>
             <div className="verticalSeparator"/>
           </>)}
@@ -105,7 +110,7 @@ function DetailPopup({warnings, children, product}: DetailPopupProps) {
     <SheetTrigger className="sheetTrigger">
       {children}
     </SheetTrigger>
-    <SheetContent side="bottom" style={{backgroundColor: "white", height: "100%"}}>
+    <SheetContent side="bottom" style={{backgroundColor: "white", height: "100%", overflowY: "auto", display: "flex", flexDirection: "column"}}>
       <SheetHeader>
         <SheetTitle className="sheetTitle">Details</SheetTitle>
       </SheetHeader>

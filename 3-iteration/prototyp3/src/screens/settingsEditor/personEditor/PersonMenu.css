@@ -1,50 +1,53 @@
 /* --- Layout: Sidebar + Main ---------------------------------------------- */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden; /* Verhindert doppelte Scrollleisten auf manchen Geräten */
+}
+
 .personMenuLayout {
-  position: fixed; /* entkoppelt vom zentrierten #root */
-  inset: 0; /* top:0 right:0 bottom:0 left:0 */
-  width: 100vw;
-  height: 100vh;
-  margin: 0 !important;
-
-  display: grid;
-  grid-template-columns: minmax(280px, 340px) 1fr;
-  background: linear-gradient(180deg, #ffffff 0, #f7f7fb 100%);
-  color: var(--text);
-
-  z-index: 10; /* über normalen Inhalten */
-  isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(280px, 340px) 1fr;
+    width: 100vw;
+    height: 100dvh; /* Neu: Verwendet dvh für dynamische mobile Anpassung */
+    position: fixed; /* Neu: Fixiert das Layout auf dem gesamten Bildschirm */
+    background: linear-gradient(180deg, #ffffff 0, #f7f7fb 100%);
+    color: var(--text);
+    z-index: 10;
+    isolation: isolate;
 }
 
 @media (max-width: 920px) {
-  .personMenuLayout {
-    grid-template-columns: 1fr; /* Mobile: Sidebar oben */
-  }
+    .personMenuLayout {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* --- Sidebar ------------------------------------------------------------- */
 .personMenuSidebar {
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  border-right: 1px solid #e5e7eb;
-  box-shadow: var(--shadow);
-  padding: 16px;
-
-  min-height: 0; /* wichtig für Flex + Scrollbar */
-  overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-right: 1px solid #e5e7eb;
+    box-shadow: var(--shadow);
+    padding: 16px;
+    height: 100%; /* Passt sich der Höhe des .personMenuLayout-Containers an */
+    overflow-y: auto; /* Statt 'scroll' */
 }
 
 @media (max-width: 920px) {
-  .personMenuSidebar {
-    border-right: 0;
-    border-bottom: 1px solid #e5e7eb;
-  }
+    .personMenuSidebar {
+        border-right: 0;
+        border-bottom: 1px solid #e5e7eb;
+        height: auto;
+        max-height: 100dvh; /* Stellt sicher, dass die Sidebar auf kleinen Bildschirmen nicht über den sichtbaren Bereich hinausragt */
+        overflow-y: auto; /* Scrollen auf mobilen Geräten ermöglichen */
+    }
 }
 
 .sidebarHeader {
-  display: flex;
-  justify-content: flex-start;
-  align-items: start;
+    display: flex;
     flex-direction: column;
 }
 
@@ -59,97 +62,89 @@
 }
 
 .closeButton {
-  appearance: none;
-  border: 1px solid #e5e7eb;
-  background: #fff;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-  cursor: pointer;
-
-  transition: transform 0.08s ease, box-shadow 0.2s ease, background 0.2s ease,
+    appearance: none;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.08s ease, box-shadow 0.2s ease, background 0.2s ease,
     border-color 0.2s ease;
-  box-shadow: var(--shadow);
+    box-shadow: var(--shadow);
 }
-.closeButton:hover {
-  transform: translateY(-1px);
-  background: #f3f4f6;
-}
-.closeButton:active {
-  transform: translateY(0);
-}
-.closeButton:focus-visible {
-  outline: 2px solid transparent;
-  box-shadow: 0 0 0 4px var(--ring);
-}
+
+.closeButton:hover { transform: translateY(-1px); background: #f3f4f6; }
+.closeButton:active { transform: translateY(0); }
+.closeButton:focus-visible { outline: 2px solid transparent; box-shadow: 0 0 0 4px var(--ring); }
 
 .sidebarSearch {
-  flex: 1;
-  min-height: 0;
-  overflow: auto;
-  border-radius: var(--radius);
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto; /* Neu: Ermöglicht das Scrollen des Inhalts */
 }
 
 .sidebarFooter {
-  padding-top: 8px;
-  display: flex;
-  justify-content: center;
+    position: sticky;
+    bottom: 0; /* immer unten sichtbar */
+    padding: 8px 0; /* Angepasst */
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #eee;
+    background: #fff; /* evtl Overlap vermeiden */
+    z-index: 10; /* Neu: Stellt sicher, dass der Footer sichtbar bleibt */
 }
 
 /* --- Fullscreen Config Panel --------------------------------------------- */
 .fullscreenPanel {
-  position: fixed; /* Overlay über alles */
-  inset: 0; /* top, right, bottom, left */
-  width: 100vw;
-  height: 100vh;
-  z-index: 50; /* über Sidebar */
-
-  display: flex;
-  flex-direction: column;
-
-  background: linear-gradient(180deg, #ffffff 0, #f9fafb 100%);
-  padding: clamp(16px, 4vw, 32px);
-  overflow-y: auto;
-
-  animation: panelFadeIn 0.25s ease;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100dvh; /* Neu: Nutzt dvh für dynamische Anpassung auf mobilen Geräten */
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, #ffffff 0, #f9fafb 100%);
+    padding: clamp(16px, 4vw, 32px);
+    overflow-y: auto; /* Statt 'scroll' */
+    animation: panelFadeIn 0.25s ease;
 }
 
 @keyframes panelFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Formular & Form Actions --------------------------------------------- */
+.configForm {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 20px;
+}
+
+.formGroup { display: flex; flex-direction: column; gap: 8px; }
+
+.formActions {
+    margin-top: auto;
+    padding-top: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* --- Scrollbar Styling --------------------------------------------------- */
 .personMenuSidebar::-webkit-scrollbar,
-.fullscreenPanel::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
+.fullscreenPanel::-webkit-scrollbar { width: 10px; height: 10px; }
+
 .personMenuSidebar::-webkit-scrollbar-thumb,
 .fullscreenPanel::-webkit-scrollbar-thumb {
-  background: #e5e7eb;
-  border-radius: 8px;
-}
-.personMenuSidebar::-webkit-scrollbar-thumb:hover,
-.fullscreenPanel::-webkit-scrollbar-thumb:hover {
-  background: #d1d5db;
+    background: #e5e7eb;
+    border-radius: 8px;
 }
 
-.formActions {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: auto;
-    z-index: 60;
-}
+.personMenuSidebar::-webkit-scrollbar-thumb:hover,
+.fullscreenPanel::-webkit-scrollbar-thumb:hover { background: #d1d5db; }
