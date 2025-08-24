@@ -1,4 +1,12 @@
 # Brainstorm
 - Seiten einheitlich gestalten -> globale css dateien??
 - Auf Basis von Treffern bei Allergenen und Ingredients Reihenfolge bestimmen
-- Es sollen die Ingredients auf Basis der Suchleiste angezeigt werden
+- Es sollen die Ingredients auf Basis der Suchleiste angezeigt werden, damit smartphone nicht überfordert ist.
+- Zuletzt angesehene Produkte
+- Produkt-Bewertung/Notizen → pro Produkt kurze Notiz „war ok“, „leichte Reaktion“, „nicht verträglich“ und das pro Profil 
+- Synonym-Lexikon → automatisches Erkennen von deutschen/englischen Begriffen („Dinkel“ → spelt, „Malz“ → malt)
+- Sharing-Link → Produkt inkl. Analyse teilen (z. B. mit Familienmitgliedern, WhatsApp)
+- Favoritenliste → sichere Produkte mit OK-Status merken/speichern („meine sicheren Produkte“)
+- Kontext-Hinweise → kurze Info, dass Dosierungen nicht berücksichtigt werden (realistischere Erwartungshaltung)
+- Datenqualität → Kennzeichnung „Quelle: OpenFoodFacts, Angaben evtl. unvollständig“
+- Profilgruppen → Möglichkeit, Profile zusammenzufassen (z. B. „Familie“, „Partner“)
