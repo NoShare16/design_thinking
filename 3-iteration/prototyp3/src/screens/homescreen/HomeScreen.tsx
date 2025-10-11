@@ -85,7 +85,8 @@ export default function HomeScreen() {
       <section className="strip" role="note">
         <p>
           Datenquelle: <strong>OpenFoodFacts</strong>. Keine Anmeldung nötig.
-          Deine Profile bleiben lokal in deinem Browser.
+          Deine Profile bleiben lokal in deinem Browser. Angaben können
+          unvollständig sein.
         </p>
       </section>
 
